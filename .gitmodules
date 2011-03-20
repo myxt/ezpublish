@@ -1,0 +1,24 @@
+[submodule "extension/ezjscore"]
+	path = extension/ezjscore
+	url = https://github.com/ezsystems/ezjscore.git
+[submodule "extension/ezie"]
+	path = extension/ezie
+	url = https://github.com/ezsystems/ezie.git
+[submodule "extension/ezfind"]
+	path = extension/ezfind
+	url = https://github.com/ezsystems/ezfind.git
+[submodule "extension/ezmultiupload"]
+	path = extension/ezmultiupload
+	url = https://github.com/ezsystems/ezmultiupload.git
+[submodule "extension/ezoe"]
+	path = extension/ezoe
+	url = https://github.com/ezsystems/ezoe.git
+[submodule "extension/ezsurvey"]
+	path = extension/ezsurvey
+	url = https://github.com/ezsystems/ezsurvey.git
+[submodule "extension/ezwt"]
+	path = extension/ezwt
+	url = https://github.com/ezsystems/ezwt.git
+[submodule "extension/myxt_global"]
+	path = extension/myxt_global
+	url = git@github.com:myxt/myxt_global.git
