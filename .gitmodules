@@ -22,3 +22,6 @@
 [submodule "extension/myxt_global"]
 	path = extension/myxt_global
 	url = git@github.com:myxt/myxt_global.git
+[submodule "extension/eztags"]
+	path = extension/eztags
+	url = https://github.com/ezsystems/eztags.git
