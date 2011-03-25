@@ -4,9 +4,6 @@
 [submodule "extension/ezie"]
 	path = extension/ezie
 	url = https://github.com/ezsystems/ezie.git
-[submodule "extension/ezfind"]
-	path = extension/ezfind
-	url = https://github.com/ezsystems/ezfind.git
 [submodule "extension/ezmultiupload"]
 	path = extension/ezmultiupload
 	url = https://github.com/ezsystems/ezmultiupload.git
@@ -25,3 +22,6 @@
 [submodule "extension/eztags"]
 	path = extension/eztags
 	url = https://github.com/ezsystems/eztags.git
+[submodule "extension/ezfind"]
+	path = extension/ezfind
+	url = git@github.com:svda/ezfind.git
