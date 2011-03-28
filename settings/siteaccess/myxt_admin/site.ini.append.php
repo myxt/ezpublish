@@ -1,20 +1,10 @@
 <?php /* #?ini charset="utf-8"?
 
-[DatabaseSettings]
-DatabaseImplementation=ezmysqli
-Server=localhost
-Port=
-User=ez
-Password=ez
-Database=ez
-Charset=
-Socket=disabled
-
 [InformationCollectionSettings]
 EmailReceiver=
 
 [SiteSettings]
-SiteName=eZ Flow
+SiteName=Myxt Web Solutions
 SiteURL=www.ez.localhost
 DefaultPage=content/dashboard
 LoginPage=custom
@@ -24,14 +14,15 @@ RegistrationEmail=
 
 [SiteAccessSettings]
 RequireUserLogin=true
-RelatedSiteAccessList[]=ezflow_site_user
-RelatedSiteAccessList[]=dut
-RelatedSiteAccessList[]=ezflow_site_admin
-RelatedSiteAccessList[]=iphone
+RelatedSiteAccessList[]=myxt_user
+RelatedSiteAccessList[]=myxt_admin
+RelatedSiteAccessList[]=myxt_mobile
 ShowHiddenNodes=true
 
 [DesignSettings]
-SiteDesign=ezflow_site_admin
+SiteDesign=myxt_admin
+AdditionalSiteDesignList[]
+AdditionalSiteDesignList[]=ezflow_site_admin
 AdditionalSiteDesignList[]=admin2
 AdditionalSiteDesignList[]=admin
 AdditionalSiteDesignList[]=ezflow
@@ -44,7 +35,7 @@ SiteLanguageList[]=dut-NL
 TextTranslation=enabled
 
 [FileSettings]
-VarDir=var/ezflow_site
+VarDir=var/myxt_site
 
 [ContentSettings]
 CachedViewPreferences[full]=admin_navigation_content=1;admin_children_viewmode=list;admin_list_limit=1
@@ -53,4 +44,5 @@ TranslationList=
 [MailSettings]
 AdminEmail=administrator@myxt.nl
 EmailSender=
-*/ ?>
+
+ */ ?>
