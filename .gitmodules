@@ -25,3 +25,6 @@
 [submodule "extension/ezfind"]
 	path = extension/ezfind
 	url = git@github.com:svda/ezfind.git
+[submodule "extension/ngconnect"]
+	path = extension/ngconnect
+	url = git@github.com:svda/ngconnect.git
