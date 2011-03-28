@@ -7,4 +7,6 @@ CSSFileList[]
 
 [JavaScriptSettings]
 JavaScriptList[]=insertmedia.js
+FrontendJavaScriptList[]=/lib/modernizr/modernizr-1.7.min.js
+
 */ ?>

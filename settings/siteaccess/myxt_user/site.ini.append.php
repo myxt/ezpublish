@@ -1,5 +1,24 @@
 <?php /* #?ini charset="utf-8"?
 
+[DebugSettings]
+DebugOutput=enabled
+DebugRedirection=disabled
+
+[TemplateSettings]
+Debug=disabled
+ShowXHTMLCode=disabled
+ShowUsedTemplates=enabled
+
+TemplateCompile=disabled
+TemplateCache=disabled
+DevelopmentMode=enabled
+
+TemplateSettingsObjectID=161
+
+[ContentSettings]
+ViewCaching=disabled
+TranslationList=
+
 [InformationCollectionSettings]
 EmailReceiver=
 
@@ -41,9 +60,6 @@ TextTranslation=enabled
 
 [FileSettings]
 VarDir=var/myxt_site
-
-[ContentSettings]
-TranslationList=
 
 [MailSettings]
 AdminEmail=administrator@myxt.nl
