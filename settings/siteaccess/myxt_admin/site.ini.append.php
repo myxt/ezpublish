@@ -8,6 +8,7 @@ SiteName=Myxt Web Solutions
 SiteURL=www.ez.localhost
 DefaultPage=content/dashboard
 LoginPage=custom
+GMapsKey=ABQIAAAANHtIVWRL0sEBbnwJ7ZTqkxQ1Pukl7qFaZ3xZT-YCnLizLokq1xQ-LWXSiXp889ZDDFuKxbcMrCZcqA
 
 [UserSettings]
 RegistrationEmail=

@@ -30,6 +30,7 @@ SiteName=Myxt Web Solutions
 SiteURL=www.ez.localhost
 LoginPage=embedded
 AdditionalLoginFormActionURL=http://admin.ez.localhost/user/login
+GMapsKey=ABQIAAAANHtIVWRL0sEBbnwJ7ZTqkxSVRVdVjz0MfL27wpngc1ztzKqGNxQEFpllyDy2_Jujq79tonxKFiBQgw
 
 [UserSettings]
 RegistrationEmail=
