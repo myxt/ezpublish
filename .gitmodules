@@ -28,3 +28,6 @@
 [submodule "extension/ezie"]
 	path = extension/ezie
 	url = git@github.com:svda/ezie.git
+[submodule "extension/ezteamroom"]
+	path = extension/ezteamroom
+	url = git@github.com:svda/ezteamroom.git

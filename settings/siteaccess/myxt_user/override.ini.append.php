@@ -489,12 +489,6 @@ MatchFile=line/multicalendar.tpl
 Subdir=templates
 Match[class_identifier]=multicalendar
 
-[line_poll]
-Source=node/view/line.tpl
-MatchFile=line/poll.tpl
-Subdir=templates
-Match[class_identifier]=poll
-
 [line_product]
 Source=node/view/line.tpl
 MatchFile=line/product.tpl
