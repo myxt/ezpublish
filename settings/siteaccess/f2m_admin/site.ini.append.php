@@ -1,31 +1,23 @@
 <?php /* #?ini charset="utf-8"?
 
 [DatabaseSettings]
-DatabaseImplementation=ezmysqli
 Server=localhost
-Port=
+Database=f2m_production
 User=f2m_production
 Password=f2m_production
-Database=f2m_production
-Charset=
-Socket=disabled
-
-[InformationCollectionSettings]
-EmailReceiver=
 
 [SiteSettings]
-SiteName=Myxt Web Solutions
-SiteURL=www.food2market.eu
+SiteName=Food 2 Market beheeromgeving
+SiteURL=webadmin.food2market.localhost
 DefaultPage=content/dashboard
 LoginPage=custom
 GMapsKey=ABQIAAAANHtIVWRL0sEBbnwJ7ZTqkxQ1Pukl7qFaZ3xZT-YCnLizLokq1xQ-LWXSiXp889ZDDFuKxbcMrCZcqA
 
-[UserSettings]
-RegistrationEmail=
-
 [SiteAccessSettings]
 RequireUserLogin=true
-RelatedSiteAccessList[]=f2m_user
+RelatedSiteAccessList[]=f2m_user_eu
+RelatedSiteAccessList[]=f2m_user_nl
+RelatedSiteAccessList[]=f2m_user_de
 RelatedSiteAccessList[]=f2m_admin
 ShowHiddenNodes=true
 
@@ -40,9 +32,11 @@ AdditionalSiteDesignList[]=ezflow
 [RegionalSettings]
 Locale=dut-NL
 ContentObjectLocale=dut-NL
-ShowUntranslatedObjects=disabled
+ShowUntranslatedObjects=enabled
 SiteLanguageList[]
+SiteLanguageList[]=eng-GB
 SiteLanguageList[]=dut-NL
+SiteLanguageList[]=ger-DE
 TextTranslation=enabled
 
 [FileSettings]
@@ -50,10 +44,5 @@ VarDir=var/food2market
 
 [ContentSettings]
 CachedViewPreferences[full]=admin_navigation_content=1;admin_children_viewmode=list;admin_list_limit=1
-TranslationList=
-
-[MailSettings]
-AdminEmail=administrator@myxt.nl
-EmailSender=
 
  */ ?>
