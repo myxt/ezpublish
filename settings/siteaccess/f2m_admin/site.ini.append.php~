@@ -14,29 +14,23 @@ Socket=disabled
 EmailReceiver=
 
 [SiteSettings]
-SiteName=Myxt Web Solutions
+SiteName=eZ Flow
 SiteURL=www.ez.localhost
 DefaultPage=content/dashboard
 LoginPage=custom
-GMapsKey=ABQIAAAANHtIVWRL0sEBbnwJ7ZTqkxQ1Pukl7qFaZ3xZT-YCnLizLokq1xQ-LWXSiXp889ZDDFuKxbcMrCZcqA
 
 [UserSettings]
 RegistrationEmail=
 
 [SiteAccessSettings]
 RequireUserLogin=true
-RelatedSiteAccessList[]=myxt_user
-RelatedSiteAccessList[]=myxt_admin
-RelatedSiteAccessList[]=myxt_mobile
+RelatedSiteAccessList[]=ezflow_site_user
+RelatedSiteAccessList[]=ezflow_site_admin
 ShowHiddenNodes=true
 
 [DesignSettings]
-SiteDesign=myxt_admin
-AdditionalSiteDesignList[]
-AdditionalSiteDesignList[]=ezflow_site_admin
-AdditionalSiteDesignList[]=admin2
+SiteDesign=admin2
 AdditionalSiteDesignList[]=admin
-AdditionalSiteDesignList[]=ezflow
 
 [RegionalSettings]
 Locale=dut-NL
@@ -46,7 +40,7 @@ SiteLanguageList[]=dut-NL
 TextTranslation=enabled
 
 [FileSettings]
-VarDir=var/myxt_site
+VarDir=var/ezflow_site
 
 [ContentSettings]
 CachedViewPreferences[full]=admin_navigation_content=1;admin_children_viewmode=list;admin_list_limit=1
@@ -55,5 +49,4 @@ TranslationList=
 [MailSettings]
 AdminEmail=administrator@myxt.nl
 EmailSender=
-
- */ ?>
+*/ ?>

@@ -1,24 +1,5 @@
 <?php /* #?ini charset="utf-8"?
 
-[DebugSettings]
-DebugOutput=enabled
-DebugRedirection=disabled
-
-[TemplateSettings]
-Debug=disabled
-ShowXHTMLCode=disabled
-ShowUsedTemplates=enabled
-
-TemplateCompile=disabled
-TemplateCache=disabled
-DevelopmentMode=enabled
-
-TemplateSettingsObjectID=161
-
-[ContentSettings]
-ViewCaching=disabled
-TranslationList=
-
 [DatabaseSettings]
 DatabaseImplementation=ezmysqli
 Server=localhost
@@ -36,44 +17,38 @@ EmailReceiver=
 SessionNamePerSiteAccess=disabled
 
 [SiteSettings]
-SiteName=Myxt Web Solutions
+SiteName=eZ Flow
 SiteURL=www.ez.localhost
 LoginPage=embedded
 AdditionalLoginFormActionURL=http://admin.ez.localhost/user/login
-GMapsKey=ABQIAAAANHtIVWRL0sEBbnwJ7ZTqkxSVRVdVjz0MfL27wpngc1ztzKqGNxQEFpllyDy2_Jujq79tonxKFiBQgw
 
 [UserSettings]
 RegistrationEmail=
 
 [SiteAccessSettings]
 RequireUserLogin=false
-RelatedSiteAccessList[]
-RelatedSiteAccessList[]=myxt_user
-RelatedSiteAccessList[]=myxt_admin
-RelatedSiteAccessList[]=myxt_mobile
+RelatedSiteAccessList[]=ezflow_site_user
+RelatedSiteAccessList[]=ezflow_site_admin
 ShowHiddenNodes=false
 
 [DesignSettings]
-SiteDesign=myxt
-AdditionalSiteDesignList[]
-AdditionalSiteDesignList[]=ezflow
-AdditionalSiteDesignList[]=ezwebin
+SiteDesign=ezflow_site
 AdditionalSiteDesignList[]=base
-AdditionalSiteDesignList[]=standard
 
 [RegionalSettings]
 Locale=dut-NL
 ContentObjectLocale=dut-NL
 ShowUntranslatedObjects=disabled
-SiteLanguageList[]
 SiteLanguageList[]=dut-NL
 TextTranslation=enabled
 
 [FileSettings]
-VarDir=var/myxt_site
+VarDir=var/ezflow_site
+
+[ContentSettings]
+TranslationList=
 
 [MailSettings]
 AdminEmail=administrator@myxt.nl
 EmailSender=
-
 */ ?>

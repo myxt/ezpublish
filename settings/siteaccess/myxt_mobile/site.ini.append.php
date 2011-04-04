@@ -1,5 +1,15 @@
 <?php /* #?ini charset="utf-8"?
 
+[DatabaseSettings]
+DatabaseImplementation=ezmysqli
+Server=localhost
+Port=
+User=ez
+Password=ez
+Database=ez
+Charset=
+Socket=disabled
+
 [InformationCollectionSettings]
 EmailReceiver=
 

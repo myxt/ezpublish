@@ -23,9 +23,9 @@ TranslationList=
 DatabaseImplementation=ezmysqli
 Server=localhost
 Port=
-User=ez
-Password=ez
-Database=ez
+User=f2m_production
+Password=f2m_production
+Database=f2m_production
 Charset=
 Socket=disabled
 
@@ -36,8 +36,8 @@ EmailReceiver=
 SessionNamePerSiteAccess=disabled
 
 [SiteSettings]
-SiteName=Myxt Web Solutions
-SiteURL=www.ez.localhost
+SiteName=Food 2 Market
+SiteURL=www.food2market.eu
 LoginPage=embedded
 AdditionalLoginFormActionURL=http://admin.ez.localhost/user/login
 GMapsKey=ABQIAAAANHtIVWRL0sEBbnwJ7ZTqkxSVRVdVjz0MfL27wpngc1ztzKqGNxQEFpllyDy2_Jujq79tonxKFiBQgw
@@ -48,9 +48,8 @@ RegistrationEmail=
 [SiteAccessSettings]
 RequireUserLogin=false
 RelatedSiteAccessList[]
-RelatedSiteAccessList[]=myxt_user
-RelatedSiteAccessList[]=myxt_admin
-RelatedSiteAccessList[]=myxt_mobile
+RelatedSiteAccessList[]=f2m_user
+RelatedSiteAccessList[]=f2m_admin
 ShowHiddenNodes=false
 
 [DesignSettings]
@@ -70,7 +69,7 @@ SiteLanguageList[]=dut-NL
 TextTranslation=enabled
 
 [FileSettings]
-VarDir=var/myxt_site
+VarDir=var/food2market
 
 [MailSettings]
 AdminEmail=administrator@myxt.nl

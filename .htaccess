@@ -1,7 +1,22 @@
 Options +FollowSymlinks
 
-# Copy this file to a new file called .htaccess in your eZ Publish root
-# to secure your installation by turning on .htaccess based virtual host mode.
+<IfModule mod_php5.c>
+	php_flag display_startup_errors on
+	php_flag display_errors on
+
+	php_flag magic_quotes_gpc off
+	php_flag register_globals off
+
+	php_value max_execution_time 120
+	php_value max_input_time 120
+	php_value memory_limit 256M
+	php_value post_max_size 128M
+	php_value upload_max_filesize 128M
+
+	php_value date.timezone Europe/Amsterdam
+	
+	DirectoryIndex index.php
+</IfModule>
 
 DirectoryIndex index.php
 
