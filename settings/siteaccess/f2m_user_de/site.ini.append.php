@@ -12,6 +12,14 @@ ActiveAccessExtensions[]=food2market
 [RegionalSettings]
 Locale=ger-DE
 ContentObjectLocale=ger-DE
+SiteLanguageList[]
+SiteLanguageList[]=ger-DE
+SiteLanguageList[]=eng-GB
+SiteLanguageList[]=dut-NL
+TranslationSA[]
+TranslationSA[f2m_user_de]=Deutsch
+TranslationSA[f2m_user_eu]=English
+TranslationSA[f2m_user_nl]=Nederlands
 
 [SiteSettings]
 SiteName=Food 2 Market Deutschland
