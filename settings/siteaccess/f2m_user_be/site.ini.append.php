@@ -10,19 +10,20 @@ Password=f2m_production
 ActiveAccessExtensions[]=food2market
 
 [RegionalSettings]
-Locale=ger-DE
-ContentObjectLocale=ger-DE
+Locale=dut-NL
+ContentObjectLocale=dut-NL
 SiteLanguageList[]
-SiteLanguageList[]=ger-DE
+SiteLanguageList[]=dut-NL
 TranslationSA[]
-TranslationSA[f2m_user_de]=Deutschland
-TranslationSA[f2m_user_be]=Belgie
-TranslationSA[f2m_user_eu]=Europe
 TranslationSA[f2m_user_nl]=Nederland
+TranslationSA[f2m_user_be]=Belgie
+TranslationSA[f2m_user_de]=Deutschland
+TranslationSA[f2m_user_eu]=Europe
+
 
 [SiteSettings]
-SiteName=Food 2 Market Deutschland
-SiteURL=www.food2market.de.localhost
+SiteName=Food 2 Market Nederland
+SiteURL=www.food2market.nl.localhost
 
 [SiteAccessSettings]
 RelatedSiteAccessList[]

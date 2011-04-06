@@ -14,12 +14,11 @@ Locale=dut-NL
 ContentObjectLocale=dut-NL
 SiteLanguageList[]
 SiteLanguageList[]=dut-NL
-SiteLanguageList[]=eng-GB
-SiteLanguageList[]=ger-DE
 TranslationSA[]
-TranslationSA[f2m_user_nl]=Nederlands
-TranslationSA[f2m_user_de]=Deutsch
-TranslationSA[f2m_user_eu]=English
+TranslationSA[f2m_user_nl]=Nederland
+TranslationSA[f2m_user_be]=Belgie
+TranslationSA[f2m_user_de]=Deutschland
+TranslationSA[f2m_user_eu]=Europe
 
 [SiteSettings]
 SiteName=Food 2 Market Nederland

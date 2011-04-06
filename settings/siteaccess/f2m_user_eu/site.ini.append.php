@@ -14,12 +14,11 @@ Locale=eng-GB
 ContentObjectLocale=eng-GB
 SiteLanguageList[]
 SiteLanguageList[]=eng-GB
-SiteLanguageList[]=dut-NL
-SiteLanguageList[]=ger-DE
 TranslationSA[]
-TranslationSA[f2m_user_eu]=English
-TranslationSA[f2m_user_de]=Deutsch
-TranslationSA[f2m_user_nl]=Nederlands
+TranslationSA[f2m_user_eu]=Europe
+TranslationSA[f2m_user_be]=Belgie
+TranslationSA[f2m_user_de]=Deutschland
+TranslationSA[f2m_user_nl]=Nederland
 
 [SiteSettings]
 SiteName=Food 2 Market
