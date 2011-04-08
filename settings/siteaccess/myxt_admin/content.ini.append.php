@@ -2,7 +2,6 @@
 
 [VersionView]
 AvailableSiteDesignList[]
-AvailableSiteDesignList[]=ezflow_site
-AvailableSiteDesignList[]=admin2
-AvailableSiteDesignList[]=admin
+AvailableSiteDesignList[]=myxt
+
 */ ?>

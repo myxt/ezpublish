@@ -20,7 +20,6 @@ ActiveExtensions[]=myxt_global
 ActiveExtensions[]=ngconnect
 
 [SiteSettings]
-DefaultAccess=myxt_user
 SiteList[]=myxt_user
 SiteList[]=myxt_admin
 SiteList[]=myxt_mobile
@@ -51,5 +50,8 @@ HostMatchMapItems[]=www.food2market.nl.localhost;f2m_user_nl
 HostMatchMapItems[]=www.food2market.de.localhost;f2m_user_de
 HostMatchMapItems[]=www.food2market.be.localhost;f2m_user_be
 HostMatchMapItems[]=webadmin.food2market.localhost;f2m_admin
+
+HostMatchMapItems[]=www.food2market.initiumnet.nl;f2m_user_eu
+HostMatchMapItems[]=webadmin.food2market.initiumnet.nl;f2m_admin
 
 */ ?>

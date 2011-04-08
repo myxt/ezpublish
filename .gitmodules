@@ -1,24 +1,9 @@
-[submodule "extension/ezjscore"]
-	path = extension/ezjscore
-	url = https://github.com/ezsystems/ezjscore.git
-[submodule "extension/ezmultiupload"]
-	path = extension/ezmultiupload
-	url = https://github.com/ezsystems/ezmultiupload.git
-[submodule "extension/ezoe"]
-	path = extension/ezoe
-	url = https://github.com/ezsystems/ezoe.git
-[submodule "extension/ezsurvey"]
-	path = extension/ezsurvey
-	url = https://github.com/ezsystems/ezsurvey.git
-[submodule "extension/ezwt"]
-	path = extension/ezwt
-	url = https://github.com/ezsystems/ezwt.git
 [submodule "extension/myxt_global"]
 	path = extension/myxt_global
 	url = git@github.com:myxt/myxt_global.git
-[submodule "extension/eztags"]
-	path = extension/eztags
-	url = https://github.com/ezsystems/eztags.git
+[submodule "extension/ezjscore"]
+        path = extension/ezjscore
+        url = git@github.com:svda/ezjscore.git
 [submodule "extension/ezfind"]
 	path = extension/ezfind
 	url = git@github.com:svda/ezfind.git
@@ -31,3 +16,18 @@
 [submodule "extension/ezteamroom"]
 	path = extension/ezteamroom
 	url = git@github.com:svda/ezteamroom.git
+[submodule "extension/ezsurvey"]
+	path = extension/ezsurvey
+	url = git@github.com:svda/ezsurvey.git
+[submodule "extension/ezoe"]
+	path = extension/ezoe
+	url = git@github.com:svda/ezoe.git
+[submodule "extension/eztags"]
+	path = extension/eztags
+	url = git@github.com:svda/eztags.git
+[submodule "extension/ezwt_package"]
+	path = extension/ezwt_package
+	url = git@github.com:svda/ezwt.git
+[submodule "extension/ezmultiupload"]
+	path = extension/ezmultiupload
+	url = git@github.com:svda/ezmultiupload.git

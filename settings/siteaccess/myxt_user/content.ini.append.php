@@ -1,8 +1,6 @@
 <?php /* #?ini charset="utf-8"?
 
-[VersionView]
-AvailableSiteDesignList[]=ezflow
+[NodeSettings]
+RootNode=200
 
-[ObjectRelationDataTypeSettings]
-ClassAttributeStartNode[]=236;AddRelatedBannerImageToDataType
 */ ?>

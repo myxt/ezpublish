@@ -1,7 +1,7 @@
 <?php /* #?ini charset="utf-8"?
 
 [DatabaseSettings]
-Server=localhost
+Server=127.0.0.1
 Database=f2m_production
 User=f2m_production
 Password=f2m_production
