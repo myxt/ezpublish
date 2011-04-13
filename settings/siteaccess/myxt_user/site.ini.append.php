@@ -9,15 +9,14 @@ Password=ez
 [DesignSettings]
 SiteDesign=myxt
 AdditionalSiteDesignList[]
+AdditionalSiteDesignList[]=ezflow
 AdditionalSiteDesignList[]=ezwebin
-AdditionalSiteDesignList[]=base
-AdditionalSiteDesignList[]=standard
 
 [FileSettings]
 VarDir=var/myxt_site
 
 [InformationCollectionSettings]
-EmailReceiver=info@food2market.localhost
+EmailReceiver=info@myxt.nl
 
 [MailSettings]
 AdminEmail=info@myxt.nl
@@ -41,9 +40,9 @@ RelatedSiteAccessList[]=myxt_user
 [SiteSettings]
 SiteName=Myxt Web Solutions
 SiteURL=www.ez.localhost
-IndexPage=/content/view/full/201/
+IndexPage=/content/view/full/200/
 LoginPage=embedded
-AdditionalLoginFormActionURL=http://webadmin.food2market.localhost/user/login
+AdditionalLoginFormActionURL=http://webadmin.myxt.nl/user/login
 GMapsKey=ABQIAAAANHtIVWRL0sEBbnwJ7ZTqkxSVRVdVjz0MfL27wpngc1ztzKqGNxQEFpllyDy2_Jujq79tonxKFiBQgw
 
 [UserSettings]
