@@ -1,0 +1,4 @@
+The global override folder should only contain settings that are server-specific,
+i.e. the imagemagick location etc.
+
+All other configuration settings should be put in the approriate extension.

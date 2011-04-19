@@ -1,0 +1,4 @@
+The siteaccess folders should only contain settings that are site-specific,
+i.e. the languages, database connection etc.
+
+All other configuration settings should be put in the appropriate extension.
