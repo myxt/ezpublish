@@ -255,17 +255,11 @@ MatchFile=full/article.tpl
 Subdir=templates
 Match[class_identifier]=article
 
-[full_geo_article]
+[full_geomap]
 Source=node/view/full.tpl
-MatchFile=full/geo_article.tpl
+MatchFile=full/geomap.tpl
 Subdir=templates
-Match[class_identifier]=geo_article
-
-[full_article_mainpage]
-Source=node/view/full.tpl
-MatchFile=full/article_mainpage.tpl
-Subdir=templates
-Match[class_identifier]=article_mainpage
+Match[class_identifier]=geomap
 
 [full_article_subpage]
 Source=node/view/full.tpl
@@ -369,12 +363,6 @@ MatchFile=full/forum_topic.tpl
 Subdir=templates
 Match[class_identifier]=forum_topic
 
-[full_forums]
-Source=node/view/full.tpl
-MatchFile=full/forums.tpl
-Subdir=templates
-Match[class_identifier]=forums
-
 [full_frontpage]
 Source=node/view/full.tpl
 MatchFile=full/frontpage.tpl
@@ -441,47 +429,23 @@ MatchFile=full/silverlight.tpl
 Subdir=templates
 Match[class_identifier]=silverlight
 
+[full_survey]
+Source=node/view/full.tpl
+MatchFile=full/survey.tpl
+Subdir=templates
+Match[class_identifier]=survey
+
 [full_windows_media]
 Source=node/view/full.tpl
 MatchFile=full/windows_media.tpl
 Subdir=templates
 Match[class_identifier]=windows_media
 
-[line_article]
-Source=node/view/line.tpl
-MatchFile=line/article.tpl
-Subdir=templates
-Match[class_identifier]=article
-
-[line_geo_article]
-Source=node/view/line.tpl
-MatchFile=line/geo_article.tpl
-Subdir=templates
-Match[class_identifier]=geo_article
-
-[line_article_mainpage]
-Source=node/view/line.tpl
-MatchFile=line/article_mainpage.tpl
-Subdir=templates
-Match[class_identifier]=article_mainpage
-
-[line_article_subpage]
-Source=node/view/line.tpl
-MatchFile=line/article_subpage.tpl
-Subdir=templates
-Match[class_identifier]=article_subpage
-
 [line_banner]
 Source=node/view/line.tpl
 MatchFile=line/banner.tpl
 Subdir=templates
 Match[class_identifier]=banner
-
-[line_blog]
-Source=node/view/line.tpl
-MatchFile=line/blog.tpl
-Subdir=templates
-Match[class_identifier]=blog
 
 [line_blog_post]
 Source=node/view/line.tpl
@@ -495,30 +459,6 @@ MatchFile=line/comment.tpl
 Subdir=templates
 Match[class_identifier]=comment
 
-[line_documentation_page]
-Source=node/view/line.tpl
-MatchFile=line/documentation_page.tpl
-Subdir=templates
-Match[class_identifier]=documentation_page
-
-[line_event_calendar]
-Source=node/view/line.tpl
-MatchFile=line/event_calendar.tpl
-Subdir=templates
-Match[class_identifier]=event_calendar
-
-[line_event]
-Source=node/view/line.tpl
-MatchFile=line/event.tpl
-Subdir=templates
-Match[class_identifier]=event
-
-[line_feedback_form]
-Source=node/view/line.tpl
-MatchFile=line/feedback_form.tpl
-Subdir=templates
-Match[class_identifier]=feedback_form
-
 [line_file]
 Source=node/view/line.tpl
 MatchFile=line/file.tpl
@@ -530,36 +470,6 @@ Source=node/view/line.tpl
 MatchFile=line/flash.tpl
 Subdir=templates
 Match[class_identifier]=flash
-
-[line_folder]
-Source=node/view/line.tpl
-MatchFile=line/folder.tpl
-Subdir=templates
-Match[class_identifier]=folder
-
-[line_forum]
-Source=node/view/line.tpl
-MatchFile=line/forum.tpl
-Subdir=templates
-Match[class_identifier]=forum
-
-[line_forum_reply]
-Source=node/view/line.tpl
-MatchFile=line/forum_reply.tpl
-Subdir=templates
-Match[class_identifier]=forum_reply
-
-[line_forum_topic]
-Source=node/view/line.tpl
-MatchFile=line/forum_topic.tpl
-Subdir=templates
-Match[class_identifier]=forum_topic
-
-[line_forums]
-Source=node/view/line.tpl
-MatchFile=line/forums.tpl
-Subdir=templates
-Match[class_identifier]=forums
 
 [line_gallery]
 Source=node/view/line.tpl
@@ -579,23 +489,11 @@ MatchFile=line/infobox.tpl
 Subdir=templates
 Match[class_identifier]=infobox
 
-[line_link]
-Source=node/view/line.tpl
-MatchFile=line/link.tpl
-Subdir=templates
-Match[class_identifier]=link
-
 [line_multicalendar]
 Source=node/view/line.tpl
 MatchFile=line/multicalendar.tpl
 Subdir=templates
 Match[class_identifier]=multicalendar
-
-[line_poll]
-Source=node/view/line.tpl
-MatchFile=line/poll.tpl
-Subdir=templates
-Match[class_identifier]=poll
 
 [line_product]
 Source=node/view/line.tpl
@@ -668,12 +566,6 @@ Source=content/view/embed.tpl
 MatchFile=embed/highlighted_object.tpl
 Subdir=templates
 Match[classification]=highlighted_object
-
-[embed_article]
-Source=content/view/embed.tpl
-MatchFile=embed/article.tpl
-Subdir=templates
-Match[class_identifier]=article
 
 [embed_banner]
 Source=content/view/embed.tpl
@@ -912,9 +804,4 @@ MatchFile=billboard/flash.tpl
 Subdir=templates
 Match[class_identifier]=flash
 
-[tiny_image]
-Source=content/view/tiny.tpl
-MatchFile=tiny_image.tpl
-Subdir=templates
-Match[class_identifier]=image
 */ ?>

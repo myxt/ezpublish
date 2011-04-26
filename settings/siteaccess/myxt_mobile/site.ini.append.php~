@@ -27,25 +27,18 @@ RegistrationEmail=
 
 [SiteAccessSettings]
 RequireUserLogin=false
-RelatedSiteAccessList[]
 RelatedSiteAccessList[]=ezflow_site_user
-RelatedSiteAccessList[]=dut
 RelatedSiteAccessList[]=ezflow_site_admin
-RelatedSiteAccessList[]=iphone
 ShowHiddenNodes=false
 
 [DesignSettings]
-SiteDesign=ezflow
-AdditionalSiteDesignList[]
-AdditionalSiteDesignList[]=ezwebin
+SiteDesign=ezflow_site
 AdditionalSiteDesignList[]=base
-AdditionalSiteDesignList[]=standard
 
 [RegionalSettings]
 Locale=dut-NL
 ContentObjectLocale=dut-NL
 ShowUntranslatedObjects=disabled
-SiteLanguageList[]
 SiteLanguageList[]=dut-NL
 TextTranslation=enabled
 

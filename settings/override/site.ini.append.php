@@ -5,7 +5,6 @@ ActiveExtensions[]=ezjscore
 ActiveExtensions[]=ezstarrating
 ActiveExtensions[]=ezgmaplocation
 ActiveExtensions[]=ezflow
-ActiveExtensions[]=ezwt
 ActiveExtensions[]=ezwebin
 ActiveExtensions[]=ezie
 ActiveExtensions[]=ezoe
@@ -17,7 +16,12 @@ ActiveExtensions[]=ezsurvey
 ActiveExtensions[]=eztika
 
 ActiveExtensions[]=myxt_global
+ActiveExtensions[]=myxt_graph
 ActiveExtensions[]=ngconnect
+
+# Requires ezwt
+ActiveExtensions[]=cjw_newsletter
+ActiveExtensions[]=ezwt
 
 [SiteSettings]
 SiteList[]=myxt_user

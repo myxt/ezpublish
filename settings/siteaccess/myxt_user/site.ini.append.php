@@ -1,5 +1,21 @@
 <?php /* #?ini charset="utf-8"?
 
+[DebugSettings]
+DebugOutput=enabled
+DebugRedirection=disabled
+
+[TemplateSettings]
+Debug=disabled
+ShowXHTMLCode=disabled
+ShowUsedTemplates=enabled
+
+TemplateCompile=disabled
+TemplateCache=disabled
+DevelopmentMode=enabled
+
+[ContentSettings]
+ViewCaching=disabled
+
 [DatabaseSettings]
 Server=127.0.0.1
 Database=ez

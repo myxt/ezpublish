@@ -429,6 +429,12 @@ MatchFile=full/silverlight.tpl
 Subdir=templates
 Match[class_identifier]=silverlight
 
+[full_survey]
+Source=node/view/full.tpl
+MatchFile=full/survey.tpl
+Subdir=templates
+Match[class_identifier]=survey
+
 [full_windows_media]
 Source=node/view/full.tpl
 MatchFile=full/windows_media.tpl
@@ -798,9 +804,4 @@ MatchFile=billboard/flash.tpl
 Subdir=templates
 Match[class_identifier]=flash
 
-[tiny_image]
-Source=content/view/tiny.tpl
-MatchFile=tiny_image.tpl
-Subdir=templates
-Match[class_identifier]=image
 */ ?>
