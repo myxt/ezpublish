@@ -70,7 +70,7 @@ class eZXMLInputParserTest extends ezpTestCase
      *
      * @dataProvider providerForTestEmptyAttributeParsing
      */
-    public function testEmptyAttributeParsing( $string, $expected)
+    public function testEmptyAttributeParsing( $string )
     {
         $this->assertEquals(
             array(),
@@ -81,7 +81,8 @@ class eZXMLInputParserTest extends ezpTestCase
     public static function providerForTestEmptyAttributeParsing()
     {
         return array(
-            array(),
+            array( null ),
+            array( "" ),
             array( "foo=''" ),
             array( 'foo=""' ),
             array( 'foo="    "' ),
@@ -94,7 +95,7 @@ class eZXMLInputParserTest extends ezpTestCase
      *
      * @dataProvider providerForTestAdditionalSpacesAttributeParsing
      */
-    public function testAdditionalSpacesAttributeParsing( $string, $expected)
+    public function testAdditionalSpacesAttributeParsing( $string )
     {
         $this->assertEquals(
             array( "foo" => "bar" ),
@@ -132,6 +133,57 @@ class eZXMLInputParserTest extends ezpTestCase
             array( 'foo=bar ' ),
             array( '  foo=bar ' ),
             array( '  foo  =    bar   ' ),
+        );
+    }
+
+    /**
+     * Test for argument parsing with various special characters
+     *
+     * @dataProvider providerForTestSpecialCharactersAttributeParsing
+     */
+    public function testSpecialCharactersAttributeParsing( $string, $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $this->parser->parseAttributes( $string )
+        );
+    }
+
+    public static function providerForTestSpecialCharactersAttributeParsing()
+    {
+        return array(
+            array(
+                'héllowørld="héllowørld"',
+                array( 'héllowørld' => 'héllowørld' ),
+            ),
+            array(
+                '2foo="bar"',
+                array(),
+            ),
+            array(
+                'foo2="bar"',
+                array( 'foo2' => 'bar' ),
+            ),
+            array(
+                '·foo="bar"',
+                array(),
+            ),
+            array(
+                'foo·="foo·"',
+                array( 'foo·' => 'foo·' ),
+            ),
+            array(
+                'Ωþà‿="Ωþà‿"',
+                array( 'Ωþà‿' => 'Ωþà‿' ),
+            ),
+            array(
+                '神="神"',
+                array( '神' => '神' ),
+            ),
+            array(
+                'الله="الله"',
+                array( 'الله' => 'الله' ),
+            ),
         );
     }
 }
