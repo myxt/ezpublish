@@ -2,7 +2,7 @@
 
 {* Generic children list for admin interface. *}
 {def $item_type    = ezpreference( 'admin_list_limit' )
-     $number_of_items = min( $item_type, 3)|choose( 10, 10, 25, 50 )
+     $number_of_items = min( $item_type, 3)|choose( 10, 10, 25, 50, 100, 1000 )
      $can_remove   = false()
      $can_move     = false()
      $can_edit     = false()
