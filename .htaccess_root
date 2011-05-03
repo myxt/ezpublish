@@ -1,6 +1,22 @@
-# Copy this file to a new file called .htaccess in your eZ Publish root
-# to secure your installation by turning on .htaccess based virtual host mode.
+<IfModule mod_php5.c>
+    php_flag display_startup_errors on
+    php_flag display_errors on
 
+    php_flag magic_quotes_gpc off
+    php_flag register_globals off
+
+    php_value max_execution_time 120
+    php_value max_input_time 120
+    php_value memory_limit 256M
+    php_value post_max_size 128M
+    php_value upload_max_filesize 128M
+
+    php_value date.timezone Europe/Amsterdam
+
+    DirectoryIndex index.php
+</IfModule>
+
+Options +FollowSymlinks
 DirectoryIndex index.php
 
 RewriteEngine On
@@ -9,6 +25,7 @@ RewriteRule ^index_rest\.php - [L]
 RewriteRule ^([^/]+/)?content/treemenu.* index_treemenu\.php [L]
 RewriteRule ^var/([^/]+/)?storage/images(-versioned)?/.* - [L]
 RewriteRule ^var/([^/]+/)?cache/(texttoimage|public)/.* - [L]
+RewriteRule ^var/([^/]+/)?cache/charts/.* - [L]
 RewriteRule ^design/[^/]+/(stylesheets|images|javascript)/.* - [L]
 RewriteRule ^share/icons/.* - [L]
 RewriteRule ^extension/[^/]+/design/[^/]+/(stylesheets|flash|images|lib|javascripts?)/.* - [L]
@@ -23,7 +40,7 @@ RewriteRule ^favicon\.ico - [L]
 #  You can customize the path to favicon.ico by replacing design/standard/images/favicon.ico
 #  by the adequate path.
 #RewriteRule ^favicon\.ico /design/standard/images/favicon\.ico [L]
-RewriteRule ^design/standard/images/favicon\.ico - [L]
+#RewriteRule ^design/standard/images/favicon\.ico - [L]
 
 # Give direct access to robots.txt for use by crawlers (Google, Bing, Spammers..)
 RewriteRule ^robots\.txt - [L]
@@ -35,5 +52,8 @@ RewriteRule ^robots\.txt - [L]
 # Platform for Privacy Preferences Project ( P3P ) related files for Internet Explorer
 # More info here : http://en.wikipedia.org/wiki/P3p
 RewriteRule ^w3c/p3p\.xml - [L]
+
+# Google sitemaps (xrowmetadata)
+RewriteRule ^sitemap[^/]*\.xml - [L]
 
 RewriteRule .* index\.php
