@@ -3,7 +3,7 @@
  * Autoloader definition for eZ Publish Kernel files.
  *
  * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
- * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
  *
@@ -502,7 +502,6 @@ return array(
       'eZURLFunctionCollection'                            => 'kernel/url/ezurlfunctioncollection.php',
       'eZURLObjectLink'                                    => 'kernel/classes/datatypes/ezurl/ezurlobjectlink.php',
       'eZURLOperator'                                      => 'kernel/common/ezurloperator.php',
-      'eZURLOperatorFullPath'                              => 'kernel/common/ezurloperatorfullpath.php',
       'eZURLType'                                          => 'kernel/classes/datatypes/ezurl/ezurltype.php',
       'eZURLWildcard'                                      => 'kernel/classes/ezurlwildcard.php',
       'eZUTF8Codec'                                        => 'lib/ezi18n/classes/ezutf8codec.php',
@@ -678,6 +677,7 @@ return array(
       'ezpRestTokenManager'                                => 'kernel/private/oauth/classes/tokenmanager.php',
       'ezpRestVersionedRoute'                              => 'kernel/private/rest/classes/routes/versioned_route.php',
       'ezpRestViewControllerInterface'                     => 'kernel/private/rest/classes/interfaces/view_controller.php',
+      'ezpSearchEngine'                                    => 'kernel/private/interfaces/ezpsearchengine.php',
       'ezpSessionHandler'                                  => 'lib/ezsession/classes/ezpsessionhandler.php',
       'ezpSessionHandlerDB'                                => 'lib/ezsession/classes/ezpsessionhandlerdb.php',
       'ezpSessionHandlerPHP'                               => 'lib/ezsession/classes/ezpsessionhandlerphp.php',
