@@ -23,7 +23,7 @@ TranslationSA[f2m_user_eu]=Europe
 
 [SiteSettings]
 SiteName=Food 2 Market Nederland
-SiteURL=www.food2market.nl.localhost
+SiteURL=www.food2market.nl
 
 [SiteAccessSettings]
 RelatedSiteAccessList[]

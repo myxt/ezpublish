@@ -1,5 +1,21 @@
 <?php /* #?ini charset="utf-8"?
 
+[DebugSettings]
+DebugOutput=enabled
+DebugRedirection=disabled
+
+[TemplateSettings]
+Debug=disabled
+ShowXHTMLCode=disabled
+ShowUsedTemplates=enabled
+
+TemplateCompile=disabled
+TemplateCache=disabled
+DevelopmentMode=enabled
+
+[ContentSettings]
+ViewCaching=disabled
+
 [DatabaseSettings]
 Server=127.0.0.1
 Database=f2m_production
@@ -22,7 +38,7 @@ TranslationSA[f2m_user_eu]=Europe
 
 [SiteSettings]
 SiteName=Food 2 Market Nederland
-SiteURL=www.food2market.nl.localhost
+SiteURL=www.food2market.nl
 
 [SiteAccessSettings]
 RelatedSiteAccessList[]

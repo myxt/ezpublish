@@ -1,11 +1,15 @@
 <?php /* #?ini charset="utf-8"?
 
 [ExtensionSettings]
+ActiveExtensions[]=ezwebin
+ActiveExtensions[]=myxt_global
+ActiveExtensions[]=myxt_geomap
+ActiveExtensions[]=myxt_graph
+
 ActiveExtensions[]=ezjscore
 ActiveExtensions[]=ezstarrating
 ActiveExtensions[]=ezgmaplocation
 ActiveExtensions[]=ezflow
-ActiveExtensions[]=ezwebin
 ActiveExtensions[]=ezie
 ActiveExtensions[]=ezoe
 ActiveExtensions[]=ezodf
@@ -15,13 +19,13 @@ ActiveExtensions[]=ezmultiupload
 ActiveExtensions[]=ezsurvey
 ActiveExtensions[]=eztika
 
-ActiveExtensions[]=myxt_global
-ActiveExtensions[]=myxt_graph
 ActiveExtensions[]=ngconnect
+ActiveExtensions[]=xrowmetadata
 
 # Requires ezwt
 ActiveExtensions[]=cjw_newsletter
 ActiveExtensions[]=ezwt
+ActiveExtensions[]=ezcomments
 
 [SiteSettings]
 SiteList[]=myxt_user
