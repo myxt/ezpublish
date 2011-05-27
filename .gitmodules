@@ -1,0 +1,3 @@
+[submodule "extension/ezfind"]
+	path = extension/ezfind
+	url = git@github.com:myxt/ezfind.git
