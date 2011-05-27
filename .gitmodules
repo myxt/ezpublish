@@ -31,3 +31,4 @@
 [submodule "extension/ezmultiupload"]
 	path = extension/ezmultiupload
 	url = git@github.com:svda/ezmultiupload.git
+
