@@ -3,32 +3,32 @@
 	url = git@github.com:myxt/myxt_global.git
 [submodule "extension/ezjscore"]
         path = extension/ezjscore
-        url = git@github.com:svda/ezjscore.git
+        url = git@github.com:myxt/ezjscore.git
 [submodule "extension/ezfind"]
 	path = extension/ezfind
-	url = git@github.com:svda/ezfind.git
+	url = git@github.com:myxt/ezfind.git
 [submodule "extension/ngconnect"]
 	path = extension/ngconnect
-	url = git@github.com:svda/ngconnect.git
+	url = git@github.com:myxt/ngconnect.git
 [submodule "extension/ezie"]
 	path = extension/ezie
-	url = git@github.com:svda/ezie.git
+	url = git@github.com:myxt/ezie.git
 [submodule "extension/ezteamroom"]
 	path = extension/ezteamroom
-	url = git@github.com:svda/ezteamroom.git
+	url = git@github.com:myxt/ezteamroom.git
 [submodule "extension/ezsurvey"]
 	path = extension/ezsurvey
-	url = git@github.com:svda/ezsurvey.git
+	url = git@github.com:myxt/ezsurvey.git
 [submodule "extension/ezoe"]
 	path = extension/ezoe
-	url = git@github.com:svda/ezoe.git
+	url = git@github.com:myxt/ezoe.git
 [submodule "extension/eztags"]
 	path = extension/eztags
-	url = git@github.com:svda/eztags.git
+	url = git@github.com:myxt/eztags.git
 [submodule "extension/ezwt_package"]
 	path = extension/ezwt_package
-	url = git@github.com:svda/ezwt.git
+	url = git@github.com:myxt/ezwt.git
 [submodule "extension/ezmultiupload"]
 	path = extension/ezmultiupload
-	url = git@github.com:svda/ezmultiupload.git
+	url = git@github.com:myxt/ezmultiupload.git
 
