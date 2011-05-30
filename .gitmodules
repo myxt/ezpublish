@@ -46,15 +46,12 @@
 [submodule "extension/myxt_graph"]
 	path = extension/myxt_graph
 	url = git@github.com:myxt/myxt_graph.git
-[submodule "extension/myxt_extranet"]
-	path = extension/myxt_extranet
-	url = git@github.com:myxt/myxt_extranet.git
+[submodule "extension/myxt_healthcare"]
+        path = extension/myxt_healthcare
+        url = git@github.com:myxt/myxt_healthcare.git
 [submodule "extension/myxt_digest"]
 	path = extension/myxt_digest
 	url = git@github.com:myxt/myxt_digest.git
-[submodule "extension/myxt_healthcare"]
-	path = extension/myxt_healthcare
-	url = git@github.com:myxt/myxt_healthcare.git
 [submodule "extension/cjw_newsletter"]
 	path = extension/cjw_newsletter
 	url = git@github.com:myxt/cjw_newsletter.git
