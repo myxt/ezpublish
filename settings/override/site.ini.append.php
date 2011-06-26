@@ -3,8 +3,6 @@
 [ExtensionSettings]
 ActiveExtensions[]=ezwebin
 ActiveExtensions[]=myxt_global
-ActiveExtensions[]=myxt_geomap
-ActiveExtensions[]=myxt_graph
 
 ActiveExtensions[]=ezjscore
 ActiveExtensions[]=ezstarrating
@@ -48,7 +46,7 @@ AvailableSiteAccessList[]=f2m_user_nl
 AvailableSiteAccessList[]=f2m_user_de
 AvailableSiteAccessList[]=f2m_admin
 
-MatchOrder=host
+MatchOrder=uri;host
 HostMatchMapItems[]=admin.ez.localhost;myxt_admin
 HostMatchMapItems[]=www.ez.localhost;myxt_user
 HostMatchMapItems[]=mobile.ez.localhost;myxt_mobile
@@ -58,8 +56,5 @@ HostMatchMapItems[]=www.food2market.nl.localhost;f2m_user_nl
 HostMatchMapItems[]=www.food2market.de.localhost;f2m_user_de
 HostMatchMapItems[]=www.food2market.be.localhost;f2m_user_be
 HostMatchMapItems[]=webadmin.food2market.localhost;f2m_admin
-
-HostMatchMapItems[]=www.food2market.initiumnet.nl;f2m_user_eu
-HostMatchMapItems[]=webadmin.food2market.initiumnet.nl;f2m_admin
 
 */ ?>
