@@ -43,9 +43,6 @@
 [submodule "extension/ezstarrating_package"]
 	path = extension/ezstarrating_package
 	url = git@github.com:myxt/ezstarrating.git
-[submodule "extension/myxt_graph"]
-	path = extension/myxt_graph
-	url = git@github.com:myxt/myxt_graph.git
 [submodule "extension/myxt_healthcare"]
         path = extension/myxt_healthcare
         url = git@github.com:myxt/myxt_healthcare.git
