@@ -52,6 +52,4 @@
 [submodule "extension/cjw_newsletter"]
 	path = extension/cjw_newsletter
 	url = git@github.com:myxt/cjw_newsletter.git
-[submodule "extension/xrowmetadata"]
-	path = extension/xrowmetadata
-	url = git@github.com:myxt/xrowmetadata.git
+
