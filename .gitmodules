@@ -53,3 +53,12 @@
 	path = extension/cjw_newsletter
 	url = git@github.com:myxt/cjw_newsletter.git
 
+[submodule "extension/ezcomments"]
+	path = extension/ezcomments
+	url = git@github.com:myxt/ezcomments.git
+[submodule "extension/ezodf"]
+	path = extension/ezodf
+	url = git@github.com:myxt/ezodf.git
+[submodule "extension/myxt_publisher"]
+	path = extension/myxt_publisher
+	url = git@github.com:myxt/myxt_publisher.git
