@@ -52,7 +52,6 @@
 [submodule "extension/cjw_newsletter"]
 	path = extension/cjw_newsletter
 	url = git@github.com:myxt/cjw_newsletter.git
-
 [submodule "extension/ezcomments"]
 	path = extension/ezcomments
 	url = git@github.com:myxt/ezcomments.git
@@ -62,3 +61,6 @@
 [submodule "extension/myxt_publisher"]
 	path = extension/myxt_publisher
 	url = git@github.com:myxt/myxt_publisher.git
+[submodule "extension/ezprestapiprovider"]
+	path = extension/ezprestapiprovider
+	url = git@github.com:myxt/ezprestapiprovider.git
