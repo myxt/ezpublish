@@ -43,9 +43,6 @@
 [submodule "extension/ezstarrating_package"]
 	path = extension/ezstarrating_package
 	url = git@github.com:myxt/ezstarrating.git
-[submodule "extension/myxt_graph"]
-	path = extension/myxt_graph
-	url = git@github.com:myxt/myxt_graph.git
 [submodule "extension/myxt_healthcare"]
         path = extension/myxt_healthcare
         url = git@github.com:myxt/myxt_healthcare.git
@@ -55,9 +52,15 @@
 [submodule "extension/cjw_newsletter"]
 	path = extension/cjw_newsletter
 	url = git@github.com:myxt/cjw_newsletter.git
-[submodule "extension/xrowmetadata"]
-	path = extension/xrowmetadata
-	url = git@github.com:myxt/xrowmetadata.git
+[submodule "extension/ezcomments"]
+	path = extension/ezcomments
+	url = git@github.com:myxt/ezcomments.git
+[submodule "extension/ezodf"]
+	path = extension/ezodf
+	url = git@github.com:myxt/ezodf.git
+[submodule "extension/myxt_publisher"]
+	path = extension/myxt_publisher
+	url = git@github.com:myxt/myxt_publisher.git
 [submodule "extension/ezprestapiprovider"]
 	path = extension/ezprestapiprovider
 	url = git@github.com:myxt/ezprestapiprovider.git
