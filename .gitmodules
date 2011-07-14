@@ -58,3 +58,6 @@
 [submodule "extension/xrowmetadata"]
 	path = extension/xrowmetadata
 	url = git@github.com:myxt/xrowmetadata.git
+[submodule "extension/ezprestapiprovider"]
+	path = extension/ezprestapiprovider
+	url = git@github.com:myxt/ezprestapiprovider.git
