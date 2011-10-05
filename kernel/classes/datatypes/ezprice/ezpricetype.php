@@ -317,6 +317,12 @@ class eZPriceType extends eZDataType
     {
         return true;
     }
+    
+    function isIndexable()
+    {
+        return true;
+    }
+    
 }
 
 eZDataType::register( eZPriceType::DATA_TYPE_STRING, "eZPriceType" );
