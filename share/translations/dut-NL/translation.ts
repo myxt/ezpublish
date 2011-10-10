@@ -4614,7 +4614,7 @@
     </message>
     <message>
         <source>If your installation is not running eZ Publish Enterprise, it might not be up to date with the latest maintenance service packs. Contact eZ Systems.</source>
-        <translation type="unfinished"></translation>
+        <translation>Als de huidige installatie niet op eZ Publish Enterprise draait is deze misschien niet actueel. Neem contact op met eZ Systems.</translation>
     </message>
 </context>
 <context>
@@ -4660,19 +4660,19 @@
     </message>
     <message>
         <source>Published</source>
-        <translation type="unfinished"></translation>
+        <translation>Gepubliceerd</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished">Bewerken</translation>
+        <translation>Bewerken</translation>
     </message>
     <message>
         <source>Edit &lt;%item_name&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewerk &lt;%item_name&gt;.</translation>
     </message>
     <message>
         <source>You do not have permission to edit &lt;%item_name&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>U heeft geen toestemming om &lt;%item_name&gt; te bewerken.</translation>
     </message>
 </context>
 <context>
@@ -6632,7 +6632,7 @@
     </message>
     <message>
         <source>Include templates related to exported objects.</source>
-        <translation>Voeg sjablonen toe gerelateerd aan geëxporteerde objecten.</translation>
+        <translation>Voeg aan geëxporteerde objecten gerelateerde sjablonen toe.</translation>
     </message>
     <message>
         <source>Choose the objects to include in the package.</source>
@@ -18537,7 +18537,7 @@ Neem contact op met deze persoon over het concept of maak een nieuw concept aan 
     </message>
     <message>
         <source>You misspelled some parts of your URL, try changing it.</source>
-        <translation>U heeft sommige delen van uw URL verkeerd gespeld. Probeer deze te wijzigen.</translation>
+        <translation>U heeft de URL verkeerd gespeld. Probeer de URL te wijzigen.</translation>
     </message>
     <message>
         <source>Login</source>
@@ -18554,11 +18554,11 @@ Neem contact op met deze persoon over het concept of maak een nieuw concept aan 
     </message>
     <message>
         <source>Possible reasons for this are</source>
-        <translation>Mogelijke redenen voor dit zijn</translation>
+        <translation>Mogelijke redenen hiervoor zijn</translation>
     </message>
     <message>
         <source>You do not have permission to access this area.</source>
-        <translation>U heeft geen toestemming voor toegang tot dit gebied.</translation>
+        <translation>U heeft geen toegang tot dit gedeelte van de website.</translation>
     </message>
     <message>
         <source>This site uses siteaccess matching in the URL and you did not supply one, try inserting a siteaccess name before the module in the URL .</source>
@@ -28603,7 +28603,7 @@ als u optie &quot;%3&quot; tot &quot;%4&quot; heeft gekozen</translation>
     <name>lib/eztemplate</name>
     <message>
         <source>Some template errors occurred, see debug for more information.</source>
-        <translation>Enkele sjabloonfouten traden op. Zie fouten opsporen voor meer informatie.</translation>
+        <translation>Sjabloonfouten ontdekt, zie debug voor meer informatie.</translation>
     </message>
 </context>
 <context>
