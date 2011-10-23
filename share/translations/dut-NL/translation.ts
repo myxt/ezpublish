@@ -6873,7 +6873,7 @@ Let op: Wanneer pakketten geinstalleerd zijn wordt de installatie niet ongedaan 
     </message>
     <message>
         <source>Logout from the system.</source>
-        <translation>Log out van het systeem.</translation>
+        <translation>Uitloggen uit het systeem.</translation>
     </message>
     <message>
         <source>Hide bookmarks.</source>
@@ -28603,7 +28603,7 @@ als u optie &quot;%3&quot; tot &quot;%4&quot; heeft gekozen</translation>
     <name>lib/eztemplate</name>
     <message>
         <source>Some template errors occurred, see debug for more information.</source>
-        <translation>Sjabloonfouten ontdekt, zie debug voor meer informatie.</translation>
+        <translation>Sjabloonfouten gevonden, zie debug voor meer informatie.</translation>
     </message>
 </context>
 <context>
