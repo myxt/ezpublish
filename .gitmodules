@@ -76,3 +76,6 @@
 [submodule "extension/eztika"]
 	path = extension/eztika
 	url = git@github.com:myxt/eztika.git
+[submodule "extension/ezchangeclass"]
+	path = extension/ezchangeclass
+	url = git@github.com:myxt/ezchangeclass.git
