@@ -539,7 +539,8 @@ class eZPgsqlSchema extends eZDBSchemaInterface
     {
         if ($def['type'] == 'primary' )
         {
-            $sql = "ALTER TABLE $table_name DROP CONSTRAINT $index_name";
+            $sql = "ALTER TABLE $table_name DROP CONSTRAINT "
+                 . $this->primaryKeyIndexName( $table_name, $index_name, $def['fields'] );
         }
         else
         {
@@ -693,6 +694,21 @@ class eZPgsqlSchema extends eZDBSchemaInterface
             $sql .= $nullSQL . ";\n";
         $sql .= "\n";
         return $sql;
+    }
+
+    /*!
+     \private
+    */
+    function generateDropFieldSql( $table_name, $field_name, $params )
+    {
+        if ( in_array( $field_name, $this->reservedKeywordList() ) )
+        {
+            $field_name = '"' . $field_name . '"';
+        }
+
+        $sql = "ALTER TABLE $table_name DROP COLUMN $field_name";
+
+        return $sql . ";\n";
     }
 
     /*!

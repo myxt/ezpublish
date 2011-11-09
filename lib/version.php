@@ -17,7 +17,7 @@ class eZPublishSDK
     const VERSION_MAJOR = 2011;
     const VERSION_MINOR = 10;
     const VERSION_RELEASE = 'myxt';
-    const VERSION_STATE = 'beta';
+    const VERSION_STATE = '';
     const VERSION_DEVELOPMENT = false;
     const VERSION_ALIAS = '2011.10.myxt';
 
