@@ -14,6 +14,7 @@
 
 class eZPublishSDK
 {
+
     const VERSION_MAJOR = 2011;
     const VERSION_MINOR = 10;
     const VERSION_RELEASE = 'myxt';
