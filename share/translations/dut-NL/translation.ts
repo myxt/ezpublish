@@ -26617,7 +26617,7 @@ adres verzonden. Volg de instructies in deze e-mail om uw account te activeren.<
     </message>
     <message>
         <source>Input required.</source>
-        <translation>Invoer vereist.</translation>
+        <translation>Invoer verplicht.</translation>
     </message>
     <message>
         <source>The input text is too long. The maximum number of characters allowed is %1.</source>
@@ -26625,7 +26625,7 @@ adres verzonden. Volg de instructies in deze e-mail om uw account te activeren.<
     </message>
     <message>
         <source>Time input required.</source>
-        <translation>Tijdinvoer vereist.</translation>
+        <translation>Tijdinvoer verplicht.</translation>
     </message>
     <message>
         <source>The username must be specified.</source>
@@ -26850,7 +26850,7 @@ als u optie &quot;%3&quot; tot &quot;%4&quot; heeft gekozen</translation>
     </message>
     <message>
         <source>Input required</source>
-        <translation>Invoer vereist</translation>
+        <translation>Invoer verplicht</translation>
     </message>
     <message>
         <source>The password cannot be empty.</source>
