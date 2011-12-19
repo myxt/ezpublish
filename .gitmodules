@@ -82,3 +82,6 @@
 [submodule "extension/recaptcha"]
 	path = extension/recaptcha
 	url = git@github.com:myxt/ezpublish-recaptcha.git
+[submodule "extension/enhancedezbinaryfile"]
+	path = extension/enhancedezbinaryfile
+	url = git@github.com:myxt/enhancedezbinaryfile.git
