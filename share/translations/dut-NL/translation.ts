@@ -14605,7 +14605,7 @@ adres verzonden. Volg de instructies in deze e-mail om uw account te activeren.<
     </message>
     <message>
         <source>Identifier</source>
-        <translation>Identificatie</translation>
+        <translation>Identier</translation>
     </message>
     <message>
         <source>Modifier</source>
@@ -15532,7 +15532,7 @@ adres verzonden. Volg de instructies in deze e-mail om uw account te activeren.<
     </message>
     <message>
         <source>Identifier</source>
-        <translation>Identificatie</translation>
+        <translation>Identifier</translation>
     </message>
     <message>
         <source>Copy</source>
@@ -17114,7 +17114,7 @@ Neem contact op met deze persoon over het concept of maak een nieuw concept aan 
     </message>
     <message>
         <source>Class identifier</source>
-        <translation>Inhoudstype-identificatie</translation>
+        <translation>Inhoudstype-identifier</translation>
     </message>
     <message>
         <source>Class name</source>
@@ -26063,7 +26063,7 @@ adres verzonden. Volg de instructies in deze e-mail om uw account te activeren.<
     </message>
     <message>
         <source>Class identifier cache</source>
-        <translation>Inhoudstype-identificatie-cache</translation>
+        <translation>Inhoudstype-identifier-cache</translation>
     </message>
     <message>
         <source>Sort key cache</source>
@@ -26182,7 +26182,7 @@ adres verzonden. Volg de instructies in deze e-mail om uw account te activeren.<
     </message>
     <message>
         <source>There is a class already having the same identifier.</source>
-        <translation>Er is al een inhoudstype met dezelfde identificatie.</translation>
+        <translation>Er is al een inhoudstype met dezelfde identifier.</translation>
     </message>
     <message>
         <source>Remove translation</source>
@@ -26198,11 +26198,11 @@ adres verzonden. Volg de instructies in deze e-mail om uw account te activeren.<
     </message>
     <message>
         <source>duplicate attribute placement</source>
-        <translation>Attribuutplaatsing dupliceren</translation>
+        <translation>Dubbele attribuutplaatsing</translation>
     </message>
     <message>
         <source>duplicate attribute identifier</source>
-        <translation>Attribuutidentifier dupliceren</translation>
+        <translation>Dubbele attribuut identifier</translation>
     </message>
     <message>
         <source>Press &quot;Cancel&quot; to safely exit this operation.</source>
@@ -27102,7 +27102,7 @@ als u optie &quot;%3&quot; tot &quot;%4&quot; heeft gekozen</translation>
     </message>
     <message>
         <source>Class identifier</source>
-        <translation>Inhoudstype-identificatie</translation>
+        <translation>Inhoudstype-identifier</translation>
     </message>
     <message>
         <source>Class name</source>
