@@ -79,3 +79,6 @@
 [submodule "extension/ezchangeclass"]
 	path = extension/ezchangeclass
 	url = git@github.com:myxt/ezchangeclass.git
+[submodule "extension/recaptcha"]
+	path = extension/recaptcha
+	url = git@github.com:myxt/ezpublish-recaptcha.git
