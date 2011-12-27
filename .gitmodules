@@ -85,3 +85,6 @@
 [submodule "extension/enhancedezbinaryfile"]
 	path = extension/enhancedezbinaryfile
 	url = git@github.com:myxt/enhancedezbinaryfile.git
+[submodule "extension/ezformtoken"]
+	path = extension/ezformtoken
+	url = git@github.com:myxt/ezformtoken.git
