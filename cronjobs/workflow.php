@@ -48,7 +48,8 @@ foreach( $workflowProcessList as $process )
         {
             $bodyMemento = eZOperationMemento::fetchMain( $process->attribute( 'memento_key' ) );
             $mementoList = eZOperationMemento::fetchList( $process->attribute( 'memento_key' ) );
-            $bodyMemento->remove();
+            if ($bodyMemento)
+                $bodyMemento->remove(); 
             foreach( $mementoList as $memento )
             {
                 $memento->remove();
