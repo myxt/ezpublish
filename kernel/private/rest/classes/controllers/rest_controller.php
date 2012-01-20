@@ -2,7 +2,7 @@
 /**
  * File containing ezpRestMvcController class
  *
- * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -38,6 +38,28 @@ abstract class ezpRestMvcController extends ezcMvcController
      * @var bool
      */
     public static $isCacheCreated = false;
+
+    /**
+     * Map with the supported protocols for each action.
+     *
+     * Example:
+     *     $supportedProtocols = array(
+     *         'viewContent' => array(
+     *             'http-get' => true,
+     *         ),
+     *         'publishContent' => array(
+     *             'http-put' => true,
+     *             'http-publish' => true,
+     *         ),
+     *         'changeField' => array(
+     *             'http-post' => true,
+     *         ),
+     *     );
+     *
+     * @var array
+     */
+    protected $supportedProtocols = array(
+    );
 
     /**
      * Constructor
@@ -170,6 +192,30 @@ abstract class ezpRestMvcController extends ezcMvcController
                 $debug->log( 'Generating cache', ezcLog::DEBUG );
                 $debug->switchTimer( 'GeneratingCache', 'GeneratingRestResult' );
 
+                if ( ( $isOptionsMethod = $this->request->protocol === "http-options" ) ||
+                    !isset( $this->supportedProtocols[$this->action][$this->request->protocol] )
+                )
+                {
+                    $methods = array_keys( $this->supportedProtocols[$this->action] );
+                    foreach ( $methods as &$method )
+                    {
+                        $method = strtoupper( str_replace( "http-", "", $method ) );
+                    }
+
+                    // OPTIONS method is always available
+                    $methods[] = "OPTIONS";
+
+                    $methods = implode( ", ", $methods );
+
+                    $res = new ezcMvcResult();
+                    $res->status = new ezpRestStatusResponse(
+                        $isOptionsMethod ? 200 : 405,
+                        ( $isOptionsMethod ? "Allowed methods are : " : "This method is not supported, allowed methods are: " ) . $methods,
+                        array( "Allow" => $methods )
+                    );
+                    return $res;
+                }
+
                 $res = parent::createResult();
                 $resGroups = $this->getResponseGroups();
                 if ( !empty( $resGroups ) )
@@ -273,7 +319,7 @@ abstract class ezpRestMvcController extends ezcMvcController
         );
         // Add internal variables, caught in the URL. See ezpRestHttpRequestParser::fillVariables()
         // Also add content variables
-        foreach ( array_merge( $this->request->variables, $this->getAllContentVariables() ) as $name => $val )
+        foreach ( $this->request->contentVariables + $this->request->variables as $name => $val )
         {
             $aCacheId[] = $name . '=' . ( is_array( $val ) ? implode( ',', $val ) : $val );
         }

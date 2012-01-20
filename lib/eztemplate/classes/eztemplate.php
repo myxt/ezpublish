@@ -2,7 +2,7 @@
 /**
  * File containing the eZTemplate class.
  *
- * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package lib
@@ -1751,7 +1751,7 @@ class eZTemplate
         $path = $resourceData['template-filename'];
         // Do not ouput debug on pagelayout templates to avoid trigering
         // browser quirks mode
-        if ( isset( $root[1][0][2] ) && is_string( $root[1][0][2] ) && strpos( $root[1][0][2], '<!DOCTYPE' ) === 0 )
+        if ( isset( $root[1][0][2] ) && is_string( $root[1][0][2] ) && stripos( $root[1][0][2], '<!DOCTYPE' ) === 0 )
             return;
         $uri = $resourceData['uri'];
         $preText = "\n<!-- START: including template: $path ($uri) -->\n";

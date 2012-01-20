@@ -2,7 +2,7 @@
 /**
  * File containing the eZDFSFileHandlerMySQLiBackend class.
  *
- * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -22,7 +22,6 @@ CREATE TABLE ezdfsfile (
   size bigint(20) unsigned NOT NULL DEFAULT '0',
   mtime int(11) NOT NULL DEFAULT '0',
   expired tinyint(1) NOT NULL DEFAULT '0',
-  `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (name_hash),
   KEY ezdfsfile_name (`name`(250)),
   KEY ezdfsfile_name_trunk (name_trunk(250)),
@@ -1448,10 +1447,7 @@ class eZDFSFileHandlerMySQLiBackend
                 }
             }
         }
-        else
-        {
-            return array( 'result' => 'ok', 'mtime' => $mtime );
-        }
+        return array( 'result' => 'ok', 'mtime' => $mtime );
     }
 
     /**
