@@ -91,3 +91,6 @@
 [submodule "extension/ngpush"]
 	path = extension/ngpush
 	url = git@github.com:myxt/ngpush.git
+[submodule "extension/ezmbpaex"]
+	path = extension/ezmbpaex
+	url = git@github.com:myxt/ezmbpaex.git
