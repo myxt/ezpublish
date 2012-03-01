@@ -14,6 +14,12 @@
 abstract class ezpClusterGateway
 {
     /**
+     * The active gateway class
+     * @var string
+     */
+    private static $gatewayClass;
+
+    /**
      * Database instance, optional
      *
      * @var mixed
@@ -181,19 +187,20 @@ abstract class ezpClusterGateway
         if ( CLUSTER_HEADER_X_POWERED_BY !== false )
             header( "X-Powered-By: " . CLUSTER_HEADER_X_POWERED_BY );
 
-        // Request headers: eTag  + IF-MODIFIED-SINCE
+        // Request headers: eTag + IF-MODIFIED-SINCE
         if ( CLUSTER_ENABLE_HTTP_CACHE )
         {
             header( "ETag: $mtime-$filesize" );
             $serverVariables = array_change_key_case( $_SERVER, CASE_UPPER );
             if ( isset( $serverVariables['HTTP_IF_NONE_MATCH'] ) && trim( $serverVariables['HTTP_IF_NONE_MATCH'] ) != "$mtime-$filesize" )
             {
-                trigger_error( "etag", E_USER_ERROR );
                 $this->notModified();
             }
 
             if ( isset( $serverVariables['HTTP_IF_MODIFIED_SINCE'] ) )
             {
+                $value = $serverVariables['HTTP_IF_MODIFIED_SINCE'];
+
                 // strip the garbage prepended by a semi-colon used by some browsers
                 if ( ( $pos = strpos( $value , ';' ) ) !== false )
                     $value = substr( $value, 0, $pos );
@@ -204,6 +211,7 @@ abstract class ezpClusterGateway
 
         // Request headers:  HTTP Range
         $contentLength = $filesize;
+        $startOffset = false;
         if ( CLUSTER_ENABLE_HTTP_RANGE )
         {
             // let the client know we do accept range by bytes
@@ -284,5 +292,36 @@ EOF;
             $this->close();
         }
         exit;
+    }
+
+    /**
+     * Sets the gateway class to $gatewayClass
+     *
+     * @param string $gatewayClass
+     */
+    public static function setGatewayClass( $gatewayClass )
+    {
+        self::$gatewayClass = $gatewayClass;
+    }
+
+    /**
+     * Returns an instance of the gateway class depending on {@link setGatewayClass()}
+     *
+     * @return ezpClusterGateway
+     */
+    public static function getGateway()
+    {
+        $gatewayClass = self::$gatewayClass;
+
+        return new $gatewayClass(
+            array(
+                "host" => CLUSTER_STORAGE_HOST,
+                "port" => defined( "CLUSTER_STORAGE_PORT" ) ? CLUSTER_STORAGE_PORT : null,
+                "user" => CLUSTER_STORAGE_USER,
+                "password" => CLUSTER_STORAGE_PASS,
+                "name" => CLUSTER_STORAGE_DB,
+                "charset" => CLUSTER_STORAGE_CHARSET,
+            )
+        );
     }
 }

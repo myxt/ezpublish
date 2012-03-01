@@ -14,6 +14,9 @@
  */
 include 'config.php';
 
+if ( file_exists( 'config.cluster.php' ) )
+    include( 'config.cluster.php' );
+
 if ( !defined( 'CLUSTER_STORAGE_BACKEND' ) || CLUSTER_STORAGE_BACKEND === null )
 {
     // FIXME: this method is no more defined here
@@ -23,17 +26,18 @@ if ( !defined( 'CLUSTER_STORAGE_BACKEND' ) || CLUSTER_STORAGE_BACKEND === null )
 // default values
 if ( !defined( 'CLUSTER_ENABLE_HTTP_RANGE' ) )     define( 'CLUSTER_ENABLE_HTTP_RANGE', true );
 if ( !defined( 'CLUSTER_ENABLE_HTTP_CACHE' ) )     define( 'CLUSTER_ENABLE_HTTP_CACHE', true );
-if ( !defined( 'CLUSTER_EXPIRY_TIMEOUT' ) )        define( 'CLUSTER_EXPIRY_TIMEOUT', true );
 if ( !defined( 'CLUSTER_HEADER_X_POWERED_BY' ) )   define( 'CLUSTER_HEADER_X_POWERED_BY', true );
 if ( !defined( 'CLUSTER_ENABLE_DEBUG' ) )          define( 'CLUSTER_ENABLE_DEBUG', false );
 if ( !defined( 'CLUSTER_PERSISTENT_CONNECTION' ) ) define( 'CLUSTER_PERSISTENT_CONNECTION', false );
 if ( !defined( 'CLUSTER_STORAGE_USER' ) )          define( 'CLUSTER_STORAGE_USER', '' );
 if ( !defined( 'CLUSTER_STORAGE_PASS' ) )          define( 'CLUSTER_STORAGE_PASS', '' );
 if ( !defined( 'CLUSTER_STORAGE_DB' ) )            define( 'CLUSTER_STORAGE_DB', '' );
+if ( !defined( 'CLUSTER_EXPIRY_TIMEOUT' ) || CLUSTER_EXPIRY_TIMEOUT === true )
+    define( 'CLUSTER_EXPIRY_TIMEOUT', 86400 );
 
 ini_set( 'display_errors', CLUSTER_ENABLE_DEBUG );
 
-require "kernel/clustering/gateway.php";
+require_once "kernel/clustering/gateway.php";
 
 if ( defined( 'CLUSTER_STORAGE_GATEWAY_PATH' ) && CLUSTER_STORAGE_GATEWAY_PATH )
     $clusterGatewayFile = CLUSTER_STORAGE_GATEWAY_PATH;
@@ -45,16 +49,8 @@ if ( !file_exists( $clusterGatewayFile ) )
     // FIXME: this method is no more defined here
     _die( "Unable to open storage backend gateway class definition file '$clusterGatewayFile'" );
 }
-$gatewayClass = require $clusterGatewayFile;
-$gateway = new $gatewayClass(
-    array(
-        "host" => CLUSTER_STORAGE_HOST,
-        "port" => defined( "CLUSTER_STORAGE_PORT" ) ? CLUSTER_STORAGE_PORT : null,
-        "user" => CLUSTER_STORAGE_USER,
-        "password" => CLUSTER_STORAGE_PASS,
-        "name" => CLUSTER_STORAGE_DB,
-        "charset" => CLUSTER_STORAGE_CHARSET,
-    )
-);
 
+// We use require_once as the gateway file may have been included before for initialization purpose
+require_once $clusterGatewayFile;
+$gateway = ezpClusterGateway::getGateway();
 $gateway->retrieve( ltrim( $_SERVER['SCRIPT_URL'], '/' ) );
