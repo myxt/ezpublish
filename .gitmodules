@@ -94,3 +94,6 @@
 [submodule "extension/ezmbpaex"]
 	path = extension/ezmbpaex
 	url = git@github.com:myxt/ezmbpaex.git
+[submodule "extension/myxt_recruitment"]
+	path = extension/myxt_recruitment
+	url = git@github.com:myxt/myxt_recruitment.git
