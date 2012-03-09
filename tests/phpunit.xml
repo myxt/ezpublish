@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit>
+  <filter>
+    <blacklist>
+      <directory>/usr/local/var/www/ezpublish/extension/ezcomments/tests</directory>
+      <directory>/usr/local/var/www/ezpublish/extension/ezfind/tests</directory>
+      <directory>/usr/local/var/www/ezpublish/extension/ezmbpaex/tests</directory>
+      <directory>/usr/local/var/www/ezpublish/extension/ezoe/tests</directory>
+      <directory>/usr/local/var/www/ezpublish/extension/ezprestapiprovider/tests</directory>
+      <directory>/usr/local/var/www/ezpublish/extension/ezsurvey/tests</directory>
+      <directory>/usr/local/var/www/ezpublish/tests</directory>
+    </blacklist>
+  </filter>
+</phpunit>

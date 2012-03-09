@@ -97,3 +97,6 @@
 [submodule "extension/myxt_recruitment"]
 	path = extension/myxt_recruitment
 	url = git@github.com:myxt/myxt_recruitment.git
+[submodule "extension/ezevent"]
+	path = extension/ezevent
+	url = git@github.com:myxt/ezevent.git
