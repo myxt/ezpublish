@@ -100,8 +100,6 @@ abstract class ezpClusterGateway
      * The database connexion must be usable as is after return, meaning
      * that database connection, charset choice must be set
      *
-     * @return mixed The connection object, whatever the type
-     *
      * @throws RuntimeException if connection failed
      */
     abstract public function connect();
@@ -152,7 +150,7 @@ abstract class ezpClusterGateway
             {
                 if ( ++$tries === $maxTries )
                 {
-                    $this->interrupt( "Unable to connect to storage server" );
+                    $this->interrupt( $e->getMessage() );
                 }
             }
         }
@@ -176,13 +174,8 @@ abstract class ezpClusterGateway
         $mtime = $metaData['mtime'];
 
         header( "Content-Type: $metaData[datatype]" );
-        header( "Last-Modified: " . gmdate( 'D, d M Y H:i:s', $mtime ) . ' GMT' );
         header( "Connection: close" );
-        header( "Accept-Ranges: none" );
         header( 'Served-by: ' . $_SERVER["SERVER_NAME"] );
-
-        if ( CLUSTER_EXPIRY_TIMEOUT !== false )
-            header( "Expires: " . gmdate( 'D, d M Y H:i:s', time() + CLUSTER_EXPIRY_TIMEOUT ) . ' GMT' );
 
         if ( CLUSTER_HEADER_X_POWERED_BY !== false )
             header( "X-Powered-By: " . CLUSTER_HEADER_X_POWERED_BY );
@@ -190,6 +183,11 @@ abstract class ezpClusterGateway
         // Request headers: eTag + IF-MODIFIED-SINCE
         if ( CLUSTER_ENABLE_HTTP_CACHE )
         {
+            header( "Last-Modified: " . gmdate( 'D, d M Y H:i:s', $mtime ) . ' GMT' );
+
+            if ( CLUSTER_EXPIRY_TIMEOUT !== false )
+                header( "Expires: " . gmdate( 'D, d M Y H:i:s', time() + CLUSTER_EXPIRY_TIMEOUT ) . ' GMT' );
+
             header( "ETag: $mtime-$filesize" );
             $serverVariables = array_change_key_case( $_SERVER, CASE_UPPER );
             if ( isset( $serverVariables['HTTP_IF_NONE_MATCH'] ) && trim( $serverVariables['HTTP_IF_NONE_MATCH'] ) != "$mtime-$filesize" )
@@ -228,6 +226,11 @@ abstract class ezpClusterGateway
                 header( "HTTP/1.1 206 Partial Content" );
             }
         }
+        else
+        {
+            header( 'Accept-Ranges: none' );
+        }
+
         header( "Content-Length: $contentLength" );
 
         // Output file data
@@ -235,7 +238,7 @@ abstract class ezpClusterGateway
         {
             $this->passthrough( $filename, $filesize, $startOffset, $contentLength );
         }
-        catch ( RuntimeException $e )
+        catch ( Exception $e )
         {
             $this->interrupt( $e->getMessage() );
         }
@@ -273,6 +276,8 @@ EOF;
 
             case 500:
             default:
+                if ( !CLUSTER_ENABLE_DEBUG )
+                    $message = "An error has occured";
                 header( $_SERVER['SERVER_PROTOCOL'] . " 500 Internal Server Error" );
                 echo <<<EOF
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
@@ -317,7 +322,8 @@ EOF;
 
         return new $gatewayClass(
             array(
-                "host" => CLUSTER_STORAGE_HOST,
+                // some databases don't need a hostname (oracle for instance)
+                "host" => defined( "CLUSTER_STORAGE_HOST" ) ? CLUSTER_STORAGE_HOST : null,
                 "port" => defined( "CLUSTER_STORAGE_PORT" ) ? CLUSTER_STORAGE_PORT : null,
                 "user" => CLUSTER_STORAGE_USER,
                 "password" => CLUSTER_STORAGE_PASS,

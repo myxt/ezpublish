@@ -18,7 +18,7 @@ we are trying to avoid
 
 ## Revamped structure ##
 
-A unique file can now be found at document root level: `cluster_index.php`. This file will
+A unique file can now be found at document root level: `index_cluster.php`. This file will
 be the one serving binary files, and must be the rewrite target.
 
 Depending on the configuration (see below), this file will use a gateway class, specific
@@ -41,5 +41,5 @@ are flags that can be enabled/disabled.
 While this change makes the code structure way cleaner, it also comes up with added benefits:
 
 - `eTag` & `IF-MODIFIED-SINCE` header support
-- `HTTP RANGE` support, to support partial downloads
+- `HTTP RANGE` support, to support partial downloads (only for **DFS clusters**)
 - unified error & debug handling

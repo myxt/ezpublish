@@ -79,12 +79,14 @@ class eZDBFileHandlerMysqlBackend
 
         $maxTries = $params['max_connect_tries'];
         $tries = 0;
+        eZDebug::accumulatorStart( 'mysql_cluster_connect', 'mysql_cluster_total', 'Cluster_database_connection' );
         while ( $tries < $maxTries )
         {
             if ( $this->db = mysql_connect( $serverString, $params['user'], $params['pass'], $newLink ) )
                 break;
             ++$tries;
         }
+        eZDebug::accumulatorStop( 'mysql_cluster_connect' );
         if ( !$this->db )
             return $this->_die( "Unable to connect to storage server" );
 
@@ -1652,8 +1654,10 @@ class eZDBFileHandlerMysqlBackend
         {
             $query = "SELECT mtime FROM " . TABLE_METADATA . " WHERE name_hash = {$nameHash}";
             $res = mysql_query( $query, $this->db );
-            mysql_fetch_row( $res );
-            if( $res and isset( $row[0] ) and $row[0] == $generatingFileMtime );
+            if ( !$res )
+                return false;
+            $row = mysql_fetch_row( $res );
+            if( isset( $row[0] ) and $row[0] == $generatingFileMtime );
                 return true;
 
             return false;

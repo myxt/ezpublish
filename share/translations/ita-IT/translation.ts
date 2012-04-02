@@ -2203,7 +2203,7 @@
     </message>
     <message>
         <source>Toggle fullscreen editing!</source>
-        <translation>Tasto per la modifica a schermo intero!</translation>
+        <translation type="obsolete">Tasto per la modifica a schermo intero!</translation>
     </message>
     <message>
         <source>Store draft and exit</source>
@@ -6146,7 +6146,7 @@
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Chiudi</translation>
     </message>
     <message>
         <source>Select</source>
@@ -6199,6 +6199,18 @@
     <message>
         <source>Object state</source>
         <translation>Stato dell&apos; oggetto</translation>
+    </message>
+    <message>
+        <source>Node Remote ID and Object Remote ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Node Remote ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object Remote ID</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6974,6 +6986,18 @@ Nota: I pacchetti non verranno disinstallati.</translation>
         <translation>Nascondi le impostazioni veloci</translation>
     </message>
     <message>
+        <source>Siteaccess:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Global (override)</source>
+        <translation type="unfinished">Globale (override)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation type="unfinished">Imposta</translation>
+    </message>
+    <message>
         <source>Change name, email, password, etc.</source>
         <translation>Cambia nome, email, password, ecc.</translation>
     </message>
@@ -7008,6 +7032,13 @@ Nota: I pacchetti non verranno disinstallati.</translation>
     <message>
         <source>Loading...</source>
         <translation>Caricamento...</translation>
+    </message>
+</context>
+<context>
+    <name>design/admin/pagelayout/leftmenu</name>
+    <message>
+        <source>Show / Hide leftmenu</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7426,6 +7457,10 @@ Nota: I pacchetti non verranno disinstallati.</translation>
     <message>
         <source>Roles and policies</source>
         <translation>Ruoli e politiche di accesso</translation>
+    </message>
+    <message>
+        <source>Unactivated users</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>View and manage the contents of the trash bin.</source>
@@ -10531,6 +10566,10 @@ Nota: I pacchetti non verranno disinstallati.</translation>
         <source>Country/region</source>
         <translation>Nazione/regione</translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished">Commento</translation>
+    </message>
 </context>
 <context>
     <name>design/admin/shop/archivelist</name>
@@ -12838,6 +12877,65 @@ email address. Follow the instructions in that mail to activate
 your account.</source>
         <translation>La creazione del tuo account è riuscita. Un&apos;email verrà inviata all&apos;indirizzo email specificato. Segui le istruzioni che troverai nel messaggio per attivare il tuo account.</translation>
     </message>
+    <message>
+        <source>Unactivated users (%users_count)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle selection</source>
+        <translation type="unfinished">Inverti selezione</translation>
+    </message>
+    <message>
+        <source>Registration date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Nome</translation>
+    </message>
+    <message>
+        <source>Login</source>
+        <translation type="unfinished">Login</translation>
+    </message>
+    <message>
+        <source>E-mail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate selected users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate selected users.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove selected users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove selected users.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>design/admin/user/activations</name>
+    <message>
+        <source>The following users have been successfully activated:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some users have not been activated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following unactivated users have been successfully removed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some users have not been removed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/admin/user/login</name>
@@ -14038,6 +14136,20 @@ your account.</source>
     <message>
         <source>Upload a file and add the resulting object in the relation</source>
         <translation>Carica un file ed aggiungi l&apos;oggetto risultante alla relazione</translation>
+    </message>
+</context>
+<context>
+    <name>design/admin2/content/edit</name>
+    <message>
+        <source>Go to the top</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>design/admin2/user/activations</name>
+    <message>
+        <source>There are no unactivated users</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16890,6 +17002,14 @@ Se vuoi inviare commenti all&apos;approvatore o vederne lo stato usa l&apos;URL 
     <message>
         <source>Browse to add existing objects in this relation</source>
         <translation>Sfoglia per aggiungere oggetti esistenti a questa relazione</translation>
+    </message>
+    <message>
+        <source>Html5 Video</source>
+        <translation type="unfinished">Html5 Video</translation>
+    </message>
+    <message>
+        <source>Html5 Audio</source>
+        <translation type="unfinished">Html5 Audio</translation>
     </message>
 </context>
 <context>
@@ -19792,6 +19912,18 @@ Inoltre puoi eliminare il pacchetto senza disinstallarlo dalla lista dei pacchet
     <message>
         <source>Clear</source>
         <translation>Svuota</translation>
+    </message>
+    <message>
+        <source>Siteaccess:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Global (override)</source>
+        <translation type="unfinished">Globale (override)</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation type="unfinished">Imposta</translation>
     </message>
 </context>
 <context>
@@ -28515,6 +28647,10 @@ per attivare il tuo account.</translation>
     <message>
         <source>authorization</source>
         <translation>autorizzazione</translation>
+    </message>
+    <message>
+        <source>Unactivated users</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -179,6 +179,43 @@ class eZContentObjectVersion extends eZPersistentObject
         return $versions[0];
     }
 
+    /**
+     * Fetch the latest draft by user id
+     *
+     * @since 4.7
+     * @param int $objectID
+     * @param int $userID
+     * @param int $languageID
+     * @param int $modified
+     * @return eZContentObjectVersion|null
+     */
+    public static function fetchLatestUserDraft( $objectID, $userID, $languageID, $modified = 0 )
+    {
+        $versions = eZPersistentObject::fetchObjectList(
+            eZContentObjectVersion::definition(),
+            null,
+            array(
+                'creator_id' => $userID,
+                'contentobject_id' => $objectID,
+                'initial_language_id' => $languageID,
+                'modified' => array( '>', $modified ),
+                'status' => array(
+                    array(
+                        eZContentObjectVersion::STATUS_DRAFT,
+                        eZContentObjectVersion::STATUS_INTERNAL_DRAFT
+                    )
+                )
+            ),
+            array( 'modified' => 'desc' ),
+            array( 'offset' => 0, 'length' => 1 ),
+            true
+        );
+
+        if ( empty( $versions ) )
+            return null;
+        return $versions[0];
+    }
+
     static function fetchForUser( $userID, $status = eZContentObjectVersion::STATUS_DRAFT )
     {
         return eZPersistentObject::fetchObjectList( eZContentObjectVersion::definition(),
