@@ -16,11 +16,11 @@ class eZPublishSDK
 {
 
     const VERSION_MAJOR = 2012;
-    const VERSION_MINOR = 02;
+    const VERSION_MINOR = 3;
     const VERSION_RELEASE = 'myxt';
     const VERSION_STATE = '';
     const VERSION_DEVELOPMENT = false;
-    const VERSION_ALIAS = '2012.02.myxt';
+    const VERSION_ALIAS = '2012.3.myxt';
 
     /*!
       \return the SDK version as a string
