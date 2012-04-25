@@ -22,8 +22,8 @@
 [submodule "extension/ezoe"]
 	path = extension/ezoe
 	url = git@github.com:myxt/ezoe.git
-[submodule "extension/eztags_package"]
-	path = extension/eztags_package
+[submodule "extension/eztags"]
+	path = extension/eztags
 	url = git@github.com:myxt/eztags.git
 [submodule "extension/ezwt_package"]
 	path = extension/ezwt_package
