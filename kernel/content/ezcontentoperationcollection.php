@@ -1278,7 +1278,7 @@ class eZContentOperationCollection
      *
      * @return array An array with operation status, always true
      */
-    static public function UpdateMainAssignment( $mainAssignmentID, $ObjectID, $mainAssignmentParentID )
+    static public function updateMainAssignment( $mainAssignmentID, $ObjectID, $mainAssignmentParentID )
     {
         eZContentObjectTreeNode::updateMainNodeID( $mainAssignmentID, $ObjectID, false, $mainAssignmentParentID );
         eZContentCacheManager::clearContentCacheIfNeeded( $ObjectID );
@@ -1331,16 +1331,25 @@ class eZContentOperationCollection
     static public function updateAlwaysAvailable( $objectID, $newAlwaysAvailable )
     {
         $object = eZContentObject::fetch( $objectID );
+        $change = false;
 
         if ( $object->isAlwaysAvailable() & $newAlwaysAvailable == false )
         {
             $object->setAlwaysAvailableLanguageID( false );
-            eZContentCacheManager::clearContentCacheIfNeeded( $objectID );
+            $change = true;
         }
         else if ( !$object->isAlwaysAvailable() & $newAlwaysAvailable == true )
         {
             $object->setAlwaysAvailableLanguageID( $object->attribute( 'initial_language_id' ) );
+            $change = true;
+        }
+        if ( $change )
+        {
             eZContentCacheManager::clearContentCacheIfNeeded( $objectID );
+            if ( !eZSearch::getEngine() instanceof eZSearchEngine )
+            {
+                eZContentOperationCollection::registerSearchObject( $objectID );
+            }
         }
 
         return array( 'status' => true );
