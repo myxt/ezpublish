@@ -77,6 +77,18 @@ class ezpKernelWeb implements ezpKernelHandler
     private $site;
 
     /**
+     * @see eZLocale::httpLocaleCode()
+     * @var string
+     */
+    private $languageCode;
+
+    /**
+     * @see eZTextCodec::httpCharset()
+     * @var string
+     */
+    private $httpCharset;
+
+    /**
      * Indicates is request has been properly initialized
      *
      * @var bool
@@ -98,9 +110,15 @@ class ezpKernelWeb implements ezpKernelHandler
      */
     public function __construct( array $settings = array() )
     {
-        require_once __DIR__ . '/global_functions.php';
+        $this->settings = $settings + array(
+            'siteaccess'            => null,
+            'use-exceptions'        => false,
+            'session'               => null
+        );
+        unset( $settings );
 
-        $this->settings = $settings;
+        require_once __DIR__ . '/global_functions.php';
+        $this->setUseExceptions( $this->settings['use-exceptions'] );
 
         $GLOBALS['eZSiteBasics'] = array(
             'external-css' => true,
@@ -254,7 +272,26 @@ class ezpKernelWeb implements ezpKernelHandler
      */
     public function run()
     {
+        ob_start();
         $this->requestInit();
+
+        // send header information
+        foreach (
+            eZHTTPHeader::headerOverrideArray( $this->uri ) +
+            array(
+                'Expires' => 'Mon, 26 Jul 1997 05:00:00 GMT',
+                'Last-Modified' => gmdate( 'D, d M Y H:i:s' ) . ' GMT',
+                'Cache-Control' => 'no-cache, must-revalidate',
+                'Pragma' => 'no-cache',
+                'X-Powered-By' => 'eZ Publish',
+                'Content-Type' => 'text/html; charset=' . $this->httpCharset,
+                'Served-by' => $_SERVER["SERVER_NAME"],
+                'Content-language' => $this->languageCode
+              ) as $key => $value
+        )
+        {
+            header( $key . ': ' . $value );
+        }
 
         try
         {
@@ -500,9 +537,7 @@ class ezpKernelWeb implements ezpKernelHandler
 
         $this->shutdown();
 
-        $result = new ezpKernelResult();
-        $result->content = $content;
-        return $result;
+        return new ezpKernelResult( $content );
     }
 
     /**
@@ -978,8 +1013,6 @@ class ezpKernelWeb implements ezpKernelHandler
         eZExecution::setCleanExit( false );
         $scriptStartTime = microtime( true );
 
-        ob_start();
-
         $GLOBALS['eZRedirection'] = false;
         $this->access = eZSiteAccess::current();
 
@@ -1084,40 +1117,24 @@ class ezpKernelWeb implements ezpKernelHandler
 
         // Initialize with locale settings
         // TODO: Move to constructor? Is it relevant to init the locale/charset for each (sub)requests?
-        $languageCode = eZLocale::instance()->httpLocaleCode();
+        $this->languageCode = eZLocale::instance()->httpLocaleCode();
         $phpLocale = trim( $ini->variable( 'RegionalSettings', 'SystemLocale' ) );
         if ( $phpLocale != '' )
         {
             setlocale( LC_ALL, explode( ',', $phpLocale ) );
         }
 
-        $httpCharset = eZTextCodec::httpCharset();
+        $this->httpCharset = eZTextCodec::httpCharset();
 
         // TODO: are these parameters supposed to vary across potential sub-requests?
         $this->site = array(
             'title' => $ini->variable( 'SiteSettings', 'SiteName' ),
             'design' => $ini->variable( 'DesignSettings', 'SiteDesign' ),
             'http_equiv' => array(
-                'Content-Type' => 'text/html; charset=' . $httpCharset,
-                'Content-language' => $languageCode
+                'Content-Type' => 'text/html; charset=' . $this->httpCharset,
+                'Content-language' => $this->languageCode
             )
         );
-
-        // send header information
-        foreach ( eZHTTPHeader::headerOverrideArray( $this->uri ) +
-            array(
-                'Expires' => 'Mon, 26 Jul 1997 05:00:00 GMT',
-                'Last-Modified' => gmdate( 'D, d M Y H:i:s' ) . ' GMT',
-                'Cache-Control' => 'no-cache, must-revalidate',
-                'Pragma' => 'no-cache',
-                'X-Powered-By' => 'eZ Publish',
-                'Content-Type' => 'text/html; charset=' . $httpCharset,
-                'Served-by' => $_SERVER["SERVER_NAME"],
-                'Content-language' => $languageCode
-            ) as $key => $value )
-        {
-            header( $key . ': ' . $value );
-        }
 
         // Read role settings
         $this->siteBasics['policy-check-omit-list'] = array_merge(
