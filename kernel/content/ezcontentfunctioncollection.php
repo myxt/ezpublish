@@ -717,6 +717,8 @@ class eZContentFunctionCollection
 
     static public function fetchMostViewedTopList( $classID, $sectionID, $offset, $limit )
     {
+        if ( !is_numeric( $classID ) )
+            $classID = eZContentClass::fetchByIdentifier( $classID )->attribute('id');
         $topList = eZViewCounter::fetchTopList( $classID, $sectionID, $offset, $limit );
         $contentNodeList = array();
         foreach ( array_keys ( $topList ) as $key )
