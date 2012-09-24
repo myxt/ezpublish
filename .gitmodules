@@ -79,9 +79,6 @@
 [submodule "extension/enhancedezbinaryfile"]
 	path = extension/enhancedezbinaryfile
 	url = git@github.com:myxt/enhancedezbinaryfile.git
-[submodule "extension/ezformtoken"]
-	path = extension/ezformtoken
-	url = git@github.com:myxt/ezformtoken.git
 [submodule "extension/ngpush"]
 	path = extension/ngpush
 	url = git@github.com:myxt/ngpush.git
