@@ -14,7 +14,6 @@
 
 class eZPublishSDK
 {
-<<<<<<< HEAD
 
     const VERSION_MAJOR = 2012;
     const VERSION_MINOR = 8;
