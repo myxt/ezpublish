@@ -1558,44 +1558,6 @@ class eZContentObject extends eZPersistentObject
     }
 
     /*!
-      Reverts the object to the given version. All versions newer then the given version will
-      be deleted.
-      \note Transaction unsafe. If you call several transaction unsafe methods you must enclose
-     the calls within a db transaction; thus within db->begin and db->commit.
-    */
-    function revertTo( $version )
-    {
-        $db = eZDB::instance();
-        $db->begin();
-
-        // Delete stored attribute from other tables
-        $contentobjectAttributes = $this->allContentObjectAttributes( $this->ID );
-        foreach (  $contentobjectAttributes as $contentobjectAttribute )
-        {
-            $contentobjectAttributeVersion = $contentobjectAttribute->attribute("version");
-            if( $contentobjectAttributeVersion > $version )
-            {
-                $classAttribute = $contentobjectAttribute->contentClassAttribute();
-                $dataType = $classAttribute->dataType();
-                $dataType->deleteStoredObjectAttribute( $contentobjectAttribute, $contentobjectAttributeVersion );
-            }
-        }
-        $version =(int) $version;
-        $db->query( "DELETE FROM ezcontentobject_attribute
-                          WHERE contentobject_id='$this->ID' AND version>'$version'" );
-
-        $db->query( "DELETE FROM ezcontentobject_version
-                          WHERE contentobject_id='$this->ID' AND version>'$version'" );
-
-        $db->query( "DELETE FROM eznode_assignment
-                          WHERE contentobject_id='$this->ID' AND contentobject_version > '$version'" );
-
-        $this->CurrentVersion = $version;
-        $this->store();
-        $db->commit();
-    }
-
-    /*!
      Copies the given version of the object and creates a new current version.
      \note Transaction unsafe. If you call several transaction unsafe methods you must enclose
      the calls within a db transaction; thus within db->begin and db->commit.
@@ -1632,44 +1594,6 @@ class eZContentObject extends eZPersistentObject
             }
             if ( eZINI::instance()->variable( 'ContentSettings', 'ViewCaching' ) === 'enabled' )
                 eZContentCacheManager::clearObjectViewCacheArray( $objectIDList );
-        }
-    }
-
-    function removeReverseRelations( $objectID )
-    {
-        $db = eZDB::instance();
-        $objectID = (int) $objectID;
-        // Get list of objects referring to this one.
-        $relatingObjects = $this->reverseRelatedObjectList( false, 0, false, array( 'AllRelations' => true ) );
-
-        // Finds all the attributes that store relations to the given object.
-
-        $result = $db->arrayQuery( "SELECT attr.*
-                                    FROM ezcontentobject_link link,
-                                         ezcontentobject_attribute attr
-                                    WHERE link.from_contentobject_id=attr.contentobject_id AND
-                                          link.from_contentobject_version=attr.version AND
-                                          link.contentclassattribute_id=attr.contentclassattribute_id AND
-                                          link.to_contentobject_id=$objectID" );
-
-        // Remove references from XML.
-        if ( count( $result ) > 0 )
-        {
-            foreach( $result as $row )
-            {
-                $attr = new eZContentObjectAttribute( $row );
-                $dataType = $attr->dataType();
-                $dataType->removeRelatedObjectItem( $attr, $objectID );
-                // @todo Check whether we can use eZContentCacheManager::clearObjectViewCacheArray() instead
-                eZContentCacheManager::clearObjectViewCache( $attr->attribute( 'contentobject_id' ), true );
-                $attr->storeData();
-            }
-        }
-
-        // Remove references in ezcontentobject_link.
-        foreach ( $relatingObjects as $fromObject )
-        {
-            $fromObject->removeContentObjectRelation( $this->attribute( 'id' ), false, false );
         }
     }
 
@@ -5479,17 +5403,6 @@ class eZContentObject extends eZPersistentObject
         $handler = eZExpiryHandler::instance();
         $handler->setTimestamp( 'template-block-cache', time() );
         $handler->store();
-    }
-
-    /*!
-    \static
-     Callse eZContentObject::xpireTemplateBlockCache() unless template caching is disabled.
-     */
-    static function expireTemplateBlockCacheIfNeeded()
-    {
-        $ini = eZINI::instance();
-        if ( $ini->variable( 'TemplateSettings', 'TemplateCache' ) == 'enabled' )
-            eZContentObject::expireTemplateBlockCache();
     }
 
     /*!
