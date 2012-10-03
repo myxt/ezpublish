@@ -344,7 +344,7 @@ class eZContentObject extends eZPersistentObject
             eZDebug::writeNotice( "There is no object name for version($version) of the content object ($contentObjectID) in language($lang)", __METHOD__ );
             return $name;
         }
-        $db = eZDb::instance();
+        $db = eZDB::instance();
         $contentObjectID = $this->attribute( 'id' );
         if ( !$lang )
         {
@@ -4638,17 +4638,6 @@ class eZContentObject extends eZPersistentObject
             $this->Permissions["can_remove"] = $this->checkAccess( 'remove' );
         }
         return ( $this->Permissions["can_remove"] == 1 );
-    }
-
-    /*!
-     Check if the object can be moved. (actually checks 'edit' and 'remove' permissions)
-     \return \c true if the object can be moved by the current user.
-     \sa checkAccess().
-     \deprecated The function canMove() is preferred since its naming is clearer.
-    */
-    function canMove( )
-    {
-        return $this->canMoveFrom();
     }
 
     /*!

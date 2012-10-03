@@ -1310,41 +1310,12 @@ class eZDBFileHandler implements ezpDatabaseBasedClusterFileHandler
      * eZDB does require binary purge.
      * It does store files in DB and therefore doesn't remove files in real time
      *
-     * @since 4.3.0
-     * @deprecated Deprecated as of 4.5, use {@link eZDBFileHandler::requiresPurge()} instead.
-     * @return bool
-     */
-    public function requiresBinaryPurge()
-    {
-        return true;
-    }
-
-    /**
-     * eZDB does require binary purge.
-     * It does store files in DB and therefore doesn't remove files in real time
-     *
      * @since 4.5.0
      * @return bool
      */
     public function requiresPurge()
     {
         return true;
-    }
-
-    /**
-     * Fetches the first $limit expired binary items from the DB
-     *
-     * @param array $limit A 2 items array( offset, limit )
-     *
-     * @return array(eZClusterFileHandlerInterace)
-     * @since 4.3.0
-     * @deprecated Deprecated as of 4.5, use {@link eZDBFileHandler::fetchExpiredItems()} instead.
-     *
-     * @todo handle output using $cli or something
-     */
-    public function fetchExpiredBinaryItems( $limit = array( 0, 100 ) )
-    {
-        return self::$dbbackend->fetchExpiredItems( array( 'image', 'binaryfile' ), $limit );
     }
 
     /**

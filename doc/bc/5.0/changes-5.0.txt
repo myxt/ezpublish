@@ -33,6 +33,10 @@ Change of behavior
 
   Those methods used to returns the array by reference to an internal array in the eZINI instance.
 
+- kernel/user/activate.php doesn't set the 'account_avtivated' template variable anymore (kept previously for BC)
+
+  The variable has been deprecated since 3.4.1.
+
 Removed features
 ----------------
 
@@ -41,6 +45,14 @@ Removed features
   The old "admin" interface, deprecated since 4.4, has been removed. What exists in design/admin is the
   result of the merge of the newer admin interface "admin2" inside this directory.
   Everything that was specific to that old "admin" interface is now removed.
+
+- 'rss-xml' function attribute of eZRSSExport
+
+  Attribute 'rss-xml-content' is to be used instead. This attribute has been deprecated since 4.3.
+
+- "forgetpassword" misspelled view from "user" module
+
+  This misspelled view was kept for BC and has been deprecated since 3.0.
 
 - Classes eZWebDAVServer, eZWebDAVFileServer, eZWebDAVContentServer and eZWebDAVContentServerWrapper
 
@@ -53,6 +65,10 @@ Removed features
 - Class eZFileDirectHandler
 
   Direct binary file downloads is deprecated since 4.1.
+
+- Class eZContentClassAttributeNameList
+
+  Class deprecated since 4.3, use eZSerializedObjectNameList directly instead.
 
 - eZContentObject::removeReverseRelations()
 
@@ -73,6 +89,137 @@ Removed features
 - eZUser::getCacheFilename() method
 
   Unused and deprecated method since 4.4.
+
+- eZFile::getContents() method
+
+  Unused and deprecated method since 4.1. Use file_get_contents() instead.
+
+- eZTemplateCacheFunction functions: subtreeCacheBaseSubDir(), expiryTemplateBlockCacheDir(),
+  templateBlockCacheDir(), subtreeCacheSubDir() and subtreeCacheSubDirForNode().
+
+  Unused and deprecated functions since 3.10.
+
+- eZRandomTranslator::makeSeed() method
+
+  Unused and deprecated method since 4.2.
+
+- eZLocale::translationCode() method
+
+  Unused and deprecated method since 4.1.
+
+- eZTemplate::setVariableRef() method
+
+  Unused and deprecated method since 4.4.
+
+- eZTemplateNodeTool functions: createStaticElement(), elementStaticValue()
+  and isStaticElement()
+
+  Unused and deprecated functions since 3.5.
+
+- eZHTTPPersistence functions: handleChecked() and handleCheckedElement()
+
+  Unused and deprecated functions since 3.0.
+
+- eZDebugSetting:setDebugINI()
+
+  Deprecated function since 4.5. This function did nothing.
+
+- eZHTTPTool methods: getSessionKey() and setSessionKey()
+
+  Deprecated methods since 4.4.
+
+- eZMimeType::mimeTypeFor()
+
+  Unused and deprecated function since 3.3.
+
+- callClassMethod() method from eZModuleOperationInfo and eZModuleFunctionInfo
+
+  Unused and deprecated methods since 4.1.
+
+- requiresBinaryPurge() method of file handlers
+
+  Unused and deprecated method since 4.5.
+
+- fetchExpiredBinaryItems() method of file handlers
+
+  Unused and deprecated method since 4.5.
+
+- Deprecated and unused methods of eZBinaryFileHandler: storedFilename(),
+  downloadType() and downloadURL();
+
+- eZExpiryHandler::isModified()
+
+  Unused and deprecated method since 4.2.
+
+- eZCacheClear* functions:
+  eZCacheClearImageAlias(), eZCacheClearClassID(), eZCacheClearGlobalINI(), eZCacheClearSortKey(),
+  eZCacheClearTemplateBlockCache() and eZCacheClearContentTreeMenu()
+
+  Unused and deprecated method since 4.3.
+
+- eZClusterFileHandler::searchPathArray()
+
+  Unused and deprecated method since 4.3.
+
+- eZContentCacheManager::clearViewCache()
+
+  Unused and deprecated method since 3.6.
+
+- eZContentLanguage::updateObjectNames()
+
+  Unused and deprecated method since 3.8.
+
+- canMove() method of eZContentObject and eZContentObjectTreeNode
+
+  Unused and deprecated method since 3.6.
+
+- eZContentObjectTreeNode::createPermissionCheckingSQLString()
+
+  Unused and deprecated method since 3.9.
+
+- eZContentObjectTreeNode::createObject()
+
+  Unused and deprecated method since 3.3.
+
+- eZContentObjectTreeNode::updateURLAlias()
+
+  Unused and deprecated method since 3.1.
+
+- eZRSSExport methods: rssXml(), fetchRSS1_0() and fetchRSS2_0()
+
+  Deprecated method since 4.3.
+
+- eZSection methods: initGlobalID(), setGlobalID() and globalID()
+
+  Unused and deprecated methods since 4.4.
+
+- eZTipafriendCounter methods: clear() and increase()
+
+  Unused and deprecated methods since 3.9.
+
+- eZURLWildcard::isCacheExpired()
+
+  Unused and deprecated method since 4.2.
+
+- eZContentOperationCollection methods: beginPublish() and endPublish()
+
+  Unused and deprecated methods since 4.1.
+
+- eZContentOperationCollection::removeAssignment()
+
+  Unused and deprecated method since 4.3.
+
+- _deleteByRegex() and _deleteByRegexInner() methods of file handlers.
+
+  Unused since the removal of 'fileDeleteByRegex()' methods.
+
+- eZSession methods: getUserSessionHash() and userSessionIsValid()
+
+  Unused and deprecated method since 4.4.
+
+- eZFile::splitLines()
+
+  Unused and deprecated function since 4.4.
 
 - kernel/common/ezincludefunctions.php
 

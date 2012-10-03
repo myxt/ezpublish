@@ -1410,40 +1410,12 @@ class eZDFSFileHandler implements eZClusterFileHandlerInterface, ezpDatabaseBase
      * It does store files in DB + on NFS, and therefore doesn't remove files
      * in real time
      *
-     * @since 4.3
-     * @deprecated Deprecated as of 4.5, use {@link eZDFSFileHandler::requiresPurge()} instead.
-     * @return bool
-     */
-    public function requiresBinaryPurge()
-    {
-        return true;
-    }
-
-    /**
-     * eZDFS does require binary purge.
-     * It does store files in DB + on NFS, and therefore doesn't remove files
-     * in real time
-     *
      * @since 4.5.0
      * @return bool
      */
     public function requiresPurge()
     {
         return true;
-    }
-
-    /**
-     * Fetches the first $limit expired binary items from the DB
-     *
-     * @param array $limit A 2 items array( offset, limit )
-     *
-     * @return array(filepath)
-     * @since 4.3.0
-     * @deprecated Deprecated as of 4.5, use {@link eZDFSFileHandler::fetchExpiredItems()} instead.
-     */
-    public function fetchExpiredBinaryItems( $limit = array( 0 , 100 ) )
-    {
-        return self::$dbbackend->fetchExpiredItems( array( 'image', 'binaryfile' ), $limit );
     }
 
     /**
