@@ -97,6 +97,12 @@ class eZSession
      */
     static protected $handlerInstance = null;
 
+    /**
+     * Session namespace.
+     * If set, all session variables will be stored under $_SESSION[$namespace].
+     *
+     * @var string
+     */
     static protected $namespace = null;
 
     /**
@@ -425,16 +431,24 @@ class eZSession
         {
             self::forceStart();
         }
+        else if ( $started )
+        {
+            self::$hasStarted = true;
+        }
     }
 
     /**
      * See {@link eZSession::start()}
      *
+     * @see ezpSessionHandler::sessionStart()
      * @since 4.4
      * @return true
      */
     static protected function forceStart()
     {
+        if ( self::$handlerInstance instanceof ezpSessionHandler )
+            return self::$hasStarted = self::$handlerInstance->sessionStart();
+
         session_start();
         return self::$hasStarted = true;
     }
