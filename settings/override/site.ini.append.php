@@ -1,11 +1,10 @@
 <?php /* #?ini charset="utf-8"?
 
 [ExtensionSettings]
-ActiveExtensions[]=ezwebin
 ActiveExtensions[]=myxt_global
 
+ActiveExtensions[]=ezautosave
 ActiveExtensions[]=ezformtoken
-ActiveExtensions[]=ezjscore
 ActiveExtensions[]=ezstarrating
 ActiveExtensions[]=ezgmaplocation
 ActiveExtensions[]=ezflow
@@ -17,6 +16,8 @@ ActiveExtensions[]=ezfind
 ActiveExtensions[]=ezmultiupload
 ActiveExtensions[]=ezsurvey
 ActiveExtensions[]=eztika
+ActiveExtensions[]=ezwebin
+ActiveExtensions[]=ezjscore
 
 ActiveExtensions[]=ngconnect
 ActiveExtensions[]=xrowmetadata
