@@ -2441,7 +2441,11 @@ class eZContentObjectTreeNode extends eZPersistentObject
 
         // cleanup temp tables
         $db->dropTempTableList( $sqlPermissionChecking['temp_tables'] );
-        return count( $nodeListArray );
+
+        if( $groupBySQL )
+          return count( $nodeListArray );
+        else
+          return $nodeListArray[0]['count'];
     }
 
     /*!
