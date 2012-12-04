@@ -262,7 +262,7 @@ class ezjscAjaxContent
             }
             else
             {
-                $ret['creator'] = array( 'id'   => $contentObject->attribute( 'creator_id' ),
+                $ret['creator'] = array( 'id'   => $contentObject->attribute( 'current' )->attribute('creator_id'),
                                          'name' => null );// user has been deleted
             }
         }
@@ -454,6 +454,22 @@ class ezjscAjaxContent
 
                     if ( !isset( $imageArray['original'] ) )
                         $imageArray['original'] = $content->attribute( 'original' );
+
+                    array_walk_recursive(
+                        $imageArray,
+                        function ( &$element, $key )
+                        {
+                            // json_encode/xmlEncode need UTF8 encoded strings
+                            // (exif) metadata might not be for instance
+                            // see https://jira.ez.no/browse/EZP-19929
+                            if ( !mb_check_encoding( $element, 'UTF-8' ) )
+                            {
+                                $element = mb_convert_encoding(
+                                    (string)$element, 'UTF-8'
+                                );
+                            }
+                        }
+                    );
 
                     $attrtibuteArray[ $key ]['content'] = $imageArray;
                 }

@@ -54,7 +54,7 @@ class ezpSessionHandlerSymfony extends ezpSessionHandler
     public function regenerate( $updateBackendData = true )
     {
         $oldSessionId = session_id();
-        $this->storage->regenerate( true );
+        $this->storage->regenerate();
         $newSessionId = session_id();
 
         ezpEvent::getInstance()->notify( 'session/regenerate', array( $oldSessionId, $newSessionId ) );
@@ -66,7 +66,6 @@ class ezpSessionHandlerSymfony extends ezpSessionHandler
             $escNewKey = $db->escapeString( $newSessionId );
             $escUserID = $db->escapeString( eZSession::userID() );
             eZSession::triggerCallback( 'regenerate_pre', array( $db, $escNewKey, $escOldKey, $escUserID ) );
-            $this->destroy( $oldSessionId );
             eZSession::triggerCallback( 'regenerate_post', array( $db, $escNewKey, $escOldKey, $escUserID ) );
         }
         return true;
@@ -122,7 +121,7 @@ class ezpSessionHandlerSymfony extends ezpSessionHandler
     }
 
     /**
-     * Let Symfony start the session
+     * Let Symfony starts the session
      *
      * @return bool
      */

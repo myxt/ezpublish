@@ -232,7 +232,20 @@ class ezpKernelWeb implements ezpKernelHandler
         $GLOBALS['eZGlobalRequestURI'] = eZSys::serverVariable( 'REQUEST_URI' );
 
         // Initialize basic settings, such as vhless dirs and separators
-        eZSys::init( 'index.php', $ini->variable( 'SiteAccessSettings', 'ForceVirtualHost' ) === 'true' );
+        if ( $this->hasServiceContainer() && $this->getServiceContainer()->has( 'request' ) )
+        {
+            eZSys::init(
+                basename( $this->getServiceContainer()->get( 'request' )->server->get( 'SCRIPT_FILENAME' ) ),
+                $ini->variable( 'SiteAccessSettings', 'ForceVirtualHost' ) === 'true'
+            );
+        }
+        else
+        {
+            eZSys::init(
+                'index.php',
+                $ini->variable( 'SiteAccessSettings', 'ForceVirtualHost' ) === 'true'
+            );
+        }
 
         // Check for extension
         eZExtension::activateExtensions( 'default' );
@@ -351,6 +364,8 @@ class ezpKernelWeb implements ezpKernelHandler
             $this->redirect();
         }
 
+        $uiContextName = $this->module->uiContextName();
+
         // Store the last URI for access history for login redirection
         // Only if user has session and only if there was no error or no redirects happen
         if ( eZSession::hasStarted() && $this->module->exitStatus() == eZModule::STATUS_OK )
@@ -376,13 +391,13 @@ class ezpKernelWeb implements ezpKernelHandler
 
             // Update last accessed view page
             if ( $currentURI != $lastAccessedViewURI &&
-                 !in_array( $this->module->uiContextName(), array( 'edit', 'administration', 'browse', 'authentication' ) ) )
+                 !in_array( $uiContextName, array( 'edit', 'administration', 'browse', 'authentication' ) ) )
             {
                 $http->setSessionVariable( "LastAccessesURI", $currentURI );
             }
 
             // Update last accessed non-view page
-            if ( $currentURI != $lastAccessedURI )
+            if ( $currentURI != $lastAccessedURI && $uiContextName != 'ajax' )
             {
                 $http->setSessionVariable( "LastAccessedModifyingURI", $currentURI );
             }
@@ -398,7 +413,7 @@ class ezpKernelWeb implements ezpKernelHandler
 
         if ( !isset( $moduleResult['ui_context'] ) )
         {
-            $moduleResult['ui_context'] = $this->module->uiContextName();
+            $moduleResult['ui_context'] = $uiContextName;
         }
         $moduleResult['ui_component'] = $this->module->uiComponentName();
         $moduleResult['is_mobile_device'] = $this->mobileDeviceDetect->isMobileDevice();
