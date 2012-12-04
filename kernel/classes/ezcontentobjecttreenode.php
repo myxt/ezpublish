@@ -2386,6 +2386,20 @@ class eZContentObjectTreeNode extends eZPersistentObject
             $mainNodeOnlyCond = 'ezcontentobject_tree.node_id = ezcontentobject_tree.main_node_id AND';
         }
 
+        $extendedAttributeFilter = eZContentObjectTreeNode::createExtendedAttributeFilterSQLStrings( $params['ExtendedAttributeFilter'] );
+        $groupBySelectText       = '';
+        $groupBySQL              = $extendedAttributeFilter['group_by'];
+        $groupBy                 = null;
+
+        if ( !$groupBySQL )
+        {
+            eZContentObjectTreeNode::createGroupBySQLStrings( $groupBySelectText, $groupBySQL, $groupBy );
+        }
+        else if ( $groupBy )
+        {
+            eZDebug::writeError( "Cannot use group_by parameter together with extended attribute filter which sets group_by!", __METHOD__ );
+        }
+
         $languageFilter = ' AND '.eZContentLanguage::languagesSQLFilter( 'ezcontentobject' );
         $objectNameLanguageFilter = eZContentLanguage::sqlFilter( 'ezcontentobject_name', 'ezcontentobject' );
 
@@ -2416,6 +2430,7 @@ class eZContentObjectTreeNode extends eZPersistentObject
 
         $query = "SELECT
                         count( DISTINCT ezcontentobject_tree.node_id ) as count
+                        $groupBySelectText
                   FROM
                        ezcontentobject_tree
                        INNER JOIN ezcontentobject ON (ezcontentobject.id = ezcontentobject_tree.contentobject_id)
@@ -2438,7 +2453,8 @@ class eZContentObjectTreeNode extends eZPersistentObject
                         $showInvisibleNodesCond
                         $sqlPermissionChecking[where]
                         $objectNameFilterSQL
-                        $languageFilter ";
+                        $languageFilter
+                    $groupBySQL";
 
         $server = count( $sqlPermissionChecking['temp_tables'] ) > 0 ? eZDBInterface::SERVER_SLAVE : false;
 
@@ -2446,8 +2462,7 @@ class eZContentObjectTreeNode extends eZPersistentObject
 
         // cleanup temp tables
         $db->dropTempTableList( $sqlPermissionChecking['temp_tables'] );
-
-        return $nodeListArray[0]['count'];
+        return count( $nodeListArray );
     }
 
     /*!
