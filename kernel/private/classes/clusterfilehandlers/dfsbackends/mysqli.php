@@ -32,9 +32,22 @@ CREATE TABLE ezdfsfile (
 
 class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
 {
+    /**
+     * Wait for n microseconds until retry if copy fails, to avoid DFS overload.
+     */
+    const TIME_UNTIL_RETRY = 100;
+
+    /**
+     * Max number of times a dfs file is tried to be copied.
+     *
+     * @var int
+     */
+    protected $maxCopyTries;
+
     public function __construct()
     {
         $this->eventHandler = ezpEvent::getInstance();
+        $this->maxCopyTries = (int)eZINI::instance( 'file.ini' )->variable( 'eZDFSClusteringSettings', 'MaxCopyRetries' );
     }
 
     /**
@@ -497,7 +510,7 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
                 $event = 'cluster/deleteByNametrunk';
                 $nametrunk = "$commonPath/$dirItem/$commonSuffix";
                 $eventParameters = array( $nametrunk );
-                $where = "WHERE name_trunk = '$nametrunk'";
+                $where = "WHERE name_trunk = " . $this->_quote( $nametrunk );
                 unset( $nametrunk );
             }
             else
@@ -587,7 +600,7 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
      * Saving $filePath locally with its original name, or $uniqueName if given
      *
      * @param string $filePath
-     * @param string $uniqueName Alternative name to save the file to
+     * @param bool|string $uniqueName Alternative name to save the file to
      * @return string|bool the file physical path, or false if fetch failed
      */
     public function _fetch( $filePath, $uniqueName = false )
@@ -600,41 +613,55 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
             return false;
         }
 
-        // create temporary file
-        if ( strrpos( $filePath, '.' ) > 0 )
-            $tmpFilePath = substr_replace( $filePath, getmypid().'tmp', strrpos( $filePath, '.' ), 0  );
-        else
-            $tmpFilePath = $filePath . '.' . getmypid().'tmp';
-        $this->__mkdir_p( dirname( $tmpFilePath ) );
+        $dfsFileSize = $this->dfsbackend->getDfsFileSize( $filePath );
+        $loopCount = 0;
+        $localFileSize = 0;
 
-        // copy DFS file to temporary FS path
-        // @todo Throw an exception
-        if ( !$this->dfsbackend->copyFromDFS( $filePath, $tmpFilePath ) )
+        do
         {
-            eZDebug::writeError("Failed copying DFS://$filePath to FS://$tmpFilePath ");
-            return false;
-        }
+            // create temporary file
+            $tmpid = getmypid() . '-' . mt_rand() .'tmp';
+            if ( strrpos( $filePath, '.' ) > 0 )
+                $tmpFilePath = substr_replace( $filePath, $tmpid, strrpos( $filePath, '.' ), 0  );
+            else
+                $tmpFilePath = $filePath . '.' . $tmpid;
+            $this->__mkdir_p( dirname( $tmpFilePath ) );
+            eZDebugSetting::writeDebug( 'kernel-clustering', "copying DFS://$filePath to FS://$tmpFilePath on try: $loopCount " );
 
-        // Make sure all data is written correctly
-        clearstatcache();
-        $tmpSize = filesize( $tmpFilePath );
-        // @todo Throw an exception
-        if ( $tmpSize != $metaData['size'] )
-        {
-            eZDebug::writeError( "Size ($tmpSize) of written data for file '$tmpFilePath' does not match expected size " . $metaData['size'], __METHOD__ );
-            return false;
-        }
+            // copy DFS file to temporary FS path
+            // @todo Throw an exception
+            if ( !$this->dfsbackend->copyFromDFS( $filePath, $tmpFilePath ) )
+            {
+                eZDebug::writeError("Failed copying DFS://$filePath to FS://$tmpFilePath ");
+                usleep( self::TIME_UNTIL_RETRY );
+                ++$loopCount;
+                continue;
+            }
 
-        if ( $uniqueName !== true )
-        {
-            eZFile::rename( $tmpFilePath, $filePath, false, eZFile::CLEAN_ON_FAILURE | eZFile::APPEND_DEBUG_ON_FAILURE );
-        }
-        else
-        {
-            $filePath = $tmpFilePath;
-        }
+            if ( $uniqueName !== true )
+            {
+                eZFile::rename( $tmpFilePath, $filePath, false, eZFile::CLEAN_ON_FAILURE | eZFile::APPEND_DEBUG_ON_FAILURE );
+            }
+            $filePath = ($uniqueName) ? $tmpFilePath : $filePath ;
 
-        return $filePath;
+            // If all data has been written correctly, return the filepath.
+            // Otherwise let the loop continue
+            clearstatcache( true, $filePath );
+            $localFileSize = filesize( $filePath );
+            if ( $dfsFileSize == $localFileSize )
+            {
+                return $filePath;
+            }
+
+            usleep( self::TIME_UNTIL_RETRY );
+            ++$loopCount;
+        }
+        while ( $dfsFileSize > $localFileSize && $loopCount < $this->maxCopyTries );
+
+        // Copy from DFS has failed :-(
+        eZDebug::writeError( "Size ($localFileSize) of written data for file '$tmpFilePath' does not match expected size {$metaData['size']}", __METHOD__ );
+        unlink( $tmpFilePath );
+        return false;
     }
 
     public function _fetchContents( $filePath, $fname = false )
@@ -742,12 +769,11 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
 
         $this->_begin( __METHOD__ );
 
-        $srcFilePathStr  = mysqli_real_escape_string( $this->db, $srcFilePath );
         $dstFilePathStr  = mysqli_real_escape_string( $this->db, $dstFilePath );
         $dstNameTrunkStr = mysqli_real_escape_string( $this->db, self::nameTrunk( $dstFilePath, $metaData['scope'] ) );
 
         // Mark entry for update to lock it
-        $sql = "SELECT * FROM " . self::TABLE_METADATA . " WHERE name_hash=MD5('$srcFilePathStr') FOR UPDATE";
+        $sql = "SELECT * FROM " . self::TABLE_METADATA . " WHERE name_hash = " . $this->_md5( $srcFilePath ) . " FOR UPDATE";
         if ( !$this->_query( $sql, "_rename($srcFilePath, $dstFilePath)" ) )
         {
             // @todo Throw an exception
@@ -760,7 +786,7 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
             $this->_purge( $dstFilePath, false );
 
         // Create a new meta-data entry for the new file to make foreign keys happy.
-        $sql = "INSERT INTO " . self::TABLE_METADATA . " (name, name_trunk, name_hash, datatype, scope, size, mtime, expired) SELECT '$dstFilePathStr' AS name, '$dstNameTrunkStr' as name_trunk, MD5('$dstFilePathStr') AS name_hash, datatype, scope, size, mtime, expired FROM " . self::TABLE_METADATA . " WHERE name_hash=MD5('$srcFilePathStr')";
+        $sql = "INSERT INTO " . self::TABLE_METADATA . " (name, name_trunk, name_hash, datatype, scope, size, mtime, expired) SELECT '$dstFilePathStr' AS name, '$dstNameTrunkStr' as name_trunk, " . $this->_md5( $dstFilePath ) . " AS name_hash, datatype, scope, size, mtime, expired FROM " . self::TABLE_METADATA . " WHERE name_hash = " . $this->_md5( $srcFilePath );
         if ( !$this->_query( $sql, "_rename($srcFilePath, $dstFilePath)" ) )
         {
             eZDebug::writeError( "Failed making new file entry '$dstFilePath'", __METHOD__ );
@@ -775,7 +801,7 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
         }
 
         // Remove old entry
-        $sql = "DELETE FROM " . self::TABLE_METADATA . " WHERE name_hash=MD5('$srcFilePathStr')";
+        $sql = "DELETE FROM " . self::TABLE_METADATA . " WHERE name_hash = " . $this->_md5( $srcFilePath );
         if ( !$this->_query( $sql, "_rename($srcFilePath, $dstFilePath)" ) )
         {
             eZDebug::writeError( "Failed removing old file '$srcFilePath'", __METHOD__ );
@@ -835,7 +861,7 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
     function _storeInner( $filePath, $datatype, $scope, $fname )
     {
         // Insert file metadata.
-        clearstatcache();
+        clearstatcache( true, $filePath );
         $fileMTime = filemtime( $filePath );
         $contentLength = filesize( $filePath );
         $filePathHash = md5( $filePath );
@@ -921,7 +947,16 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
         return true;
     }
 
-    public function _getFileList( $scopes = false, $excludeScopes = false )
+
+    /**
+     * gets the list of cluster files, filtered by the optional params
+     * @param array $scopes filter by array of scopes to include in the list
+     * @param bool $excludescopes if true, $scopes param acts as an exclude filter
+     * @param string $path filter to include entries only including $path
+     * @param array $limit limits the search to offset limit[0], limit limit[1]
+     * @return array|false the db list of entries of false if none found
+     */
+    public function _getFileList( $scopes = false, $excludeScopes = false, $limit = false, $path = false )
     {
         $query = 'SELECT name FROM ' . self::TABLE_METADATA;
 
@@ -932,8 +967,19 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
                 $query .= 'NOT ';
             $query .= "IN ('" . implode( "', '", $scopes ) . "')";
         }
-
-        $rslt = $this->_query( $query, "_getFileList( array( " . implode( ', ', $scopes ) . " ), $excludeScopes )" );
+        if ($path != false && $scopes == false)
+        {
+             $query .= " WHERE name LIKE '" . $path . "%'";
+        }
+        else if ($path != false)
+        {
+             $query .= " AND name LIKE '" . $path . "%'";
+        }
+        if ( $limit && array_sum($limit) )
+        {
+            $query .= " LIMIT {$limit[0]}, {$limit[1]}";
+        }
+        $rslt = $this->_query( $query, "_getFileList( array( " . implode( ', ', is_array( $scopes ) ? $scopes : array() ) . " ), $excludeScopes )" );
         if ( !$rslt )
         {
             eZDebug::writeDebug( 'Unable to get file list', __METHOD__ );
@@ -943,7 +989,9 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
 
         $filePathList = array();
         while ( $row = mysqli_fetch_row( $rslt ) )
+        {
             $filePathList[] = $row[0];
+        }
 
         mysqli_free_result( $rslt );
         return $filePathList;
@@ -1482,7 +1530,7 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
         // no rename: the .generating entry is just deleted
         if ( $rename === false )
         {
-            $this->_query( "DELETE FROM " . self::TABLE_METADATA . " WHERE name_hash=MD5('$generatingFilePath')", $fname, true );
+            $this->_query( "DELETE FROM " . self::TABLE_METADATA . " WHERE name_hash = " . $this->_md5( $generatingFilePath ), $fname, true );
             $this->dfsbackend->delete( $generatingFilePath );
             return true;
         }
@@ -1493,7 +1541,7 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
             $this->_begin( $fname );
 
             // both files are locked for update
-            if ( !$res = $this->_query( "SELECT * FROM " . self::TABLE_METADATA . " WHERE name_hash=MD5('$generatingFilePath') FOR UPDATE", $fname, true ) )
+            if ( !$res = $this->_query( "SELECT * FROM " . self::TABLE_METADATA . " WHERE name_hash = " . $this->_md5( $generatingFilePath ) . " FOR UPDATE", $fname, true ) )
             {
                 $this->_rollback( $fname );
                 // @todo Throw an exception
@@ -1502,7 +1550,7 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
             $generatingMetaData = mysqli_fetch_assoc( $res );
 
             // the original file does not exist: we move the generating file
-            $res = $this->_query( "SELECT * FROM " . self::TABLE_METADATA . " WHERE name_hash=MD5('$filePath') FOR UPDATE", $fname, false );
+            $res = $this->_query( "SELECT * FROM " . self::TABLE_METADATA . " WHERE name_hash = " . $this->_md5( $filePath ) . " FOR UPDATE", $fname, false );
             if ( mysqli_num_rows( $res ) == 0 )
             {
                 $metaData = $generatingMetaData;
@@ -1527,7 +1575,7 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
                     // @todo Throw an exception
                     return false;
                 }
-                $this->_query( "DELETE FROM " . self::TABLE_METADATA . " WHERE name_hash=MD5('$generatingFilePath')", $fname, true );
+                $this->_query( "DELETE FROM " . self::TABLE_METADATA . " WHERE name_hash = " . $this->_md5( $generatingFilePath ), $fname, true );
             }
             // the original file exists: we move the generating data to this file
             // and update it
@@ -1543,13 +1591,13 @@ class eZDFSFileHandlerMySQLiBackend implements eZClusterEventNotifier
 
                 $mtime = $generatingMetaData['mtime'];
                 $filesize = $generatingMetaData['size'];
-                if ( !$this->_query( "UPDATE " . self::TABLE_METADATA . " SET mtime = '{$mtime}', expired = 0, size = '{$filesize}' WHERE name_hash=MD5('$filePath')", $fname, true ) )
+                if ( !$this->_query( "UPDATE " . self::TABLE_METADATA . " SET mtime = '{$mtime}', expired = 0, size = '{$filesize}' WHERE name_hash = " . $this->_md5( $filePath ), $fname, true ) )
                 {
                     $this->_rollback( $fname );
                     // @todo Throw an exception
                     return false;
                 }
-                $this->_query( "DELETE FROM " . self::TABLE_METADATA . " WHERE name_hash=MD5('$generatingFilePath')", $fname, true );
+                $this->_query( "DELETE FROM " . self::TABLE_METADATA . " WHERE name_hash = " . $this->_md5( $generatingFilePath ), $fname, true );
             }
 
             $this->_commit( $fname );

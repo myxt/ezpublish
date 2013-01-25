@@ -1,6 +1,7 @@
 {* Window controls *}
 {def $node_url_alias      = $node.url_alias
-     $tabs_disabled       = ezpreference( 'admin_navigation_content' )|not
+     $tabs_disabled       = false()
+     $admin_navigation_content_pref = ezpreference( 'admin_navigation_content' )
      $default_tab         = 'view'
      $node_tab_index      = first_set( $view_parameters.tab, $default_tab )
      $read_open_tab_by_cookie = true()
@@ -16,6 +17,8 @@
      $valid_tabs = array( $default_tab, 'details', 'translations', 'locations', 'relations', 'states' )
      $navigation_part_name = fetch( 'section', 'object', hash( 'section_id', $node.object.section_id ) ).navigation_part_identifier
 }
+
+{if $admin_navigation_content_pref|is_string}{set $tabs_disabled = $admin_navigation_content_pref|not}{/if}
 
 {if eq( $navigation_part_name, 'ezusernavigationpart' )}
 {def $assigned_policies   = fetch( 'user', 'user_role', hash( 'user_id', $node.contentobject_id ) )
@@ -34,9 +37,9 @@
      $additional_tabs_count = $additional_tabs|count()}
 
 {if $tabs_disabled}
-    <div class="button-left"><a id="maincontent-show" class="show-hide-tabs" href={'/user/preferences/set/admin_navigation_content/1'|ezurl} title="{'Enable &quot;Tabs&quot; by default while browsing content.'|i18n( 'design/admin/parts/my/menu' )}">+</a></div>
+    <div class="button-left"><a id="maincontent-show" class="show-hide-tabs" href={'/user/preferences/set/admin_navigation_content/1'|ezurl} title="{'Enable &quot;Tabs&quot; by default while browsing content.'|i18n( 'design/admin/parts/my/menu' )}">&nbsp;</a></div>
 {else}
-    <div class="button-left"><a id="maincontent-hide" class="show-hide-tabs" href={'/user/preferences/set/admin_navigation_content/0'|ezurl} title="{'Disable &quot;Tabs&quot; by default while browsing content.'|i18n( 'design/admin/parts/my/menu' )}">-</a></div>
+    <div class="button-left"><a id="maincontent-hide" class="show-hide-tabs" href={'/user/preferences/set/admin_navigation_content/0'|ezurl} title="{'Disable &quot;Tabs&quot; by default while browsing content.'|i18n( 'design/admin/parts/my/menu' )}">&nbsp;</a></div>
 {/if}
 
 {if $valid_tabs|contains( $node_tab_index )|not()}

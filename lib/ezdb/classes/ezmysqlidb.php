@@ -94,7 +94,7 @@ class eZMySQLiDB extends eZDBInterface
         {
             // Only supported on PHP 5.3 (mysqlnd)
             if ( version_compare( PHP_VERSION, '5.3' ) > 0 )
-                $this->Server = 'p:' . $this->Server;
+                $server = 'p:' . $server;
             else
                 eZDebug::writeWarning( 'mysqli only supports persistent connections when using php 5.3 and higher', __METHOD__ );
         }
@@ -117,7 +117,7 @@ class eZMySQLiDB extends eZDBInterface
             $oldHandling = eZDebug::setHandleType( eZDebug::HANDLE_EXCEPTION );
             eZDebug::accumulatorStart( 'mysqli_connection', 'mysqli_total', 'Database connection' );
             try {
-                $connection = mysqli_connect( $this->Server, $this->User, $this->Password, null, (int)$this->Port, $this->SocketPath );
+                $connection = mysqli_connect( $server, $user, $password, null, (int)$port, $socketPath );
             } catch( ErrorException $e ) {}
             eZDebug::accumulatorStop( 'mysqli_connection' );
             eZDebug::setHandleType( $oldHandling );
@@ -814,6 +814,13 @@ class eZMySQLiDB extends eZDBInterface
         return mysqli_query( $this->DBWriteConnection, "ROLLBACK" );
     }
 
+    /**
+     * Returns the last serial ID generated with an auto increment field.
+     *
+     * @param string|bool $table
+     * @param string|bool $column
+     * @return int|bool The most recent value for the sequence
+     */
     function lastSerialID( $table = false, $column = false )
     {
         if ( $this->IsConnected )
@@ -821,8 +828,8 @@ class eZMySQLiDB extends eZDBInterface
             $id = mysqli_insert_id( $this->DBWriteConnection );
             return $id;
         }
-        else
-            return false;
+
+        return false;
     }
 
     function escapeString( $str )

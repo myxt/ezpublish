@@ -586,7 +586,10 @@ class eZDFSFileHandler implements eZClusterFileHandlerInterface, ezpDatabaseBase
                         eZDebugSetting::writeDebug( 'kernel-clustering', "Callback from DB file {$this->filePath}", __METHOD__ );
                         if ( self::LOCAL_CACHE )
                         {
-                            $this->fetch();
+                            if ( $this->fetch() === false )
+                            {
+                                return new eZClusterFileFailure( eZClusterFileFailure::FILE_RETRIEVAL_FAILED, "Failed retrieving file $this->filePath from DFS." );
+                            }
 
                             // Figure out which mtime to use for new file, must be larger than
                             // mtime in DB at least.
@@ -1223,14 +1226,16 @@ class eZDFSFileHandler implements eZClusterFileHandlerInterface, ezpDatabaseBase
      *
      * @param array $scopes return only files that belong to any of these scopes
      * @param boolean $excludeScopes if true, then reverse the meaning of $scopes, which is
+     * @param array $limit limits the search to offset limit[0], limit limit[1]
+     * @param string $path filter to include entries only including $path
      *                               return only files that do not belong to any of the scopes listed in $scopes
      */
-    function getFileList( $scopes = false, $excludeScopes = false )
+    function getFileList( $scopes = false, $excludeScopes = false,  $limit = false, $path = false  )
     {
         eZDebugSetting::writeDebug( 'kernel-clustering',
                                     sprintf( "dfs::getFileList( array( %s ), %d )",
                                              is_array( $scopes ) ? implode( ', ', $scopes ) : '', (int) $excludeScopes ) );
-        return self::$dbbackend->_getFileList( $scopes, $excludeScopes );
+        return self::$dbbackend->_getFileList( $scopes, $excludeScopes, $limit, $path );
     }
 
     /**

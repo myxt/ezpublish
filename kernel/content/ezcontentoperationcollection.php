@@ -104,6 +104,22 @@ class eZContentOperationCollection
         eZContentObjectEditHandler::executePublish( $contentObjectID, $contentObjectVersion );
     }
 
+    /**
+     * Starts a database transaction.
+     */
+    static public function beginTransaction()
+    {
+        eZDB::instance()->begin();
+    }
+
+    /**
+     * Commit a previously started database transaction.
+     */
+    static public function commitTransaction()
+    {
+        eZDB::instance()->commit();
+    }
+
     static public function setVersionStatus( $objectID, $versionNum, $status )
     {
         $object = eZContentObject::fetch( $objectID );
@@ -589,6 +605,10 @@ class eZContentOperationCollection
     static public function copyTranslations( $objectID, $versionNum )
     {
         $object = eZContentObject::fetch( $objectID );
+        if ( !$object instanceof eZContentObject )
+        {
+            return array( 'status' => eZModuleOperationInfo::STATUS_CANCELLED );
+        }
         $publishedVersionNum = $object->attribute( 'current_version' );
         if ( !$publishedVersionNum )
         {
