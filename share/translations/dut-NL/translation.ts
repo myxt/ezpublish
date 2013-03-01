@@ -26757,7 +26757,7 @@ adres verzonden. Volg de instructies in deze e-mail om uw account te activeren.<
     </message>
     <message>
         <source>Input required.</source>
-        <translation>Invoer verplicht.</translation>
+        <translation>U moet dit veld invullen.</translation>
     </message>
     <message>
         <source>The input text is too long. The maximum number of characters allowed is %1.</source>
@@ -26765,15 +26765,15 @@ adres verzonden. Volg de instructies in deze e-mail om uw account te activeren.<
     </message>
     <message>
         <source>Time input required.</source>
-        <translation>Tijdinvoer verplicht.</translation>
+        <translation>U moet een tijd invullen.</translation>
     </message>
     <message>
         <source>The username must be specified.</source>
-        <translation>Gebruikersnaam moet worden opgegeven.</translation>
+        <translation>U moet een gebruikersnaam opgeven.</translation>
     </message>
     <message>
         <source>The username already exists, please choose another one.</source>
-        <translation>Gekozen gebruikersnaam bestaat al. Kies een andere naam.</translation>
+        <translation>De door u gekozen gebruikersnaam bestaat al. Kies een andere naam.</translation>
     </message>
     <message>
         <source>The passwords do not match.</source>
@@ -26990,7 +26990,7 @@ als u optie &quot;%3&quot; tot &quot;%4&quot; heeft gekozen</translation>
     </message>
     <message>
         <source>Input required</source>
-        <translation>Invoer verplicht</translation>
+        <translation>U moet dit veld invullen</translation>
     </message>
     <message>
         <source>The password cannot be empty.</source>
