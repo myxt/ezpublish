@@ -18665,7 +18665,7 @@ Neem contact op met deze persoon over het concept of maak een nieuw concept aan 
     </message>
     <message>
         <source>You misspelled some parts of your URL, try changing it.</source>
-        <translation>U heeft sommige delen van uw URL verkeerd gespeld. Probeer deze te wijzigen.</translation>
+        <translation>Het adres klopt niet. Controleer de URL.</translation>
     </message>
     <message>
         <source>Login</source>
@@ -18674,19 +18674,19 @@ Neem contact op met deze persoon over het concept of maak een nieuw concept aan 
     </message>
     <message>
         <source>The module name was misspelled, try changing the URL.</source>
-        <translation>De modulenaam was verkeerd gespeld. Probeer de URL te wijzigen.</translation>
+        <translation>De module is verkeerd gespeld. Controleer de URL.</translation>
     </message>
     <message>
         <source>The view name was misspelled, try changing the URL.</source>
-        <translation>De weergavenaam was verkeerd gespeld. Probeer de URL te wijzigen.</translation>
+        <translation>De view is verkeerd gespeld. Controleer de URL.</translation>
     </message>
     <message>
         <source>Possible reasons for this are</source>
-        <translation>Mogelijke redenen voor dit zijn</translation>
+        <translation>Mogelijke redenen</translation>
     </message>
     <message>
         <source>You do not have permission to access this area.</source>
-        <translation>U heeft geen toestemming voor toegang tot dit gebied.</translation>
+        <translation>U heeft geen toegang tot deze pagina.</translation>
     </message>
     <message>
         <source>This site uses siteaccess matching in the URL and you did not supply one, try inserting a siteaccess name before the module in the URL .</source>
