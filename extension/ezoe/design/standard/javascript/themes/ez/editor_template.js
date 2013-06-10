@@ -353,19 +353,19 @@
             // eZ: custom cleanup code to only affect the content of the textarea,
             // not the visible text in the editor
             ed.onSaveContent.add(function(ed, o) {
-                var $f = $('<div>' + o.content + '</div>', null);
+                var $f = jQuery('<div>' + o.content + '</div>', null);
 
                 // Replace the content of the embed tags that are just there for oe preview
                 // by 'ezembed'. This is to avoid that the ez xml parsers in some cases
                 // duplicates the embed tag and to avoid that TinyMCE strips too much the HTML code
                 // see http://issues.ez.no/18264
                 $f.find('div.ezoeItemNonEditable').each(function(i, node) {
-                    $(node).html('ezembed');
+                    jQuery(node).html('ezembed');
                 });
 
                 $f.find('span').each(function(i, node) {
                     if ( node && node.className.indexOf('ezoeItemNonEditable') !== -1 )
-                        $(node).html('ezembed');
+                        jQuery(node).html('ezembed');
                     else if ( node && node.className.indexOf('ezoeItemTempSpan') !== -1 && node.innerHTML.indexOf('&nbsp;') === 0 )
                         node.firstChild.replaceData( 0, 1, ' ' );
                 });
@@ -1089,7 +1089,7 @@
             a = s.theme_advanced_toolbar_align.toLowerCase();
             a = 'mce' + t._ufirst(a);
 
-            n = DOM.add(DOM.add(c, 'tr', {role: 'toolbar'}), 'td', {'class' : 'mceToolbar ' + a, "role":"toolbar"});
+            n = DOM.add(DOM.add(c, 'tr', {role: 'presentation'}), 'td', {'class' : 'mceToolbar ' + a, "role":"toolbar"});
 
             // Create toolbar and add the controls
             for (i=1; (v = s['theme_advanced_buttons' + i]); i++) {
@@ -1740,37 +1740,61 @@
         __mceJustify : function(c, v)
         {
             // override the tinymce justify code to use html alignment
-            var ed = this.editor, se = ed.selection, n = se.getNode(), nn = n.nodeName, p = false;
+            var ed = this.editor,
+                selectedNode = ed.selection.getNode(),
+                toAlign = [],
+                that = this;
 
-            if ( c === 'center' && nn === 'IMG' )
-                c = 'middle';
+            if ( selectedNode === ed.getBody() ) {
+                // multi element selection, building an array
+                // of the selected nodes
+                var elt = ed.selection.getStart(),
+                    end = ed.selection.getEnd();
 
-            // block tags do not support justify alignment
-            if ( c !== 'justify' || !this.__mceJustifyBlockTags.test( nn ) )
-            {
-                p = this.__mceJustifyTags.test( nn );
-
-                if ( !p )
-                {
-                    if ( p = this.__mceJustifyTags.test( n.parentNode.nodeName ) )
-                        n = n.parentNode;
+                toAlign.push(elt);
+                while ( elt.nextSibling && elt !== end ) {
+                    elt = elt.nextSibling;
+                    toAlign.push(elt);
                 }
+            } else {
+                toAlign.push(selectedNode);
             }
 
-            if ( p )
-            {
-                // resetting CSS class for alignment before putting the new right value if needed
-                ed.dom.setAttrib( n, 'class', jQuery.trim( ed.dom.getAttrib( n, 'class' ).replace( /ezoeAlign\w+/, '' ) ) );
-                if ( n.align === c )
+            jQuery.each(toAlign, function (i, node) {
+                var align = c,
+                    nodeName = node.nodeName,
+                    p = false;
+
+                if ( align === 'center' && node.nodeName === 'IMG' )
+                    align = 'middle';
+
+                // block tags do not support justify alignment
+                if ( align !== 'justify' || !that.__mceJustifyBlockTags.test(nodeName) )
                 {
-                    ed.dom.setAttrib( n, 'align', '' );
+                    p = that.__mceJustifyTags.test(nodeName);
+
+                    if ( !p )
+                    {
+                        if ( p = that.__mceJustifyTags.test( node.parentNode.nodeName ) )
+                            node = node.parentNode;
+                    }
                 }
-                else
+                if ( p )
                 {
-                    ed.dom.addClass( n, 'ezoeAlign' + c );
-                    ed.dom.setAttrib( n, 'align', c );
+                    // resetting CSS class for alignment before putting the new right value if needed
+                    ed.dom.setAttrib(node, 'class', jQuery.trim(ed.dom.getAttrib(node, 'class').replace(/ezoeAlign\w+/, '')));
+                    if ( node.align === align )
+                    {
+                        ed.dom.setAttrib(node, 'align', '');
+                    }
+                    else
+                    {
+                        ed.dom.addClass(node, 'ezoeAlign' + align);
+                        ed.dom.setAttrib(node, 'align', align);
+                    }
                 }
-            }
+            });
+
             return false;
         },
 

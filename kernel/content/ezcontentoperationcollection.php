@@ -2,7 +2,7 @@
 /**
  * File containing the eZContentOperationCollection class.
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -104,6 +104,22 @@ class eZContentOperationCollection
         eZContentObjectEditHandler::executePublish( $contentObjectID, $contentObjectVersion );
     }
 
+    /**
+     * Starts a database transaction.
+     */
+    static public function beginTransaction()
+    {
+        eZDB::instance()->begin();
+    }
+
+    /**
+     * Commit a previously started database transaction.
+     */
+    static public function commitTransaction()
+    {
+        eZDB::instance()->commit();
+    }
+
     static public function setVersionStatus( $objectID, $versionNum, $status )
     {
         $object = eZContentObject::fetch( $objectID );
@@ -128,7 +144,6 @@ class eZContentOperationCollection
         $db = eZDB::instance();
         $db->begin();
 
-        $object->publishContentObjectRelations( $versionNum );
         $object->setAttribute( 'status', eZContentObject::STATUS_PUBLISHED );
         $version->setAttribute( 'status', eZContentObjectVersion::STATUS_PUBLISHED );
         $object->setAttribute( 'current_version', $versionNum );
@@ -1142,7 +1157,7 @@ class eZContentOperationCollection
      *
      * @param int $parentNodeID
      * @param array $priorityArray
-     * @param array $priorityArray
+     * @param array $priorityIDArray
      *
      * @return array An array with operation status, always true
      */

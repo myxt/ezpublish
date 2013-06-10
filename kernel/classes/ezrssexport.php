@@ -2,7 +2,7 @@
 /**
  * File containing the eZRSSExport class.
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -156,7 +156,7 @@ class eZRSSExport extends eZPersistentObject
         $user = eZUser::currentUser();
         if (  $this->ID == null )
         {
-            eZPersistentObject::store();
+            parent::store();
             return;
         }
 
@@ -169,7 +169,7 @@ class eZRSSExport extends eZPersistentObject
         }
         $this->setAttribute( 'modified', $dateTime );
         $this->setAttribute( 'modifier_id', $user->attribute( "contentobject_id" ) );
-        eZPersistentObject::store();
+        parent::store();
         $db->commit();
         if ( $storeAsValid )
         {
@@ -192,7 +192,7 @@ class eZRSSExport extends eZPersistentObject
         {
             $item->remove();
         }
-        eZPersistentObject::remove();
+        $this->remove();
         $db->commit();
     }
 

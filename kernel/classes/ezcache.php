@@ -2,7 +2,7 @@
 /**
  * File containing the {@link eZCache} class
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -105,7 +105,9 @@ class eZCache
                                        'id' => 'template',
                                        'tag' => array( 'template' ),
                                        'enabled' => $ini->variable( 'TemplateSettings', 'TemplateCompile' ) == 'enabled',
-                                       'path' => 'template' ),
+                                       'path' => 'template',
+                                       'function' => array( 'eZCache', 'clearTemplateCompileCache' ),
+                                       'purge-function' => array( 'eZCache', 'clearTemplateCompileCache' ) ),
                                 array( 'name' => ezpI18n::tr( 'kernel/cache', 'Template block cache' ),
                                        'id' => 'template-block',
                                        'is-clustered' => true,
@@ -185,6 +187,14 @@ class eZCache
                                        'expiry-key' => 'ts-translation-cache',
                                        'path' => 'translation',
                                        'function' => array( 'eZCache', 'clearTSTranslationCache' )
+                                ),
+                                array( 'name' => ezpI18n::tr( 'kernel/cache', 'SSL Zones cache' ),
+                                       'id' => 'sslzones',
+                                       'tag' => array( 'ini' ),
+                                       'enabled' => eZSSLZone::enabled(),
+                                       'path' => false,
+                                       'function' => array( 'eZSSLZone', 'clearCache' ),
+                                       'purge-function' => array( 'eZSSLZone', 'clearCache' )
                                 ),
             );
 
@@ -665,6 +675,7 @@ class eZCache
         $fileHandler->fileDelete( $cachePath, 'classidentifiers_' );
         $fileHandler->fileDelete( $cachePath, 'classattributeidentifiers_' );
         eZContentClass::expireCache();
+        ezpEvent::getInstance()->notify( 'content/class/cache/all' );
     }
 
     /**
@@ -687,6 +698,7 @@ class eZCache
         $handler = eZExpiryHandler::instance();
         $handler->setTimestamp( 'user-info-cache', time() );
         $handler->store();
+        ezpEvent::getInstance()->notify( 'user/cache/all' );
     }
 
     /**
@@ -707,6 +719,14 @@ class eZCache
     static function clearGlobalINICache( $cacheItem )
     {
         eZDir::recursiveDelete( $cacheItem['path'] );
+    }
+
+    /**
+     * Clear Template Compile cache
+     */
+    static function clearTemplateCompileCache()
+    {
+        eZDir::recursiveDelete( eZTemplateCompiler::compilationDirectory() );
     }
 
     /**
@@ -736,6 +756,7 @@ class eZCache
 
         $fileHandler = eZClusterFileHandler::instance();
         $fileHandler->fileDelete( $cachePath, 'statelimitations_' );
+        ezpEvent::getInstance()->notify( 'content/state/cache/all' );
     }
 
     /**
@@ -759,17 +780,10 @@ class eZCache
      */
     public static function clearDesignBaseCache( $cacheItem )
     {
-        $cachePath = eZSys::cacheDirectory();
-
-        $fileHandler = eZClusterFileHandler::instance();
-        if ( !$fileHandler instanceof eZDBFileHandler )
-        {
-            // design base cache is disabled with eZDBFileHandler cluster
-            // handler, see eZTemplateDesignResource::allDesignBases()
-            $fileHandler->fileDelete(
-                $cachePath, eZTemplateDesignResource::DESIGN_BASE_CACHE_NAME
-            );
-        }
+        eZClusterFileHandler::instance()->fileDelete(
+            eZSys::cacheDirectory(),
+            eZTemplateDesignResource::DESIGN_BASE_CACHE_NAME
+        );
     }
 
     /**

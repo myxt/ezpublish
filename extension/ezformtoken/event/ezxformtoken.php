@@ -2,7 +2,7 @@
 /**
  * File containing the ezxFormToken class.
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package ezformtoken
@@ -26,6 +26,84 @@ class ezxFormToken
     const FORM_FIELD = 'ezxform_token';
 
     const REPLACE_KEY = '@$ezxFormToken@';
+
+    /**
+     * @var string|null
+     */
+    static protected $secret;
+
+    /**
+     * @var string
+     */
+    static protected $intention = 'legacy';
+
+    /**
+     * @var string
+     */
+    static protected $formField = self::FORM_FIELD;
+
+    /**
+     * @var string
+     */
+    static protected $token;
+
+    /**
+     * @var bool
+     */
+    static protected $isEnabled = true;
+
+    /**
+     * @return string
+     */
+    static protected function getSecret()
+    {
+        if ( self::$secret === null )
+        {
+            self::$secret = eZINI::instance( 'site.ini' )->variable( 'HTMLForms', 'Secret' );
+        }
+
+        return self::$secret;
+    }
+
+    /**
+     * @param string $secret
+     */
+    static public function setSecret( $secret )
+    {
+        self::$secret = $secret;
+    }
+
+    /**
+     * @return string
+     */
+    static protected function getIntention()
+    {
+        return self::$intention;
+    }
+
+    /**
+     * @param string $intention
+     */
+    static public function setIntention( $intention )
+    {
+        self::$intention = $intention;
+    }
+
+    /**
+     * @return string
+     */
+    static protected function getFormField()
+    {
+        return self::$formField;
+    }
+
+    /**
+     * @param string $formField
+     */
+    static public function setFormField( $formField )
+    {
+        self::$formField = $formField;
+    }
 
     /**
      * request/input event listener
@@ -55,9 +133,9 @@ class ezxFormToken
             return null;
         }*/
 
-        if ( !empty( $_POST[self::FORM_FIELD] ) )
+        if ( !empty( $_POST[self::getFormField()] ) )
         {
-            $token = $_POST[self::FORM_FIELD];
+            $token = $_POST[self::getFormField()];
         }
         // allow ajax calls using POST with other formats than forms (such as
         // json or xml) to still validate using a custom http header
@@ -107,7 +185,7 @@ class ezxFormToken
         }
 
         $token = self::getToken();
-        $field = self::FORM_FIELD;
+        $field = self::getFormField();
         $replaceKey = self::REPLACE_KEY;
 
         eZDebugSetting::writeDebug( 'ezformtoken', 'Output protected (all forms will be modified)', __METHOD__ );
@@ -149,7 +227,7 @@ class ezxFormToken
     static public function reset()
     {
         eZDebugSetting::writeDebug( 'ezformtoken', 'Reset form token', __METHOD__ );
-        eZSession::unsetkey( self::SESSION_KEY, false );
+        self::$token = null;
     }
 
     /**
@@ -160,12 +238,22 @@ class ezxFormToken
      */
     static public function getToken()
     {
-        if ( eZSession::issetkey( self::SESSION_KEY ) )
-            return eZSession::get( self::SESSION_KEY );
+        if ( self::$token === null )
+        {
+            self::$token = sha1( self::getSecret() . self::getIntention() . session_id() );
+        }
 
-        $token = md5( uniqid( self::SESSION_KEY, true ) );
-        eZSession::set( self::SESSION_KEY, $token );
-        return $token;
+        return self::$token;
+    }
+
+    /**
+     * Enables/Disables CSRF protection.
+     *
+     * @param bool $isEnabled
+     */
+    static public function setIsEnabled( $isEnabled )
+    {
+        self::$isEnabled = (bool)$isEnabled;
     }
 
     /**
@@ -176,10 +264,13 @@ class ezxFormToken
      */
     static protected function shouldProtectUser()
     {
+        if ( !self::$isEnabled )
+            return false;
+
         if ( !eZSession::hasStarted() )
             return false;
 
-        if ( !eZUser::currentUser()->isLoggedIn() )
+        if ( !eZUser::isCurrentUserRegistered() )
             return false;
 
         return true;

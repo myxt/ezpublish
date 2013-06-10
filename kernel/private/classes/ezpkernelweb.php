@@ -2,7 +2,7 @@
 /**
  * File containing the ezpKernelWeb class.
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  */
@@ -276,14 +276,6 @@ class ezpKernelWeb implements ezpKernelHandler
         ezpEvent::getInstance()->registerEventListeners();
 
         $this->mobileDeviceDetect = new ezpMobileDeviceDetect( ezpMobileDeviceDetectFilter::getFilter() );
-        if ( $this->mobileDeviceDetect->isEnabled() )
-        {
-            $this->mobileDeviceDetect->process();
-
-            if ( $this->mobileDeviceDetect->isMobileDevice() )
-                $this->mobileDeviceDetect->redirect();
-        }
-
         // eZSession::setSessionArray( $mainRequest->session );
 
         /**
@@ -298,6 +290,14 @@ class ezpKernelWeb implements ezpKernelHandler
      */
     public function run()
     {
+        if ( $this->mobileDeviceDetect->isEnabled() )
+        {
+            $this->mobileDeviceDetect->process();
+
+            if ( $this->mobileDeviceDetect->isMobileDevice() )
+                $this->mobileDeviceDetect->redirect();
+        }
+
         ob_start();
         $this->requestInit();
 
@@ -311,7 +311,7 @@ class ezpKernelWeb implements ezpKernelHandler
                 'Pragma' => 'no-cache',
                 'X-Powered-By' => eZPublishSDK::EDITION,
                 'Content-Type' => 'text/html; charset=' . $this->httpCharset,
-                'Served-by' => $_SERVER["SERVER_NAME"],
+                'Served-by' => isset( $_SERVER["SERVER_NAME"] ) ? $_SERVER['SERVER_NAME'] : null,
                 'Content-language' => $this->languageCode
               ) as $key => $value
         )
@@ -338,14 +338,12 @@ class ezpKernelWeb implements ezpKernelHandler
          */
         if ( $ini->variable( "SiteAccessSettings", "CheckValidity" ) !== 'true' )
         {
-            $currentUser = eZUser::currentUser();
-
             $wwwDir = eZSys::wwwDir();
             // On host based site accesses this can be empty, causing the cookie to be set for the current dir,
             // but we want it to be set for the whole eZ publish site
             $cookiePath = $wwwDir != '' ? $wwwDir : '/';
 
-            if ( $currentUser->isLoggedIn() )
+            if ( eZUser::isCurrentUserRegistered() )
             {
                 // Only set the cookie if it doesnt exist. This way we are not constantly sending the set request in the headers.
                 if ( !isset( $_COOKIE['is_logged_in'] ) || $_COOKIE['is_logged_in'] !== 'true' )
@@ -565,7 +563,7 @@ class ezpKernelWeb implements ezpKernelHandler
 
         $this->shutdown();
 
-        return new ezpKernelResult( $content );
+        return new ezpKernelResult( $content, array( 'module_result' => $moduleResult ) );
     }
 
     /**
@@ -937,7 +935,16 @@ class ezpKernelWeb implements ezpKernelHandler
                 $moduleRedirectUri = '/' . $moduleRedirectUri;
             else if ( $leftSlash && $rightSlash ) // Both are with a slash, so we remove one
                 $moduleRedirectUri = substr( $moduleRedirectUri, 1 );
-            $redirectURI .= $moduleRedirectUri;
+
+            // In some cases $moduleRedirectUri can already contain $redirectURI (including the siteaccess).
+            if ( !empty( $redirectURI ) && strpos( $moduleRedirectUri, $redirectURI ) === 0 )
+            {
+                $redirectURI = $moduleRedirectUri;
+            }
+            else
+            {
+                $redirectURI .= $moduleRedirectUri;
+            }
         }
 
         if ( $ini->variable( 'ContentSettings', 'StaticCache' ) == 'enabled' )

@@ -2,7 +2,7 @@
 /**
  * File containing the eZSearchEngine class.
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -1015,29 +1015,33 @@ class eZSearchEngine implements ezpSearchEngine
             $sortSelectSQL = $orderBySQLArray['selectSQL'];
 
             // Fetch data from table
-            $searchQuery ='';
-            $searchQuery = "SELECT DISTINCT ezcontentobject.*, ezcontentclass.serialized_name_list as class_serialized_name_list,
-                ezcontentobject_tree.*, ezcontentobject_name.name as name,
-                ezcontentobject_name.real_translation $sortSelectSQL
-                FROM
-                   $tmpTablesFrom $tmpTablesSeparator
-                   ezcontentobject
-                   INNER JOIN ezcontentclass ON (ezcontentclass.id = ezcontentobject.contentclass_id )
-                   INNER JOIN ezcontentobject_tree ON (ezcontentobject_tree.contentobject_id = ezcontentobject.id)
-                   INNER JOIN ezcontentobject_name ON (
-                       ezcontentobject_name.contentobject_id = ezcontentobject_tree.contentobject_id AND
-                       ezcontentobject_name.content_version = ezcontentobject_tree.contentobject_version
-                   )
-                   $sortFromSQL
-                WHERE
-                $tmpTablesWhere $and
-                $tmpTablesWhereExtra
-                ezcontentclass.version = '0' AND
-                ezcontentobject_tree.node_id = ezcontentobject_tree.main_node_id AND
-                " . eZContentLanguage::sqlFilter( 'ezcontentobject_name', 'ezcontentobject' ) . "
-                $showInvisibleNodesCond
-                $sortWhereSQL
-                ORDER BY $orderByFieldsSQL";
+            $searchQuery = "SELECT DISTINCT " .
+            "ezcontentobject.contentclass_id, ezcontentobject.current_version, ezcontentobject.id, ezcontentobject.initial_language_id, ezcontentobject.language_mask, " .
+            "ezcontentobject.modified, ezcontentobject.name, ezcontentobject.owner_id, ezcontentobject.published, ezcontentobject.remote_id AS object_remote_id, ezcontentobject.section_id, " .
+            "ezcontentobject.status, ezcontentobject_tree.contentobject_is_published, ezcontentobject_tree.contentobject_version, ezcontentobject_tree.depth, ezcontentobject_tree.is_hidden, " .
+            "ezcontentobject_tree.is_invisible, ezcontentobject_tree.main_node_id, ezcontentobject_tree.modified_subnode, ezcontentobject_tree.node_id, ezcontentobject_tree.parent_node_id, " .
+            "ezcontentobject_tree.path_identification_string, ezcontentobject_tree.path_string, ezcontentobject_tree.priority, ezcontentobject_tree.remote_id, ezcontentobject_tree.sort_field, " .
+            "ezcontentobject_tree.sort_order, ezcontentclass.serialized_name_list as class_serialized_name_list, ezcontentobject_name.name as name, " .
+            "ezcontentobject_name.real_translation $sortSelectSQL " .
+            "FROM " .
+            "$tmpTablesFrom $tmpTablesSeparator " .
+            "ezcontentobject " .
+            "INNER JOIN ezcontentclass ON (ezcontentclass.id = ezcontentobject.contentclass_id ) " .
+            "INNER JOIN ezcontentobject_tree ON (ezcontentobject_tree.contentobject_id = ezcontentobject.id) " .
+            "INNER JOIN ezcontentobject_name ON ( " .
+            "    ezcontentobject_name.contentobject_id = ezcontentobject_tree.contentobject_id AND " .
+            "    ezcontentobject_name.content_version = ezcontentobject_tree.contentobject_version " .
+            ") " .
+            $sortFromSQL . " " .
+            "WHERE " .
+            "$tmpTablesWhere $and " .
+            $tmpTablesWhereExtra . " " .
+            "ezcontentclass.version = '0' AND " .
+            "ezcontentobject_tree.node_id = ezcontentobject_tree.main_node_id AND " .
+            "" . eZContentLanguage::sqlFilter( 'ezcontentobject_name', 'ezcontentobject' ) . " " .
+            $showInvisibleNodesCond . " " .
+            $sortWhereSQL . " " .
+            "ORDER BY $orderByFieldsSQL";
 
             // Count query
             $languageCond = eZContentLanguage::languagesSQLFilter( 'ezcontentobject' );
@@ -1289,21 +1293,33 @@ class eZSearchEngine implements ezpSearchEngine
     */
     function splitString( $text )
     {
-        $text = preg_replace(
-            // Remove duplicate spaces
-            "/\s{2,}/",
-            " ",
-            trim(
-                preg_replace(
-                    // Remove single and double quotes (including UTF-8 variations)
-                    "/([\x{2018}-\x{201f}]|'|\")/u",
-                    " ",
-                    $text
-                )
-            )
-        );
+        $text = self::removeDuplicatedSpaces( trim( self::removeAllQuotes( $text ) ) );
 
         return empty( $text ) ? array() : explode( " ", $text );
+    }
+
+    /**
+     * Remove duplicated spaces
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    static protected function removeDuplicatedSpaces( $text )
+    {
+        return preg_replace( "/\s{2,}/", " ", $text );
+    }
+
+    /**
+     * Remove single and double quotes, including UTF-8 variations
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    static protected function removeAllQuotes( $text )
+    {
+        return preg_replace( "/([\x{2018}-\x{201f}]|'|\")/u", " ", $text );
     }
 
     /*!
@@ -1313,13 +1329,18 @@ class eZSearchEngine implements ezpSearchEngine
     */
     function normalizeText( $text, $isMetaData = false )
     {
-        $trans = eZCharTransform::instance();
-        $text = $trans->transformByGroup( $text, 'search' );
+        $text = self::removeDuplicatedSpaces(
+            trim(
+                self::removeAllQuotes(
+                    eZCharTransform::instance()->transformByGroup( $text, 'search' )
+                )
+            )
+        );
 
         // Remove quotes and asterix when not handling search text by end-user
         if ( $isMetaData )
         {
-            $text = str_replace( array( "\"", "*" ), array( " ", " " ), $text );
+            $text = str_replace( "*", " ", $text );
         }
 
         return $text;

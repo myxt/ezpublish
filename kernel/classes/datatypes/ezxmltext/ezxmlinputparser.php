@@ -2,7 +2,7 @@
 /**
  * File containing the eZXMLInputParser class.
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -731,7 +731,7 @@ class eZXMLInputParser
         while ( $pos < strlen( $text ) - 1 )
         {
             $startPos = $pos;
-            while( !( $text[$pos] == '&' && $text[$pos + 1] == '#' ) && $pos < strlen( $text ) - 1 )
+            while( !( $text[$pos] == '&' && isset($text[$pos + 1]) && $text[$pos + 1] == '#' ) && $pos < strlen( $text ) - 1 )
             {
                 $pos++;
             }
@@ -743,7 +743,6 @@ class eZXMLInputParser
                 $endPos = strpos( $text, ';', $pos + 2 );
                 if ( $endPos === false )
                 {
-                    $convertedText .= '&#';
                     $pos += 2;
                     continue;
                 }

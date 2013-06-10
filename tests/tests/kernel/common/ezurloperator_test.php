@@ -2,7 +2,7 @@
 /**
  * File containing the eZURLOperatorTest class
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package tests
@@ -55,7 +55,11 @@ class eZURLOperatorTest extends ezpTestCase
             case 'get'    : $_GET[$argument]     = $expectedResult; break;
             case 'post'   : $_POST[$argument]    = $expectedResult; break;
             case 'cookie' : $_COOKIE[$argument]  = $expectedResult; break;
-            case 'session': $_SESSION[$argument] = $expectedResult; break;
+            case 'session':
+                $_SESSION[$argument] = $expectedResult;
+                // session is lazy loaded, expected result is null (session has not started) to be returned
+                $expectedResult = null;
+                break;
         }
 
         $operatorParameters = array(

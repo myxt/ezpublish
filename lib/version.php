@@ -2,7 +2,7 @@
 /**
  * File containing the eZPublishSDK class.
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package lib
@@ -15,13 +15,13 @@
 class eZPublishSDK
 {
 
-    const VERSION_MAJOR = 2012;
-    const VERSION_MINOR = 8;
+    const VERSION_MAJOR = 5;
+    const VERSION_MINOR = 1;
     const VERSION_RELEASE = 'myxt';
     const VERSION_STATE = '';
     const VERSION_DEVELOPMENT = false;
-    const VERSION_ALIAS = '2012.8.myxt';
-    const EDITION = 'eZ Publish Community Project (Myxt Fork)';
+    const VERSION_ALIAS = '5.1.myxt';
+    const EDITION = 'eZ Publish Community Project (Myxt fork)';
 
     /*!
       \return the SDK version as a string

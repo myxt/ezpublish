@@ -2,7 +2,7 @@
 /**
  * File containing the eZSubtreeCache class.
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -150,9 +150,7 @@ class eZSubtreeCache
     static function removeExpiryCacheFromDisk( $expiryCachePath )
     {
         $fileHandler = eZClusterFileHandler::instance();
-        if ( $fileHandler instanceof eZFSFileHandler
-             or
-             $fileHandler instanceof eZFS2FileHandler )
+        if ( $fileHandler instanceof eZFSFileHandler )
         {
             // We will only delete files if the FS file handler is used,
             // if the DB file handler is in use the system will

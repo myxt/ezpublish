@@ -2,7 +2,7 @@
 /**
  * File containing the eZFSFileHandler class.
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -10,10 +10,6 @@
 
 class eZFSFileHandler
 {
-    /**
-     * This should be defined in eZFS2FileHandler, but due to static members
-     * limitations in PHP < 5.3, it is declared here
-     */
     const EXPIRY_TIMESTAMP = 233366400;
 
     /**
@@ -626,17 +622,19 @@ class eZFSFileHandler
      */
     function fileDeleteByDirList( $dirList, $commonPath, $commonSuffix )
     {
-        $dirs = implode( ',', $dirList );
-        $wildcard = $commonPath .'/{' . $dirs . '}/' . $commonSuffix . '*';
-
-        eZDebugSetting::writeDebug( 'kernel-clustering', "fs::fileDeleteByDirList( '$dirs', '$commonPath', '$commonSuffix' )", __METHOD__ );
+        eZDebugSetting::writeDebug( 'kernel-clustering', "fs::fileDeleteByDirList( '" . implode( ",", $dirList ) . "', '$commonPath', '$commonSuffix' )", __METHOD__ );
 
         eZDebug::accumulatorStart( 'dbfile', false, 'dbfile' );
-        $unlinkArray = eZSys::globBrace( $wildcard );
-        if ( $unlinkArray !== false and ( count( $unlinkArray ) > 0 ) )
+
+        foreach ( $dirList as $dir )
         {
-            array_map( 'unlink', $unlinkArray );
+            $unlinkArray = eZSys::globBrace( "$commonPath/$dir/$commonSuffix*" );
+            if ( $unlinkArray !== false )
+            {
+                array_map( 'unlink', $unlinkArray );
+            }
         }
+
         eZDebug::accumulatorStop( 'dbfile' );
     }
 
@@ -789,7 +787,7 @@ class eZFSFileHandler
                 $globResult = glob( $file . "/*" );
                 if ( is_array( $globResult ) )
                 {
-                    $list = array_merge( $list, $globResult );
+                    $list = array_merge( $globResult, $list );
                 }
             }
 
@@ -890,7 +888,7 @@ class eZFSFileHandler
         eZDebugSetting::writeDebug( 'kernel-clustering', "fs::fileMove( '$srcPath', '$dstPath' )", __METHOD__ );
 
         eZDebug::accumulatorStart( 'dbfile', false, 'dbfile' );
-        eZFileHandler::move( $srcPath, $dstPath );
+        eZFile::rename( $srcPath, $dstPath, true );
         eZDebug::accumulatorStop( 'dbfile' );
     }
 

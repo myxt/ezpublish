@@ -2,7 +2,7 @@
 /**
  * File containing session interface
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package lib
@@ -505,7 +505,10 @@ class eZSession
      */
     static public function remove()
     {
-        if ( !self::$hasStarted )
+        // CLI scripts can use sessions and in that case session is forced to start.
+        // However, Symfony does not handle sessions in CLI (which seems to be normal), so session is never started.
+        // Hence check with session_id()
+        if ( !self::$hasStarted || session_id() === '' )
         {
              return false;
         }

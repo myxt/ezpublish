@@ -2,7 +2,7 @@
 /**
  * Autoloader definition for eZ Publish Kernel files.
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -31,6 +31,7 @@ return array(
       'eZBorkTranslator'                                   => 'lib/ezi18n/classes/ezborktranslator.php',
       'eZCLI'                                              => 'lib/ezutils/classes/ezcli.php',
       'eZCache'                                            => 'kernel/classes/ezcache.php',
+      'eZCacheHelper'                                      => 'lib/ezutils/classes/ezcachehelper.php',
       'eZCharTransform'                                    => 'lib/ezi18n/classes/ezchartransform.php',
       'eZCharsetInfo'                                      => 'lib/ezi18n/classes/ezcharsetinfo.php',
       'eZClassFunctionCollection'                          => 'kernel/class/ezclassfunctioncollection.php',
@@ -112,8 +113,6 @@ return array(
       'eZCurrentTimeType'                                  => 'kernel/classes/notification/event/ezcurrenttime/ezcurrenttimetype.php',
       'eZDB'                                               => 'lib/ezdb/classes/ezdb.php',
       'eZDBException'                                      => 'kernel/private/classes/exceptions/database/exception.php',
-      'eZDBFileHandler'                                    => 'kernel/classes/clusterfilehandlers/ezdbfilehandler.php',
-      'eZDBFileHandlerMysqliBackend'                       => 'kernel/classes/clusterfilehandlers/dbbackends/mysqli.php',
       'eZDBGarbageCollector'                               => 'kernel/classes/ezdbgarbagecollector.php',
       'eZDBInterface'                                      => 'lib/ezdb/classes/ezdbinterface.php',
       'eZDBNoConnectionException'                          => 'kernel/private/classes/exceptions/database/noconnection.php',
@@ -170,7 +169,6 @@ return array(
       'eZExtension'                                        => 'lib/ezutils/classes/ezextension.php',
       'eZExtensionPackageCreator'                          => 'kernel/classes/packagecreators/ezextension/ezextensionpackagecreator.php',
       'eZExtensionPackageHandler'                          => 'kernel/classes/packagehandlers/ezextension/ezextensionpackagehandler.php',
-      'eZFS2FileHandler'                                   => 'kernel/private/classes/clusterfilehandlers/ezfs2filehandler.php',
       'eZFSFileHandler'                                    => 'kernel/classes/clusterfilehandlers/ezfsfilehandler.php',
       'eZFile'                                             => 'lib/ezfile/classes/ezfile.php',
       'eZFileHandler'                                      => 'lib/ezfile/classes/ezfilehandler.php',

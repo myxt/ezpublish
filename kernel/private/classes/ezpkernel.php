@@ -2,7 +2,7 @@
 /**
  * File containing the ezpKernel class.
  *
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  */
@@ -34,7 +34,7 @@ class ezpKernel implements ezpKernelHandler
             echo "<h1>Unsupported PHP version " . PHP_VERSION . "</h1>",
             "<p>eZ Publish 5.x does not run with PHP version lower than 5.3.</p>",
             "<p>For more information about supported software please visit ",
-            "<a href=\"http://ez.no/download/ez_publish\" >eZ Publish download page</a></p>";
+            "<a href=\"http://ez.no/\" >us, eZ Systems, on http://ez.no</a>. See you there :-)</p>";
             exit;
         }
 
