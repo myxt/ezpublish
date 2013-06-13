@@ -566,13 +566,10 @@
 		};
 
 		function pasteRows(rows, before) {
-<<<<<<< HEAD
 			// If we don't have any rows in the clipboard, return immediately
 			if(!rows)
 				return;
 
-=======
->>>>>>> CP_2012.9
 			var selectedRows = getSelectedRows(),
 				targetRow = selectedRows[before ? 0 : selectedRows.length - 1],
 				targetCellCount = targetRow.cells.length;

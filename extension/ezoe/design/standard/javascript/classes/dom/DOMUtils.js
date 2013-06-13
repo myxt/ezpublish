@@ -102,14 +102,11 @@
 			 * @return {Boolean} True/False state if the node is a block element or not.
 			 */
 			t.isBlock = function(node) {
-<<<<<<< HEAD
 				// Fix for #5446
 				if (!node) {
 					return false;
 				}
 
-=======
->>>>>>> CP_2012.9
 				// This function is called in module pattern style since it might be executed with the wrong this scope
 				var type = node.nodeType;
 

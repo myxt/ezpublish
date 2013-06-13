@@ -157,7 +157,6 @@
 				var curNode;
 
 				if (node.nodeType == 3) {
-<<<<<<< HEAD
 
 					// eZ: don't clone literal, embed and block custom tag
 					// see https://jira.ez.no/browse/EZP-20355
@@ -192,9 +191,6 @@
 						};
 					each(dom.getParents(node.parentNode, cloneFilter, cell).reverse(), function(node) {
 						// end eZ
-=======
-					each(dom.getParents(node.parentNode, null, cell).reverse(), function(node) {
->>>>>>> CP_2012.9
 						node = cloneNode(node, false);
 
 						if (!formatNode)
@@ -607,13 +603,10 @@
 		};
 
 		function pasteRows(rows, before) {
-<<<<<<< HEAD
 			// If we don't have any rows in the clipboard, return immediately
 			if(!rows)
 				 return;
 
-=======
->>>>>>> CP_2012.9
 			var selectedRows = getSelectedRows(),
 				targetRow = selectedRows[before ? 0 : selectedRows.length - 1],
 				targetCellCount = targetRow.cells.length;

@@ -3,11 +3,7 @@
     <metadata>
         <name>eZ JSCore LS</name>
         <version>//autogentag//</version>
-<<<<<<< HEAD
         <copyright>Copyright (C) 1999-2013 eZ Systems AS</copyright>
-=======
-        <copyright>Copyright (C) 1999-2012 eZ Systems AS</copyright>
->>>>>>> CP_2012.9
         <license>//EZP_LICENSE//</license>
         <info_url>https://github.com/ezsystems/ezjscore</info_url>
 
@@ -22,41 +18,23 @@
             <uses>
                 <name>YUI3</name>
                 <license>Licensed under BSD License</license>
-<<<<<<< HEAD
                 <copyright>Copyright (c) 2013, Yahoo! Inc. All rights reserved.</copyright>
                 <info_url>http://yuilibrary.com/</info_url>
                 <version>3.9.0</version>
-=======
-                <copyright>Copyright (c) 2012, Yahoo! Inc. All rights reserved.</copyright>
-                <info_url>http://yuilibrary.com/</info_url>
-                <version>3.7.1</version>
->>>>>>> CP_2012.9
             </uses>
             <uses>
                 <name>jQuery</name>
                 <license>Licensed under MIT license</license>
-<<<<<<< HEAD
                 <copyright>Copyright (c) 2013 John Resig</copyright>
                 <info_url>http://jquery.com/</info_url>
                 <version>1.9.1</version>
-=======
-                <copyright>Copyright (c) 2012 John Resig</copyright>
-                <info_url>http://jquery.com/</info_url>
-                <version>1.8.1</version>
->>>>>>> CP_2012.9
             </uses>
             <uses>
                 <name>jQuery UI</name>
                 <license>Dual licensed under MIT and GPL licenses</license>
-<<<<<<< HEAD
                 <copyright>Copyright (c) 2013 jQuery project / jQuery UI team</copyright>
                 <info_url>http://jqueryui.com/about</info_url>
                 <version>1.10.1</version>
-=======
-                <copyright>Copyright (c) 2012 jQuery project / jQuery UI team</copyright>
-                <info_url>http://jqueryui.com/about</info_url>
-                <version>1.8.23</version>
->>>>>>> CP_2012.9
             </uses>
         </software>
 

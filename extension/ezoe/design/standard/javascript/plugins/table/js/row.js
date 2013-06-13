@@ -25,10 +25,7 @@ function init() {
 	var dir = dom.getAttrib(trElm, 'dir');
 
 	selectByValue(formObj, 'rowtype', rowtype);
-<<<<<<< HEAD
 	setActionforRowType(formObj, rowtype);
-=======
->>>>>>> CP_2012.9
 
 	// Any cells selected
 	if (dom.select('td.mceSelected,th.mceSelected', trElm).length == 0) {
@@ -238,7 +235,6 @@ function changedColor() {
 	formObj.style.value = dom.serializeStyle(st);
 }
 
-<<<<<<< HEAD
 function changedRowType() {
 	var formObj = document.forms[0];
 	var rowtype = getSelectValue(formObj, 'rowtype');
@@ -255,6 +251,4 @@ function setActionforRowType(formObj, rowtype) {
 		formObj.action.disabled = true;
 	}
 }
-=======
->>>>>>> CP_2012.9
 tinyMCEPopup.onInit.add(init);

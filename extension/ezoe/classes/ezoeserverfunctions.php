@@ -5,11 +5,7 @@
 // ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 // SOFTWARE NAME: eZ Online Editor extension for eZ Publish
 // SOFTWARE RELEASE: 1.x
-<<<<<<< HEAD
 // COPYRIGHT NOTICE: Copyright (C) 1999-2013 eZ Systems AS
-=======
-// COPYRIGHT NOTICE: Copyright (C) 1999-2012 eZ Systems AS
->>>>>>> CP_2012.9
 // SOFTWARE LICENSE: GNU General Public License v2.0
 // NOTICE: >
 //   This program is free software; you can redistribute it and/or
@@ -520,7 +516,6 @@ class ezoeServerFunctions extends ezjscServerFunctions
         // generate json response from node list
         if ( $nodeArray )
         {
-<<<<<<< HEAD
             $list = ezjscAjaxContent::nodeEncode(
                 $nodeArray,
                 array(
@@ -532,9 +527,6 @@ class ezoeServerFunctions extends ezjscServerFunctions
                 ),
                 'raw'
             );
-=======
-            $list = ezjscAjaxContent::nodeEncode( $nodeArray, array( 'fetchChildrenCount' => true, 'loadImages' => true ), 'raw' );
->>>>>>> CP_2012.9
         }
         else
         {

@@ -13,11 +13,7 @@
  */
 tinymce.util.Quirks = function(editor) {
 	var VK = tinymce.VK, BACKSPACE = VK.BACKSPACE, DELETE = VK.DELETE, dom = editor.dom, selection = editor.selection,
-<<<<<<< HEAD
 		settings = editor.settings, parser = editor.parser, serializer = editor.serializer, each = tinymce.each;
-=======
-		settings = editor.settings, parser = editor.parser, serializer = editor.serializer;
->>>>>>> CP_2012.9
 
 	/**
 	 * Executes a command with a specific state this can be to enable/disable browser editing features.
@@ -76,74 +72,48 @@ tinymce.util.Quirks = function(editor) {
 			blockElm = dom.getParent(rng.startContainer, dom.isBlock);
 
 			// On delete clone the root span of the next block element
-<<<<<<< HEAD
 			if (isDelete) {
 				blockElm = dom.getNext(blockElm, dom.isBlock);
 			}
-=======
-			if (isDelete)
-				blockElm = dom.getNext(blockElm, dom.isBlock);
->>>>>>> CP_2012.9
 
 			// Locate root span element and clone it since it would otherwise get merged by the "apple-style-span" on delete/backspace
 			if (blockElm) {
 				node = blockElm.firstChild;
 
 				// Ignore empty text nodes
-<<<<<<< HEAD
 				while (node && node.nodeType == 3 && node.nodeValue.length === 0) {
 					node = node.nextSibling;
 				}
-=======
-				while (node && node.nodeType == 3 && node.nodeValue.length === 0)
-					node = node.nextSibling;
->>>>>>> CP_2012.9
 
 				if (node && node.nodeName === 'SPAN') {
 					clonedSpan = node.cloneNode(false);
 				}
 			}
 
-<<<<<<< HEAD
 			each(dom.select('span', blockElm), function(span) {
 				span.setAttribute('data-mce-mark', '1');
 			});
 
-=======
->>>>>>> CP_2012.9
 			// Do the backspace/delete action
 			editor.getDoc().execCommand(isDelete ? 'ForwardDelete' : 'Delete', false, null);
 
 			// Find all odd apple-style-spans
 			blockElm = dom.getParent(rng.startContainer, dom.isBlock);
-<<<<<<< HEAD
 			each(dom.select('span', blockElm), function(span) {
-=======
-			tinymce.each(dom.select('span.Apple-style-span,font.Apple-style-span', blockElm), function(span) {
->>>>>>> CP_2012.9
 				var bm = selection.getBookmark();
 
 				if (clonedSpan) {
 					dom.replace(clonedSpan.cloneNode(false), span, true);
-<<<<<<< HEAD
 				} else if (!span.getAttribute('data-mce-mark')) {
 					dom.remove(span, true);
 				} else {
 					span.removeAttribute('data-mce-mark');
-=======
-				} else {
-					dom.remove(span, true);
->>>>>>> CP_2012.9
 				}
 
 				// Restore the selection
 				selection.moveToBookmark(bm);
 			});
-<<<<<<< HEAD
 		}
-=======
-		};
->>>>>>> CP_2012.9
 
 		editor.onKeyDown.add(function(editor, e) {
 			var isDelete;
@@ -351,11 +321,7 @@ tinymce.util.Quirks = function(editor) {
 				if (target !== editor.getBody()) {
 					dom.setAttrib(target, "style", null);
 
-<<<<<<< HEAD
 					each(template, function(attr) {
-=======
-					tinymce.each(template, function(attr) {
->>>>>>> CP_2012.9
 						target.setAttributeNode(attr.cloneNode(true));
 					});
 				}
@@ -658,11 +624,7 @@ tinymce.util.Quirks = function(editor) {
 	 */
 	function addBrAfterLastLinks() {
 		function fixLinks(editor, o) {
-<<<<<<< HEAD
 			each(dom.select('a'), function(node) {
-=======
-			tinymce.each(dom.select('a'), function(node) {
->>>>>>> CP_2012.9
 				var parentNode = node.parentNode, root = dom.getRoot();
 
 				if (parentNode.lastChild === node) {
@@ -745,11 +707,7 @@ tinymce.util.Quirks = function(editor) {
 		// IE10+
 		if (getDocumentMode() >= 10) {
 			emptyBlocksCSS = '';
-<<<<<<< HEAD
 			each('p div h1 h2 h3 h4 h5 h6'.split(' '), function(name, i) {
-=======
-			tinymce.each('p div h1 h2 h3 h4 h5 h6'.split(' '), function(name, i) {
->>>>>>> CP_2012.9
 				emptyBlocksCSS += (i > 0 ? ',' : '') + name + ':empty';
 			});
 
@@ -869,11 +827,7 @@ tinymce.util.Quirks = function(editor) {
 				width = height = 0;
 			}
 
-<<<<<<< HEAD
 			each(resizeHandles, function(handle, name) {
-=======
-			tinymce.each(resizeHandles, function(handle, name) {
->>>>>>> CP_2012.9
 				var handleElm;
 
 				// Get existing or render resize handle
@@ -970,11 +924,7 @@ tinymce.util.Quirks = function(editor) {
 			var controlElm = dom.getParent(selection.getNode(), 'table,img');
 
 			// Remove data-mce-selected from all elements since they might have been copied using Ctrl+c/v
-<<<<<<< HEAD
 			each(dom.select('img[data-mce-selected]'), function(img) {
-=======
-			tinymce.each(dom.select('img[data-mce-selected]'), function(img) {
->>>>>>> CP_2012.9
 				img.removeAttribute('data-mce-selected');
 			});
 

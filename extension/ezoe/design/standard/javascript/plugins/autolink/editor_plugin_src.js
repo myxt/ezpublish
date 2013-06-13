@@ -107,13 +107,8 @@
 			do
 			{
 				// Move the selection one character backwards.
-<<<<<<< HEAD
 				r.setStart(endContainer, end >= 2 ? end - 2 : 0);
 				r.setEnd(endContainer, end >= 1 ? end - 1 : 0);
-=======
-				r.setStart(endContainer, end - 2);
-				r.setEnd(endContainer, end - 1);
->>>>>>> CP_2012.9
 				end -= 1;
 
 				// Loop until one of the following is found: a blank space, &nbsp;, delimeter, (end-2) >= 0

@@ -2,11 +2,7 @@
 /**
  * File containing the ezjscServerFunctionsAjaxUploader class.
  *
-<<<<<<< HEAD
  * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
-=======
- * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
->>>>>>> CP_2012.9
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package ezjscore
@@ -128,7 +124,6 @@ class ezjscServerFunctionsAjaxUploader extends ezjscServerFunctions
             }
 
             $start = $handler->getDefaultParentNodeId( $class );
-<<<<<<< HEAD
             $defaultParentNode = eZContentObjectTreeNode::fetch( $start );
             if ( !$defaultParentNode instanceof eZContentObjectTreeNode )
             {
@@ -141,10 +136,6 @@ class ezjscServerFunctionsAjaxUploader extends ezjscServerFunctions
             }
         }
         catch ( Exception $e )
-=======
-        }
-        catch( Exception $e )
->>>>>>> CP_2012.9
         {
             // manually catch exception to force json encode
             // because most browsers cannot upload
@@ -158,10 +149,6 @@ class ezjscServerFunctionsAjaxUploader extends ezjscServerFunctions
             );
         }
 
-<<<<<<< HEAD
-=======
-        $defaultParentNode = eZContentObjectTreeNode::fetch( $start );
->>>>>>> CP_2012.9
         $browseItems = self::getBrowseItems( $defaultParentNode->attribute( 'parent' ), $class );
 
         $http = eZHTTPTool::instance();
