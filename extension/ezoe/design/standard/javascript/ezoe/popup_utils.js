@@ -2,7 +2,11 @@
     eZ Online Editor MCE popup : common js code used in popups
     Created on: <06-Feb-2008 00:00:00 ar>
     
+<<<<<<< HEAD
     Copyright (c) 1999-2013 eZ Systems AS
+=======
+    Copyright (c) 1999-2012 eZ Systems AS
+>>>>>>> CP_2012.9
     Licensed under the GPL 2.0 License:
     http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt 
 */
@@ -59,9 +63,13 @@ var eZOEPopupUtils = {
         // custom save function pr custom attribute
         customAttributeSaveHandler: [],
         // Title text to set on tilte tag and h2#tag-edit-title tag in tag edit / create dialogs
+<<<<<<< HEAD
         tagEditTitleText: '',
         // the default image alias to use while browsing
         browseImageAlias: 'small'
+=======
+        tagEditTitleText: ''
+>>>>>>> CP_2012.9
     },
 
     /**
@@ -825,12 +833,20 @@ var eZOEPopupUtils = {
                    tr.appendChild( td );
                    
                    td = document.createElement("td");
+<<<<<<< HEAD
                    var imageIndex = eZOEPopupUtils.indexOfImage( n, eZOEPopupUtils.settings.browseImageAlias );
+=======
+                   var imageIndex = eZOEPopupUtils.indexOfImage( n, 'small' );
+>>>>>>> CP_2012.9
                    if ( imageIndex !== -1 )
                    {
                        tag = document.createElement("span");
                        tag.className = 'image_preview';
+<<<<<<< HEAD
                        tag.innerHTML += ' <a href="#">' + ed.getLang('preview.preview_desc')  + '<img src="' + ed.settings.ez_root_url + n.data_map[ n.image_attributes[imageIndex] ].content[eZOEPopupUtils.settings.browseImageAlias].url + '" /></a>';
+=======
+                       tag.innerHTML += ' <a href="#">' + ed.getLang('preview.preview_desc')  + '<img src="' + ed.settings.ez_root_url + n.data_map[ n.image_attributes[imageIndex] ].content['small'].url + '" /></a>';
+>>>>>>> CP_2012.9
                        td.appendChild( tag );
                        hasImage = true;
                    }
@@ -902,7 +918,11 @@ var eZOEPopupUtils = {
 
     indexOfImage: function( jsonNode, alias )
     {
+<<<<<<< HEAD
         if ( !alias ) alias = eZOEPopupUtils.settings.browseImageAlias;
+=======
+        if ( !alias ) alias = 'small';
+>>>>>>> CP_2012.9
         var index = -1;
         jQuery.each( jsonNode.image_attributes, function( i, attr )
         {

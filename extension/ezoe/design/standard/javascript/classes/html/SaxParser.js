@@ -119,7 +119,11 @@
 				value = name in fillAttrsMap ? name : decode(value || val2 || val3 || ''); // Handle boolean attribute than value attribute
 
 				// Validate name and value
+<<<<<<< HEAD
 				if (validate && !isInternalElement && name.indexOf('data-') !== 0) {
+=======
+				if (validate && !isInternalElement && name.indexOf('data-mce-') !== 0) {
+>>>>>>> CP_2012.9
 					attrRule = validAttributesMap[name];
 
 					// Find rule by pattern matching

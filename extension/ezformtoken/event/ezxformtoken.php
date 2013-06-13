@@ -2,7 +2,11 @@
 /**
  * File containing the ezxFormToken class.
  *
+<<<<<<< HEAD
  * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
+=======
+ * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+>>>>>>> CP_2012.9
  * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
  * @version //autogentag//
  * @package ezformtoken
@@ -28,6 +32,7 @@ class ezxFormToken
     const REPLACE_KEY = '@$ezxFormToken@';
 
     /**
+<<<<<<< HEAD
      * @var string|null
      */
     static protected $secret;
@@ -106,6 +111,8 @@ class ezxFormToken
     }
 
     /**
+=======
+>>>>>>> CP_2012.9
      * request/input event listener
      * Checks if form token is valid if user is logged in.
      *
@@ -133,9 +140,15 @@ class ezxFormToken
             return null;
         }*/
 
+<<<<<<< HEAD
         if ( !empty( $_POST[self::getFormField()] ) )
         {
             $token = $_POST[self::getFormField()];
+=======
+        if ( !empty( $_POST[self::FORM_FIELD] ) )
+        {
+            $token = $_POST[self::FORM_FIELD];
+>>>>>>> CP_2012.9
         }
         // allow ajax calls using POST with other formats than forms (such as
         // json or xml) to still validate using a custom http header
@@ -185,7 +198,11 @@ class ezxFormToken
         }
 
         $token = self::getToken();
+<<<<<<< HEAD
         $field = self::getFormField();
+=======
+        $field = self::FORM_FIELD;
+>>>>>>> CP_2012.9
         $replaceKey = self::REPLACE_KEY;
 
         eZDebugSetting::writeDebug( 'ezformtoken', 'Output protected (all forms will be modified)', __METHOD__ );
@@ -195,9 +212,14 @@ class ezxFormToken
         {
             $templateResult = str_replace(
                 '<head>',
+<<<<<<< HEAD
                 "<head>\n"
                 . "<meta name=\"csrf-param\" content=\"{$field}\" />\n"
                 . "<meta name=\"csrf-token\" id=\"{$field}_js\" title=\"{$token}\" content=\"{$token}\" />\n",
+=======
+                "<head>\n<meta name=\"csrf-param\" content=\"{$field}\" />\n"
+                    . "\n<meta name=\"csrf-token\" id=\"{$field}_js\" title=\"{$token}\" content=\"{$token}\" />\n",
+>>>>>>> CP_2012.9
                 $templateResult
             );
         }
@@ -227,7 +249,11 @@ class ezxFormToken
     static public function reset()
     {
         eZDebugSetting::writeDebug( 'ezformtoken', 'Reset form token', __METHOD__ );
+<<<<<<< HEAD
         self::$token = null;
+=======
+        eZSession::unsetkey( self::SESSION_KEY, false );
+>>>>>>> CP_2012.9
     }
 
     /**
@@ -238,6 +264,7 @@ class ezxFormToken
      */
     static public function getToken()
     {
+<<<<<<< HEAD
         if ( self::$token === null )
         {
             self::$token = sha1( self::getSecret() . self::getIntention() . session_id() );
@@ -254,6 +281,14 @@ class ezxFormToken
     static public function setIsEnabled( $isEnabled )
     {
         self::$isEnabled = (bool)$isEnabled;
+=======
+        if ( eZSession::issetkey( self::SESSION_KEY ) )
+            return eZSession::get( self::SESSION_KEY );
+
+        $token = md5( uniqid( self::SESSION_KEY, true ) );
+        eZSession::set( self::SESSION_KEY, $token );
+        return $token;
+>>>>>>> CP_2012.9
     }
 
     /**
@@ -264,6 +299,7 @@ class ezxFormToken
      */
     static protected function shouldProtectUser()
     {
+<<<<<<< HEAD
         if ( !self::$isEnabled )
             return false;
 
@@ -271,6 +307,12 @@ class ezxFormToken
             return false;
 
         if ( !eZUser::isCurrentUserRegistered() )
+=======
+        if ( !eZSession::hasStarted() )
+            return false;
+
+        if ( !eZUser::currentUser()->isLoggedIn() )
+>>>>>>> CP_2012.9
             return false;
 
         return true;

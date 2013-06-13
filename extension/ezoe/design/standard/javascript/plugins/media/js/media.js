@@ -295,12 +295,18 @@
 			} else {
 				src = getVal("src");
 
+<<<<<<< HEAD
 				// YouTube Embed
 				if (src.match(/youtube\.com\/embed\/\w+/)) {
+=======
+				// YouTube *NEW*
+				if (src.match(/youtu.be\/[a-z1-9.-_]+/)) {
+>>>>>>> CP_2012.9
 					data.width = 425;
 					data.height = 350;
 					data.params.frameborder = '0';
 					data.type = 'iframe';
+<<<<<<< HEAD
 					setVal('src', src);
 					setVal('media_type', data.type);
 				} else {
@@ -329,6 +335,26 @@
 
 				// Google video
 				if (src.match(/video\.google\.com(.+)docid=([^&]+)/)) {
+=======
+					src = 'http://www.youtube.com/embed/' + src.match(/youtu.be\/([a-z1-9.-_]+)/)[1];
+					setVal('src', src);
+					setVal('media_type', data.type);
+				}
+
+				// YouTube
+				if (src.match(/youtube.com(.+)v=([^&]+)/)) {
+					data.width = 425;
+					data.height = 350;
+					data.params.frameborder = '0';
+					data.type = 'iframe';
+					src = 'http://www.youtube.com/embed/' + src.match(/v=([^&]+)/)[1];
+					setVal('src', src);
+					setVal('media_type', data.type);
+				}
+
+				// Google video
+				if (src.match(/video.google.com(.+)docid=([^&]+)/)) {
+>>>>>>> CP_2012.9
 					data.width = 425;
 					data.height = 326;
 					data.type = 'flash';
@@ -338,7 +364,11 @@
 				}
 				
 				// Vimeo
+<<<<<<< HEAD
 				if (src.match(/vimeo\.com\/([0-9]+)/)) {
+=======
+				if (src.match(/vimeo.com\/([0-9]+)/)) {
+>>>>>>> CP_2012.9
 					data.width = 425;
 					data.height = 350;
 					data.params.frameborder = '0';
@@ -349,7 +379,11 @@
 				}
             
 				// stream.cz
+<<<<<<< HEAD
 				if (src.match(/stream\.cz\/((?!object).)*\/([0-9]+)/)) {
+=======
+				if (src.match(/stream.cz\/((?!object).)*\/([0-9]+)/)) {
+>>>>>>> CP_2012.9
 					data.width = 425;
 					data.height = 350;
 					data.params.frameborder = '0';
@@ -360,7 +394,11 @@
 				}
 				
 				// Google maps
+<<<<<<< HEAD
 				if (src.match(/maps\.google\.([a-z]{2,3})\/maps\/(.+)msid=(.+)/)) {
+=======
+				if (src.match(/maps.google.([a-z]{2,3})\/maps\/(.+)msid=(.+)/)) {
+>>>>>>> CP_2012.9
 					data.width = 425;
 					data.height = 350;
 					data.params.frameborder = '0';

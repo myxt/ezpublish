@@ -353,19 +353,31 @@
             // eZ: custom cleanup code to only affect the content of the textarea,
             // not the visible text in the editor
             ed.onSaveContent.add(function(ed, o) {
+<<<<<<< HEAD
                 var $f = jQuery('<div>' + o.content + '</div>', null);
+=======
+                var $f = $('<div>' + o.content + '</div>', null);
+>>>>>>> CP_2012.9
 
                 // Replace the content of the embed tags that are just there for oe preview
                 // by 'ezembed'. This is to avoid that the ez xml parsers in some cases
                 // duplicates the embed tag and to avoid that TinyMCE strips too much the HTML code
                 // see http://issues.ez.no/18264
                 $f.find('div.ezoeItemNonEditable').each(function(i, node) {
+<<<<<<< HEAD
                     jQuery(node).html('ezembed');
+=======
+                    $(node).html('ezembed');
+>>>>>>> CP_2012.9
                 });
 
                 $f.find('span').each(function(i, node) {
                     if ( node && node.className.indexOf('ezoeItemNonEditable') !== -1 )
+<<<<<<< HEAD
                         jQuery(node).html('ezembed');
+=======
+                        $(node).html('ezembed');
+>>>>>>> CP_2012.9
                     else if ( node && node.className.indexOf('ezoeItemTempSpan') !== -1 && node.innerHTML.indexOf('&nbsp;') === 0 )
                         node.firstChild.replaceData( 0, 1, ' ' );
                 });
@@ -1089,7 +1101,11 @@
             a = s.theme_advanced_toolbar_align.toLowerCase();
             a = 'mce' + t._ufirst(a);
 
+<<<<<<< HEAD
             n = DOM.add(DOM.add(c, 'tr', {role: 'presentation'}), 'td', {'class' : 'mceToolbar ' + a, "role":"toolbar"});
+=======
+            n = DOM.add(DOM.add(c, 'tr', {role: 'toolbar'}), 'td', {'class' : 'mceToolbar ' + a, "role":"toolbar"});
+>>>>>>> CP_2012.9
 
             // Create toolbar and add the controls
             for (i=1; (v = s['theme_advanced_buttons' + i]); i++) {
@@ -1740,6 +1756,7 @@
         __mceJustify : function(c, v)
         {
             // override the tinymce justify code to use html alignment
+<<<<<<< HEAD
             var ed = this.editor,
                 selectedNode = ed.selection.getNode(),
                 toAlign = [],
@@ -1795,6 +1812,39 @@
                 }
             });
 
+=======
+            var ed = this.editor, se = ed.selection, n = se.getNode(), nn = n.nodeName, p = false;
+
+            if ( c === 'center' && nn === 'IMG' )
+                c = 'middle';
+
+            // block tags do not support justify alignment
+            if ( c !== 'justify' || !this.__mceJustifyBlockTags.test( nn ) )
+            {
+                p = this.__mceJustifyTags.test( nn );
+
+                if ( !p )
+                {
+                    if ( p = this.__mceJustifyTags.test( n.parentNode.nodeName ) )
+                        n = n.parentNode;
+                }
+            }
+
+            if ( p )
+            {
+                // resetting CSS class for alignment before putting the new right value if needed
+                ed.dom.setAttrib( n, 'class', jQuery.trim( ed.dom.getAttrib( n, 'class' ).replace( /ezoeAlign\w+/, '' ) ) );
+                if ( n.align === c )
+                {
+                    ed.dom.setAttrib( n, 'align', '' );
+                }
+                else
+                {
+                    ed.dom.addClass( n, 'ezoeAlign' + c );
+                    ed.dom.setAttrib( n, 'align', c );
+                }
+            }
+>>>>>>> CP_2012.9
             return false;
         },
 

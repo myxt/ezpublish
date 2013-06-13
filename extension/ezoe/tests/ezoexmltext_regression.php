@@ -2,7 +2,11 @@
 /**
  * File containing the eZOEXMLTextRegression class
  *
+<<<<<<< HEAD
  * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
+=======
+ * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
+>>>>>>> CP_2012.9
  * @license http://ez.no/licenses/gnu_gpl GNU GPLv2
  * @package tests
  */
@@ -35,8 +39,12 @@ class eZOEXMLTextRegression extends ezpDatabaseTestCase
         $folder->short_description = $xmlData;
 
         // Use handler directly as user does not have access to ezoe (and this is not db test case)
+<<<<<<< HEAD
         $xml = $folder->short_description->attribute( 'xml_data' );
         $oeHandler = new eZOEXMLInput( $xml, false,  $folder->short_description );
+=======
+        $oeHandler = new eZOEXMLInput( $folder->short_description->attribute('xml_data'), false,  $folder->short_description );
+>>>>>>> CP_2012.9
         $xhtml     = $oeHandler->attribute( 'input_xml' );
 
         self::assertEquals( '&lt;pre&gt;    something();&lt;br /&gt;    return false;&lt;/pre&gt;&lt;p&gt;&lt;br /&gt;&lt;/p&gt;', $xhtml );
@@ -59,8 +67,12 @@ class eZOEXMLTextRegression extends ezpDatabaseTestCase
         $folder->name = 'Test';
         $folder->short_description = $xmlData;
 
+<<<<<<< HEAD
         $xml = $folder->short_description->attribute( 'xml_data' );
         $oeHandler = new eZOEXMLInput( $xml, false,  $folder->short_description );
+=======
+        $oeHandler = new eZOEXMLInput( $folder->short_description->attribute('xml_data'), false,  $folder->short_description );
+>>>>>>> CP_2012.9
         $xhtml = $oeHandler->attribute( 'input_xml' );
         self::assertEquals( '&lt;div class=&quot;ezoeItemCustomTag quote&quot; type=&quot;custom&quot;&gt;&lt;p&gt;quote&lt;/p&gt;&lt;/div&gt;&lt;p&gt;&lt;br /&gt;&lt;/p&gt;', $xhtml );
     }

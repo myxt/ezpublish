@@ -12,7 +12,10 @@ var contentType = '{$content_type}', classFilter = [];
     classFilter.push('{$class_filter}');
 {/foreach}
 
+<<<<<<< HEAD
 eZOEPopupUtils.settings.browseImageAlias = "{ezini( 'EditorSettings', 'BrowseImageAlias', 'ezoe.ini' )|wash( 'javascript' )}";
+=======
+>>>>>>> CP_2012.9
 {literal}
 
 tinyMCEPopup.onInit.add( function(){

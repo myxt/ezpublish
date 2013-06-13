@@ -346,7 +346,11 @@
 			
 			// Inserts a BR element if the forced_root_block option is set to false or empty string
 			function insertBr() {
+<<<<<<< HEAD
 				var brElm, extraBr, marker;
+=======
+				var brElm, extraBr;
+>>>>>>> CP_2012.9
 
 				if (container && container.nodeType == 3 && offset >= container.nodeValue.length) {
 					// Insert extra BR element at the end block elements
@@ -367,12 +371,15 @@
 					brElm.parentNode.insertBefore(dom.doc.createTextNode('\r'), brElm);
 				}
 
+<<<<<<< HEAD
 				// Insert temp marker and scroll to that
 				marker = dom.create('span', {}, '&nbsp;');
 				brElm.parentNode.insertBefore(marker, brElm);
 				selection.scrollIntoView(marker);
 				dom.remove(marker);
 
+=======
+>>>>>>> CP_2012.9
 				if (!extraBr) {
 					rng.setStartAfter(brElm);
 					rng.setEndAfter(brElm);

@@ -21,7 +21,7 @@ class eZPublishSDK
     const VERSION_STATE = '';
     const VERSION_DEVELOPMENT = false;
     const VERSION_ALIAS = '5.1.myxt';
-    const EDITION = 'eZ Publish Community Project (Myxt fork)';
+    const EDITION = 'eZ Publish Community Project (Myxt)';
 
     /*!
       \return the SDK version as a string

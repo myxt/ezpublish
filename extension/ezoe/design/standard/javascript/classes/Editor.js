@@ -522,12 +522,19 @@
 				t.iframeHTML += '<base href="' + t.documentBaseURI.getURI() + '" />';
 
 			// IE8 doesn't support carets behind images setting ie7_compat would force IE8+ to run in IE7 compat mode.
+<<<<<<< HEAD
 			if (tinymce.isIE8) {
 				if (s.ie7_compat)
 					t.iframeHTML += '<meta http-equiv="X-UA-Compatible" content="IE=7" />';
 				else
 					t.iframeHTML += '<meta http-equiv="X-UA-Compatible" content="IE=edge" />';
 			}
+=======
+			if (s.ie7_compat)
+				t.iframeHTML += '<meta http-equiv="X-UA-Compatible" content="IE=7" />';
+			else
+				t.iframeHTML += '<meta http-equiv="X-UA-Compatible" content="IE=edge" />';
+>>>>>>> CP_2012.9
 
 			t.iframeHTML += '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
 
@@ -1420,7 +1427,13 @@
 			self.save();
 
 			// defer the call to hide to prevent an IE9 crash #4921
+<<<<<<< HEAD
 			DOM.hide(self.getContainer());
+=======
+			setTimeout(function() {
+				DOM.hide(self.getContainer());
+			}, 1);
+>>>>>>> CP_2012.9
 			DOM.setStyle(self.id, 'display', self.orgDisplay);
 		},
 
@@ -1849,6 +1862,7 @@
 		 * @method remove
 		 */
 		remove : function() {
+<<<<<<< HEAD
 			var self = this, elm = self.getContainer(), doc = self.getDoc();
 
 			if (!self.removed) {
@@ -1862,6 +1876,13 @@
 				self.save();
 
 				DOM.setStyle(self.id, 'display', self.orgDisplay);
+=======
+			var self = this, elm = self.getContainer();
+
+			if (!self.removed) {
+				self.removed = 1; // Cancels post remove event execution
+				self.hide();
+>>>>>>> CP_2012.9
 
 				// Don't clear the window or document if content editable
 				// is enabled since other instances might still be present

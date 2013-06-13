@@ -7,7 +7,11 @@
 // ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 // SOFTWARE NAME: eZ JSCore extension for eZ Publish
 // SOFTWARE RELEASE: 1.x
+<<<<<<< HEAD
 // COPYRIGHT NOTICE: Copyright (C) 1999-2013 eZ Systems AS
+=======
+// COPYRIGHT NOTICE: Copyright (C) 1999-2012 eZ Systems AS
+>>>>>>> CP_2012.9
 // SOFTWARE LICENSE: GNU General Public License v2.0
 // NOTICE: >
 //   This program is free software; you can redistribute it and/or
@@ -262,7 +266,11 @@ class ezjscAjaxContent
             }
             else
             {
+<<<<<<< HEAD
                 $ret['creator'] = array( 'id'   => $contentObject->attribute( 'current' )->attribute('creator_id'),
+=======
+                $ret['creator'] = array( 'id'   => $contentObject->attribute( 'creator_id' ),
+>>>>>>> CP_2012.9
                                          'name' => null );// user has been deleted
             }
         }
@@ -455,6 +463,7 @@ class ezjscAjaxContent
                     if ( !isset( $imageArray['original'] ) )
                         $imageArray['original'] = $content->attribute( 'original' );
 
+<<<<<<< HEAD
                     array_walk_recursive(
                         $imageArray,
                         function ( &$element, $key )
@@ -471,6 +480,8 @@ class ezjscAjaxContent
                         }
                     );
 
+=======
+>>>>>>> CP_2012.9
                     $attrtibuteArray[ $key ]['content'] = $imageArray;
                 }
             }

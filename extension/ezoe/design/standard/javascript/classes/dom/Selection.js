@@ -1236,6 +1236,7 @@
 			return self;
 		},
 
+<<<<<<< HEAD
 		scrollIntoView: function(elm) {
 			var y, viewPort, self = this, dom = self.dom;
 
@@ -1246,6 +1247,8 @@
 			}
 		},
 
+=======
+>>>>>>> CP_2012.9
 		destroy : function(manual) {
 			var self = this;
 
