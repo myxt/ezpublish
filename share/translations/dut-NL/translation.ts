@@ -18599,7 +18599,7 @@ Neem contact op met deze persoon over het concept of maak een nieuw concept aan 
     </message>
     <message>
         <source>You misspelled some parts of your URL, try changing it.</source>
-        <translation>U heeft sommige delen van uw URL verkeerd gespeld. Probeer deze te wijzigen.</translation>
+        <translation>Het adres klopt niet. Controleer de URL.</translation>
     </message>
     <message>
         <source>Login</source>
@@ -18608,19 +18608,19 @@ Neem contact op met deze persoon over het concept of maak een nieuw concept aan 
     </message>
     <message>
         <source>The module name was misspelled, try changing the URL.</source>
-        <translation>De modulenaam was verkeerd gespeld. Probeer de URL te wijzigen.</translation>
+        <translation>De module is verkeerd gespeld. Controleer de URL.</translation>
     </message>
     <message>
         <source>The view name was misspelled, try changing the URL.</source>
-        <translation>De weergavenaam was verkeerd gespeld. Probeer de URL te wijzigen.</translation>
+        <translation>De view is verkeerd gespeld. Controleer de URL.</translation>
     </message>
     <message>
         <source>Possible reasons for this are</source>
-        <translation>Mogelijke redenen voor dit zijn</translation>
+        <translation>Mogelijke redenen</translation>
     </message>
     <message>
         <source>You do not have permission to access this area.</source>
-        <translation>U heeft geen toestemming voor toegang tot dit gebied.</translation>
+        <translation>U heeft geen toegang tot deze pagina.</translation>
     </message>
     <message>
         <source>This site uses siteaccess matching in the URL and you did not supply one, try inserting a siteaccess name before the module in the URL .</source>
@@ -26766,7 +26766,7 @@ adres verzonden. Volg de instructies in deze e-mail om uw account te activeren.<
     </message>
     <message>
         <source>Input required.</source>
-        <translation>Invoer verplicht.</translation>
+        <translation>U moet dit veld invullen.</translation>
     </message>
     <message>
         <source>The input text is too long. The maximum number of characters allowed is %1.</source>
@@ -26774,15 +26774,15 @@ adres verzonden. Volg de instructies in deze e-mail om uw account te activeren.<
     </message>
     <message>
         <source>Time input required.</source>
-        <translation>Tijdinvoer verplicht.</translation>
+        <translation>U moet een tijd invullen.</translation>
     </message>
     <message>
         <source>The username must be specified.</source>
-        <translation>Gebruikersnaam moet worden opgegeven.</translation>
+        <translation>U moet een gebruikersnaam opgeven.</translation>
     </message>
     <message>
         <source>The username already exists, please choose another one.</source>
-        <translation>Gekozen gebruikersnaam bestaat al. Kies een andere naam.</translation>
+        <translation>De door u gekozen gebruikersnaam bestaat al. Kies een andere naam.</translation>
     </message>
     <message>
         <source>The passwords do not match.</source>
@@ -26999,7 +26999,7 @@ als u optie &quot;%3&quot; tot &quot;%4&quot; heeft gekozen</translation>
     </message>
     <message>
         <source>Input required</source>
-        <translation>Invoer verplicht</translation>
+        <translation>U moet dit veld invullen</translation>
     </message>
     <message>
         <source>The password cannot be empty.</source>

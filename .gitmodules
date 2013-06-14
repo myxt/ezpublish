@@ -91,6 +91,7 @@
 [submodule "extension/ezevent"]
 	path = extension/ezevent
 	url = git@github.com:myxt/ezevent.git
-[submodule "extension/ezautosave"]
-	path = extension/ezautosave
-	url = https://github.com/myxt/ezautosave.git
+[submodule "extension/nxc_social_networks"]
+	path = extension/nxc_social_networks
+	url = https://github.com/myxt/nxc_social_networks.git
+
