@@ -20,7 +20,7 @@ class eZPublishSDK
     const VERSION_RELEASE = 'myxt';
     const VERSION_STATE = '';
     const VERSION_DEVELOPMENT = false;
-    const VERSION_ALIAS = '5.1.myxt';
+    const VERSION_ALIAS = '2013.6.myxt';
     const EDITION = 'eZ Publish Community Project (Myxt)';
 
     /*!
