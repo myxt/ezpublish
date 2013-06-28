@@ -322,8 +322,8 @@ class eZINI
             $fileName = "site.ini";
         if ( $rootDir == "" )
             $rootDir = "settings";
-        if ( $rootDir[0] !== "/" )
-            $rootDir = __DIR__ . "/../../../" . $rootDir;
+        //if ( $rootDir[0] !== "/" )
+        //    $rootDir = __DIR__ . "/../../../" . $rootDir;
         if ( file_exists( $rootDir . '/' . $fileName ) )
             return true;
         else if ( file_exists( $rootDir . '/' . $fileName . '.append.php' ) )
@@ -398,7 +398,7 @@ class eZINI
     */
     function findInputFiles( &$inputFiles, &$iniFile )
     {
-        $iniFile = __DIR__ . "/../../../";
+        //$iniFile = __DIR__ . "/../../../";
         if ( $this->RootDir !== false )
             $iniFile .= eZDir::path( array( $this->RootDir, $this->FileName ) );
         else
@@ -509,7 +509,7 @@ class eZINI
         eZDebug::accumulatorStart( 'ini', 'Ini load', 'Load cache' );
         if ( $reset )
             $this->reset();
-        $cachedDir = __DIR__ . "/../../../" . self::CONFIG_CACHE_DIR;
+        $cachedDir = self::CONFIG_CACHE_DIR;
 
         $fileName = $this->cacheFileName( $placement );
         $cachedFile = $cachedDir . $fileName;

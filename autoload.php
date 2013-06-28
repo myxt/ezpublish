@@ -72,18 +72,18 @@ if ( !class_exists( 'ezpAutoloader', false ) )
         {
             if ( self::$ezpClasses === null )
             {
-                $ezpKernelClasses = require __DIR__ . '/autoload/ezp_kernel.php';
+                $ezpKernelClasses = require 'autoload/ezp_kernel.php';
                 $ezpExtensionClasses = false;
                 $ezpTestClasses = false;
 
-                if ( file_exists( __DIR__ . '/var/autoload/ezp_extension.php' ) )
+                if ( file_exists( 'var/autoload/ezp_extension.php' ) )
                 {
-                    $ezpExtensionClasses = require __DIR__ . '/var/autoload/ezp_extension.php';
+                    $ezpExtensionClasses = require 'var/autoload/ezp_extension.php';
                 }
 
-                if ( file_exists( __DIR__ . '/var/autoload/ezp_tests.php' ) )
+                if ( file_exists( 'var/autoload/ezp_tests.php' ) )
                 {
-                    $ezpTestClasses = require __DIR__ . '/var/autoload/ezp_tests.php';
+                    $ezpTestClasses = require 'var/autoload/ezp_tests.php';
                 }
 
                 if ( $ezpExtensionClasses and $ezpTestClasses )
@@ -107,7 +107,7 @@ if ( !class_exists( 'ezpAutoloader', false ) )
                 {
                     // won't work, as eZDebug isn't initialized yet at that time
                     // eZDebug::writeError( "Kernel override is enabled, but var/autoload/ezp_override.php has not been generated\nUse bin/php/ezpgenerateautoloads.php -o", 'autoload.php' );
-                    if ( $ezpKernelOverrideClasses = include __DIR__ . '/var/autoload/ezp_override.php' )
+                    if ( $ezpKernelOverrideClasses = include 'var/autoload/ezp_override.php' )
                     {
                         self::$ezpClasses = array_merge( self::$ezpClasses, $ezpKernelOverrideClasses );
                     }
@@ -116,7 +116,7 @@ if ( !class_exists( 'ezpAutoloader', false ) )
 
             if ( isset( self::$ezpClasses[$className] ) )
             {
-                require( __DIR__ . "/" . self::$ezpClasses[$className] );
+                require( self::$ezpClasses[$className] );
             }
         }
 
