@@ -1664,7 +1664,7 @@ class eZContentObject extends eZPersistentObject
 
         eZContentObject::fixReverseRelations( $delID, 'remove' );
 
-        eZSearch::removeObject( $this );
+        eZSearch::removeObjectById( $delID );
 
         // Check if deleted object is in basket/wishlist
         $sql = 'SELECT DISTINCT ezproductcollection_item.productcollection_id
@@ -1771,7 +1771,7 @@ class eZContentObject extends eZPersistentObject
 
 
             $this->setAttribute( 'status', eZContentObject::STATUS_ARCHIVED );
-            eZSearch::removeObject( $this );
+            eZSearch::removeObjectById( $delID );
             $this->store();
             eZContentObject::fixReverseRelations( $delID, 'trash' );
             // Delete stored attribute from other tables
@@ -1797,7 +1797,7 @@ class eZContentObject extends eZPersistentObject
 
                     $node->removeNodeFromTree( true );
                     $this->setAttribute( 'status', eZContentObject::STATUS_ARCHIVED );
-                    eZSearch::removeObject( $this );
+                    eZSearch::removeObjectById( $delID );
                     $this->store();
                     eZContentObject::fixReverseRelations( $delID, 'trash' );
                     $db->commit();
@@ -3630,14 +3630,19 @@ class eZContentObject extends eZPersistentObject
                 {
                     $mainNode = eZNodeAssignment::fetchForObject( $this->attribute( 'id' ), $this->attribute( 'current_version' ) );
                     $parentObj = $mainNode[0]->attribute( 'parent_contentobject' );
-                    $result = $parentObj->checkAccess( 'create', $this->attribute( 'contentclass_id' ),
-                                                       $parentObj->attribute( 'contentclass_id' ), false, $originalLanguage );
-                    return $result;
+                    if ( $parentObj instanceof eZContentObject )
+                    {
+                        $result = $parentObj->checkAccess( 'create', $this->attribute( 'contentclass_id' ),
+                                                           $parentObj->attribute( 'contentclass_id' ), false, $originalLanguage );
+                        return $result;
+                    }
+                    else
+                    {
+                        eZDebug::writeError( "Error retrieving parent object of main node for object id: " . $this->attribute( 'id' ), __METHOD__ );
+                    }
                 }
-                else
-                {
-                    return 0;
-                }
+
+                return 0;
             }
 
             if ( $returnAccessList === false )
@@ -4061,8 +4066,18 @@ class eZContentObject extends eZPersistentObject
                     {
                         $mainNode = eZNodeAssignment::fetchForObject( $this->attribute( 'id' ), $this->attribute( 'current_version' ) );
                         $parentObj = $mainNode[0]->attribute( 'parent_contentobject' );
-                        $result = $parentObj->checkAccess( 'create', $this->attribute( 'contentclass_id' ),
-                                                           $parentObj->attribute( 'contentclass_id' ), false, $originalLanguage );
+
+                        if ( $parentObj instanceof eZContentObject )
+                        {
+                            $result = $parentObj->checkAccess( 'create', $this->attribute( 'contentclass_id' ),
+                                                               $parentObj->attribute( 'contentclass_id' ), false, $originalLanguage );
+                        }
+                        else
+                        {
+                            eZDebug::writeError( "Error retrieving parent object of main node for object id: " . $this->attribute( 'id' ), __METHOD__ );
+                            $result = 0;
+                        }
+
                         if ( $result )
                         {
                             $access = 'allowed';
