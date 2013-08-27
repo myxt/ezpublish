@@ -4472,13 +4472,16 @@ class eZContentObjectTreeNode extends eZPersistentObject
                 {
                     $mainNode = eZNodeAssignment::fetchForObject( $object->attribute( 'id' ), $object->attribute( 'current_version' ) );
                     $parentObj = $mainNode[0]->attribute( 'parent_contentobject' );
-                    $result = $parentObj->checkAccess( 'create', $object->attribute( 'contentclass_id' ),
-                                                       $parentObj->attribute( 'contentclass_id' ), false, $originalLanguage );
-                    return $result;
-                }
-                else
-                {
-                    return 0;
+                    if ( $parentObj instanceof eZContentObject )
+                    {
+                        $result = $parentObj->checkAccess( 'create', $object->attribute( 'contentclass_id' ),
+                                                           $parentObj->attribute( 'contentclass_id' ), false, $originalLanguage );
+                        return $result;
+                    }
+                    else
+                    {
+                        eZDebug::writeError( "Error retrieving parent object of main node for object id: " . $object->attribute( 'id' ), __METHOD__ );
+                    }
                 }
             }
 
@@ -5098,37 +5101,52 @@ class eZContentObjectTreeNode extends eZPersistentObject
         }
         else
         {
-            $policies = $accessResult['policies'];
-            foreach ( $policies as $policyKey => $policy )
+            foreach ( $accessResult['policies'] as $policy )
             {
                 $policyArray = $this->classListFromPolicy( $policy, $languageCodeList );
                 if ( empty( $policyArray ) )
-                {
                     continue;
-                }
-                $classIDArrayPart = $policyArray['classes'];
-                $languageCodeArrayPart = $policyArray['language_codes'];
-                // No class limitation for this policy AND no previous limitation(s)
-                if ( $classIDArrayPart == '*' && empty( $classIDArray ) )
+
+                // Wildcard on all classes
+                if ( $policyArray['classes'] == '*' )
                 {
                     $fetchAll = true;
-                    $allowedLanguages['*'] = array_unique( array_merge( $allowedLanguages['*'], $languageCodeArrayPart ) );
+                    $allowedLanguages['*'] = array_unique( array_merge( $allowedLanguages['*'], $policyArray['language_codes'] ) );
+
+                    // we remove individual class ids that are overriden in all languages by the wildcard (#EZP-20933)
+                    foreach ( $allowedLanguages as $classId => $classLanguageCodes )
+                    {
+                        if ( $classId == '*' )
+                            continue;
+
+                        if ( !count( array_diff( $classLanguageCodes, $allowedLanguages['*'] ) ) )
+                        {
+                            unset( $allowedLanguages[$classId] );
+                        }
+                    }
                 }
-                else if ( is_array( $classIDArrayPart ) && $this->hasCurrentSubtreeLimitation( $policy ) )
+                else if ( is_array( $policyArray['classes'] ) && $this->hasCurrentSubtreeLimitation( $policy ) )
                 {
-                    $fetchAll = false;
-                    foreach( $classIDArrayPart as $class )
+                    foreach( $policyArray['classes'] as $class )
                     {
                         if ( isset( $allowedLanguages[$class] ) )
                         {
-                            $allowedLanguages[$class] = array_unique( array_merge( $allowedLanguages[$class], $languageCodeArrayPart ) );
+                            $allowedLanguages[$class] = array_unique( array_merge( $allowedLanguages[$class], $policyArray['language_codes'] ) );
                         }
                         else
                         {
-                            $allowedLanguages[$class] = $languageCodeArrayPart;
+                            // we don't add class identifiers that are already covered by the 'all classes' in a language
+                            if ( !empty( $allowedLanguages['*'] ) )
+                            {
+                                if ( !count( array_diff( $policyArray['language_codes'], $allowedLanguages['*'] ) ) )
+                                {
+                                    continue;
+                                }
+                            }
+                            $allowedLanguages[$class] = $policyArray['language_codes'];
                         }
                     }
-                    $classIDArray = array_merge( $classIDArray, array_diff( $classIDArrayPart, $classIDArray ) );
+                    $classIDArray = array_merge( $classIDArray, array_diff( $policyArray['classes'], $classIDArray ) );
                 }
             }
         }
