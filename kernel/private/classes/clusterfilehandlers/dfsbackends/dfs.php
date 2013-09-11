@@ -112,7 +112,7 @@ class eZDFSFileHandlerDFSBackend
         if ( $srcFileContents === false )
         {
             $this->accumulatorStop();
-            eZDebug::writeError( "Error getting contents of file FS://'$srcFilePath'.", __METHOD__ );
+            eZDebug::writeError( "Error getting contents of file 'FS://$srcFilePath'.", __METHOD__ );
             return false;
         }
 
