@@ -75,8 +75,13 @@ $GLOBALS["eZRequestError"] = true;
                     }
                     else
                     {
-                        header( eZSys::serverVariable( 'SERVER_PROTOCOL' ) . " $httpErrorString" );
-                        header( "Status: $httpErrorString" );
+                        // we need to store the header so that they are listed in view cache data ()
+                        $responseHeaders = array(
+                            eZSys::serverVariable( 'SERVER_PROTOCOL' ) . " $httpErrorString",
+                            "Status: $httpErrorString"
+                        );
+                        header( $responseHeaders[0] );
+                        header( $responseHeaders[1] );
                     }
                 }
             }
@@ -183,4 +188,5 @@ $Result['path'] = array( array( 'text' => ezpI18n::tr( 'kernel/error', 'Error' )
 $Result['errorCode'] = $httpErrorCode;
 $Result['errorMessage'] = $httpErrorName;
 
-?>
+if ( isset( $responseHeaders ) )
+    $Result['responseHeaders'] = $responseHeaders;
