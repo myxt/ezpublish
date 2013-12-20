@@ -64,9 +64,6 @@
 [submodule "extension/myxt_development"]
 	path = extension/myxt_development
 	url = git@github.com:myxt/myxt_development.git
-[submodule "extension/myxt_transaction"]
-	path = extension/myxt_transaction
-	url = git@git.myxt.nl:myxt/myxt_transaction.git
 [submodule "extension/eztika"]
 	path = extension/eztika
 	url = git@github.com:myxt/eztika.git
