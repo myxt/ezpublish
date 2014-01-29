@@ -95,3 +95,6 @@
 	path = extension/nxc_social_networks
 	url = https://github.com/myxt/nxc_social_networks.git
 
+[submodule "extension/data_import"]
+	path = extension/data_import
+	url = git@github.com:myxt/data_import.git
