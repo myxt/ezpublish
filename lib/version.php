@@ -16,11 +16,11 @@ class eZPublishSDK
 {
 
     const VERSION_MAJOR = 2013;
-    const VERSION_MINOR = 6;
+    const VERSION_MINOR = 7;
     const VERSION_RELEASE = 'myxt';
     const VERSION_STATE = '';
     const VERSION_DEVELOPMENT = false;
-    const VERSION_ALIAS = '2013.6.myxt';
+    const VERSION_ALIAS = '2013.7.myxt';
     const EDITION = 'eZ Publish Community Project (Myxt)';
 
     /*!
