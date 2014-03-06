@@ -58,9 +58,6 @@
 [submodule "extension/ezprestapiprovider"]
 	path = extension/ezprestapiprovider
 	url = git@github.com:myxt/ezprestapiprovider.git
-[submodule "extension/myxt_geomap"]
-	path = extension/myxt_geomap
-	url = git@github.com:myxt/myxt_geomap.git
 [submodule "extension/myxt_development"]
 	path = extension/myxt_development
 	url = git@github.com:myxt/myxt_development.git
