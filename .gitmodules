@@ -95,3 +95,6 @@
 [submodule "extension/data_import"]
 	path = extension/data_import
 	url = git@github.com:myxt/data_import.git
+[submodule "extension/myxt_geomap"]
+	path = extension/myxt_geomap
+	url = git@github.com:myxt/myxt_geomap.git
